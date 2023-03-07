@@ -1,8 +1,9 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private Rigidbody rb = null;
 
 	[SerializeField] private float speed = 1;
+
+	[SerializeField] private float fastAttackRange = 1f;
+	[Range(0, 180)]
+	[SerializeField] private float fastAttackRadius = 90;
 
 	Vector2 movementDirection;
 	Vector2 aimDirection;
@@ -54,4 +59,38 @@ public class PlayerController : MonoBehaviour
 		playerInput.enabled = true;
 		stuned = false;
 	}
+
+	public void FastAttack(InputAction.CallbackContext context)
+	{
+		RaycastHit[] enemiesHit;
+		enemiesHit = Physics.SphereCastAll(transform.position, fastAttackRange, 
+			(Vector3)aimDirection, LayerMask.NameToLayer("Enemies"));
+		{
+			foreach( RaycastHit hit in enemiesHit)
+			{
+				Vector2 vectorBetweenPlayerAndEnemy = transform.position - hit.transform.position;
+				Vector2 playerForwardVector = transform.right;
+				float dotProduct = Vector2.Dot(vectorBetweenPlayerAndEnemy, playerForwardVector);
+				if ( dotProduct > Mathf.Lerp(1, 0, fastAttackRadius / 180 ))
+				{
+					// Enemy hit
+					print(hit.transform.name);
+					Destroy(hit.transform.gameObject);
+				}
+			}
+		}
+	}
+
+	public void HeavyAttack(InputAction.CallbackContext context)
+	{
+
+	}
+
+#if UNITY_EDITOR
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine(transform.position, transform.position + transform.right * fastAttackRange);
+	}
+#endif
 }

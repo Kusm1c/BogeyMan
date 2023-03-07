@@ -231,6 +231,8 @@ MonoBehaviour:
   playerInput: {fileID: 7204011861752737545}
   rb: {fileID: 3930733521442476943}
   speed: 10
+  fastAttackRange: 2.62
+  fastAttackRadius: 90
 --- !u!114 &7204011861752737545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,5 +313,5 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 116
   m_CollisionDetection: 0
