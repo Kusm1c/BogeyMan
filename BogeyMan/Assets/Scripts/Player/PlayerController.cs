@@ -4,10 +4,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+	[SerializeField] private Player player = null;
     [SerializeField] private PlayerInput playerInput = null;
 	[SerializeField] private Rigidbody rb = null;
 	[SerializeField] private Animator animator = null;
-	[SerializeField] private PlayerControllerSettings_SO settings = null;
 
 	Vector2 movementDirection;
 	Vector2 aimDirection;
@@ -21,30 +21,36 @@ public class PlayerController : MonoBehaviour
 	}
 
 	#region Movements
-	private void FixedUpdate()
+	public void Move(InputAction.CallbackContext context)
 	{
-		Move();
-
-		if (canAttack == true)
-		{
-			Aim();
-		}
-	}
-
-	private void Move()
-	{
-		movementDirection = playerInput.actions["Movement"].ReadValue<Vector2>();
-		Vector2 movement = movementDirection * speed;
+		movementDirection = context.ReadValue<Vector2>();
+		Vector2 movement = movementDirection * speed / Time.deltaTime;
 		rb.velocity = new Vector3(movement.x, 0, movement.y);
 	}
 
-	private void Aim()
+	public void Aim(InputAction.CallbackContext context)
 	{
-		Vector2 aim = playerInput.actions["Aim"].ReadValue<Vector2>();
+		if (!canAttack) return;
+		Vector2 aim = context.ReadValue<Vector2>();
 		if (aim.magnitude < 0.1f) return;
 		aimDirection = aim.normalized;
 		float angle = Mathf.Atan2(-aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.Euler(0, angle, 0);
+	}
+
+	private void DecreaseSpeed(int percentage)
+	{
+		speed *= (100 - percentage) * 0.01f;
+	}
+
+	private void ResetSpeed()
+	{
+		speed = player.settings.movementSpeed;
+	}
+
+	public void Knockback(Vector2 direction)
+	{
+		rb.AddForce(direction * player.settings.knockbackForceWhenHit, ForceMode.Impulse);
 	}
 	#endregion Movements
 
@@ -67,6 +73,8 @@ public class PlayerController : MonoBehaviour
 	}
 	#endregion Stun
 
+	#region Attacks
+
 	#region LightAttack
 	public void LightAttack(InputAction.CallbackContext context)
 	{
@@ -74,13 +82,15 @@ public class PlayerController : MonoBehaviour
 
 		canAttack = false;
 		animator.SetTrigger("LightAttack");
-		DecreaseSpeed(settings.lightAttackSpeedReductionPercentage);
+		DecreaseSpeed(player.settings.lightAttackSpeedReductionPercentage);
+		player.SetInvulnerability(true);
 	}
 
 	public void LightAttackFinished()
 	{
-		StartCoroutine(WaitForCooldown(settings.lightAttackCooldown));
+		StartCoroutine(WaitForCooldown(player.settings.lightAttackCooldown));
 		ResetSpeed();
+		player.SetInvulnerability(false);
 	}
 	#endregion LightAttack
 
@@ -90,22 +100,25 @@ public class PlayerController : MonoBehaviour
 		if (!context.started || !canAttack) return;
 
 		canAttack = false;
-		DecreaseSpeed(settings.heavyAttackChargeSpeedReductionPercentage);
+		DecreaseSpeed(player.settings.heavyAttackChargeSpeedReductionPercentage);
 		StartCoroutine(HeavyAttackCharge());
 	}
 
 	private IEnumerator HeavyAttackCharge()
 	{
-		yield return new WaitForSeconds(settings.heavyAttackChargeDuration);
+		yield return new WaitForSeconds(player.settings.heavyAttackChargeDuration);
+
 		animator.SetTrigger("HeavyAttack");
 		ResetSpeed();
 		DecreaseSpeed(100);
+		player.SetInvulnerability(true);
 	}
 
 	public void HeavyAttackFinished()
 	{
-		StartCoroutine(WaitForCooldown(settings.heavyAttackCooldown));
+		StartCoroutine(WaitForCooldown(player.settings.heavyAttackCooldown));
 		ResetSpeed();
+		player.SetInvulnerability(false);
 	}
 	#endregion HeavyAttack
 
@@ -115,15 +128,7 @@ public class PlayerController : MonoBehaviour
 		canAttack = true;
 	}
 
-	private void DecreaseSpeed(int percentage)
-	{
-		speed *= (100 - percentage) * 0.01f;
-	}
-
-	private void ResetSpeed()
-	{
-		speed = settings.movementSpeed;
-	}
+	#endregion Attacks
 
 	private void OnTriggerEnter(Collider other)
 	{
