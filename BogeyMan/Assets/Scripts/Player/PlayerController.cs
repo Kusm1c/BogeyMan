@@ -20,10 +20,15 @@ public class PlayerController : MonoBehaviour
 		ResetSpeed();
 	}
 
+	#region Movements
 	private void FixedUpdate()
 	{
 		Move();
-		Aim();
+
+		if (canAttack == true)
+		{
+			Aim();
+		}
 	}
 
 	private void Move()
@@ -41,7 +46,9 @@ public class PlayerController : MonoBehaviour
 		float angle = Mathf.Atan2(-aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.Euler(0, angle, 0);
 	}
+	#endregion Movements
 
+	#region Stun
 	public void Stun(float duration)
 	{
 		if (stuned == false)
@@ -58,7 +65,9 @@ public class PlayerController : MonoBehaviour
 		playerInput.enabled = true;
 		stuned = false;
 	}
+	#endregion Stun
 
+	#region LightAttack
 	public void LightAttack(InputAction.CallbackContext context)
 	{
 		if (!context.started || !canAttack) return;
@@ -68,19 +77,29 @@ public class PlayerController : MonoBehaviour
 		DecreaseSpeed(settings.lightAttackSpeedReductionPercentage);
 	}
 
+	public void LightAttackFinished()
+	{
+		StartCoroutine(WaitForCooldown(settings.lightAttackCooldown));
+		ResetSpeed();
+	}
+	#endregion LightAttack
+
+	#region HeavyAttack
 	public void HeavyAttack(InputAction.CallbackContext context)
 	{
 		if (!context.started || !canAttack) return;
 
 		canAttack = false;
-		animator.SetTrigger("HeavyAttack");
-		DecreaseSpeed(100);
+		DecreaseSpeed(settings.heavyAttackChargeSpeedReductionPercentage);
+		StartCoroutine(HeavyAttackCharge());
 	}
 
-	public void LightAttackFinished()
+	private IEnumerator HeavyAttackCharge()
 	{
-		StartCoroutine(WaitForCooldown(settings.lightAttackCooldown));
+		yield return new WaitForSeconds(settings.heavyAttackChargeDuration);
+		animator.SetTrigger("HeavyAttack");
 		ResetSpeed();
+		DecreaseSpeed(100);
 	}
 
 	public void HeavyAttackFinished()
@@ -88,6 +107,7 @@ public class PlayerController : MonoBehaviour
 		StartCoroutine(WaitForCooldown(settings.heavyAttackCooldown));
 		ResetSpeed();
 	}
+	#endregion HeavyAttack
 
 	private IEnumerator WaitForCooldown(float cooldown)
 	{
@@ -109,7 +129,6 @@ public class PlayerController : MonoBehaviour
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Enemies"))
 		{
-			print("enemy hit");
 			Destroy(other.gameObject);
 		}
 	}
