@@ -14,16 +14,23 @@ namespace Enemy
         [SerializeField, Min(0)] protected float weight = 1f;
         [SerializeField] private SphereCollider focusSphere;
 
+        private int hp;
+
         private void OnValidate()
         {
             focusSphere.radius = focusRange;
         }
 
+        public void TakeHit(float strength, Vector3 direction)
+        {
+            TakeHit();
+        }
+        
         protected abstract void Attack(PlayerController player);
 
-        protected void Hit(float strength, Vector3 direction)
+        private void TakeHit()
         {
-            
+            hp--;
         }
     }
 }
