@@ -14,12 +14,12 @@ public class EnemyTest : MonoBehaviour
     
     private NavMeshAgent agent;
     
-    [SerializeField] private Camera mainCamera;
-    private CameraControl cameraControl;
+    // [SerializeField] private Camera mainCamera;
+    // private CameraControl cameraControl;
     
     private void Start()
     {
-        cameraControl = mainCamera.GetComponent<CameraControl>();
+        // cameraControl = mainCamera.GetComponent<CameraControl>();
         agent = GetComponent<NavMeshAgent>();
     }
     
@@ -37,19 +37,19 @@ public class EnemyTest : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        //if collision with "Wall"
-        if (collision.gameObject.GetComponent<Wall>() != null)
-        {
-            agent.speed = 0f;
-            StartCoroutine(cameraControl.ScreenShake());
-            agent.speed = speed;
-        }
-
-        if (collision.gameObject.GetComponent<EnemyTest>() != null)
-        {
-            //from where the collision happened and the force of the collision 
-        }
-    }
+    // private void OnCollisionEnter(Collision collision)
+    // {
+    //     //if collision with "Wall"
+    //     if (collision.gameObject.GetComponent<Wall>() != null)
+    //     {
+    //         agent.speed = 0f;
+    //         StartCoroutine(cameraControl.ScreenShake());
+    //         agent.speed = speed;
+    //     }
+    //
+    //     if (collision.gameObject.GetComponent<EnemyTest>() != null)
+    //     {
+    //         //from where the collision happened and the force of the collision 
+    //     }
+    // }
 }
