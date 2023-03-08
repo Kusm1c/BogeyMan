@@ -9,7 +9,7 @@ namespace Enemy
         [SerializeField, Min(0)] protected int maxHP = 1;
         [SerializeField, Min(0)] protected float moveSpeed = 3.5f;
         [SerializeField, Min(0)] protected float attackSpeed = 0.5f;
-        [SerializeField, Min(0)] protected float damage = 1f;
+        [SerializeField, Min(0)] protected float damage = 10f;
         [SerializeField, Min(0)] protected float focusRange = 15f;
         [SerializeField, Min(0)] protected float weight = 1f;
         [SerializeField] private SphereCollider focusSphere;
@@ -17,6 +17,13 @@ namespace Enemy
         private void OnValidate()
         {
             focusSphere.radius = focusRange;
+        }
+
+        protected abstract void Attack(PlayerController player);
+
+        protected void Hit(float strength, Vector3 direction)
+        {
+            
         }
     }
 }
