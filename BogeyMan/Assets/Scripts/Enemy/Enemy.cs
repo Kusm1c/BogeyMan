@@ -1,55 +1,22 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class EnemyTest : MonoBehaviour
+namespace Enemy
 {
-    [SerializeField] private float speed = 1f;
-    
-    private Vector3 target;
-    private Vector3 direction;
-    private float distance;
-    
-    private NavMeshAgent agent;
-    
-    // [SerializeField] private Camera mainCamera;
-    // private CameraControl cameraControl;
-    
-    private void Start()
+    public abstract class Enemy : MonoBehaviour
     {
-        // cameraControl = mainCamera.GetComponent<CameraControl>();
-        agent = GetComponent<NavMeshAgent>();
-    }
-    
-    private void Update()
-    {
-        if (!agent.isActiveAndEnabled) return;
-        agent.speed = speed;
-        target = GameObject.Find("Player").transform.position;
-        direction = target - transform.position;
-        distance = direction.magnitude;
+        [HideInInspector] public Transform target;
+        
+        [SerializeField, Min(0)] protected int maxHP = 1;
+        [SerializeField, Min(0)] protected float moveSpeed = 3.5f;
+        [SerializeField, Min(0)] protected float attackSpeed = 0.5f;
+        [SerializeField, Min(0)] protected float damage = 1f;
+        [SerializeField, Min(0)] protected float focusRange = 15f;
+        [SerializeField, Min(0)] protected float weight = 1f;
+        [SerializeField] private SphereCollider focusSphere;
 
-        if (distance > 1f)
+        private void OnValidate()
         {
-            agent.SetDestination(target);
+            focusSphere.radius = focusRange;
         }
     }
-
-    // private void OnCollisionEnter(Collision collision)
-    // {
-    //     //if collision with "Wall"
-    //     if (collision.gameObject.GetComponent<Wall>() != null)
-    //     {
-    //         agent.speed = 0f;
-    //         StartCoroutine(cameraControl.ScreenShake());
-    //         agent.speed = speed;
-    //     }
-    //
-    //     if (collision.gameObject.GetComponent<EnemyTest>() != null)
-    //     {
-    //         //from where the collision happened and the force of the collision 
-    //     }
-    // }
 }
