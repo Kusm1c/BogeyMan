@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyTest : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private float speed = 1f;
     
     private Vector3 target;
     private Vector3 direction;
     private float distance;
+    
+    [SerializeField] private float avoidanceDistance = 1f;
     
     private NavMeshAgent agent;
     
@@ -30,11 +32,20 @@ public class EnemyTest : MonoBehaviour
         target = GameObject.Find("Player").transform.position;
         direction = target - transform.position;
         distance = direction.magnitude;
-
-        if (distance > 1f)
+        //check if activated agent has been placed on a NavMesh
+        if (agent.isOnNavMesh)
         {
             agent.SetDestination(target);
         }
+        if (distance < 1.5f)
+        {
+            agent.speed = 0f;
+        }
+    }
+
+    private void Avoidance()
+    {
+        
     }
 
     // private void OnCollisionEnter(Collision collision)
