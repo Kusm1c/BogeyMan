@@ -1,25 +1,24 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerInput playerInput = null;
 	[SerializeField] private Rigidbody rb = null;
-
-	[SerializeField] private float speed = 1;
-
-	[SerializeField] private float fastAttackRange = 1f;
-	[Range(0, 180)]
-	[SerializeField] private float fastAttackRadius = 90;
+	[SerializeField] private Animator animator = null;
+	[SerializeField] private PlayerControllerSettings_SO settings = null;
 
 	Vector2 movementDirection;
 	Vector2 aimDirection;
-
+	private float speed;
 	private bool stuned = false;
+	private bool canAttack = true;
+
+	private void Start()
+	{
+		ResetSpeed();
+	}
 
 	private void FixedUpdate()
 	{
@@ -60,37 +59,58 @@ public class PlayerController : MonoBehaviour
 		stuned = false;
 	}
 
-	public void FastAttack(InputAction.CallbackContext context)
+	public void LightAttack(InputAction.CallbackContext context)
 	{
-		RaycastHit[] enemiesHit;
-		enemiesHit = Physics.SphereCastAll(transform.position, fastAttackRange, 
-			(Vector3)aimDirection, LayerMask.NameToLayer("Enemies"));
-		{
-			foreach( RaycastHit hit in enemiesHit)
-			{
-				Vector2 vectorBetweenPlayerAndEnemy = transform.position - hit.transform.position;
-				Vector2 playerForwardVector = transform.right;
-				float dotProduct = Vector2.Dot(vectorBetweenPlayerAndEnemy, playerForwardVector);
-				if ( dotProduct > Mathf.Lerp(1, 0, fastAttackRadius / 180 ))
-				{
-					// Enemy hit
-					print(hit.transform.name);
-					Destroy(hit.transform.gameObject);
-				}
-			}
-		}
+		if (!context.started || !canAttack) return;
+
+		canAttack = false;
+		animator.SetTrigger("LightAttack");
+		DecreaseSpeed(settings.lightAttackSpeedReductionPercentage);
 	}
 
 	public void HeavyAttack(InputAction.CallbackContext context)
 	{
+		if (!context.started || !canAttack) return;
 
+		canAttack = false;
+		animator.SetTrigger("HeavyAttack");
+		DecreaseSpeed(100);
 	}
 
-#if UNITY_EDITOR
-	private void OnDrawGizmosSelected()
+	public void LightAttackFinished()
 	{
-		Gizmos.color = Color.red;
-		Gizmos.DrawLine(transform.position, transform.position + transform.right * fastAttackRange);
+		StartCoroutine(WaitForCooldown(settings.lightAttackCooldown));
+		ResetSpeed();
 	}
-#endif
+
+	public void HeavyAttackFinished()
+	{
+		StartCoroutine(WaitForCooldown(settings.heavyAttackCooldown));
+		ResetSpeed();
+	}
+
+	private IEnumerator WaitForCooldown(float cooldown)
+	{
+		yield return new WaitForSeconds(cooldown);
+		canAttack = true;
+	}
+
+	private void DecreaseSpeed(int percentage)
+	{
+		speed *= (100 - percentage) * 0.01f;
+	}
+
+	private void ResetSpeed()
+	{
+		speed = settings.movementSpeed;
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer("Enemies"))
+		{
+			print("enemy hit");
+			Destroy(other.gameObject);
+		}
+	}
 }
