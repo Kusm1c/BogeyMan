@@ -8,13 +8,14 @@ namespace Enemies
     {
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private float attackRange;
-        
+
+        private bool isStopped;
 
         private void Update()
         {
             if (!agent.isActiveAndEnabled) return;
 
-            if (target == null)
+            if (!hasTarget || isStopped)
             {
                 agent.isStopped = true;
                 return;
@@ -31,6 +32,12 @@ namespace Enemies
             agent.SetDestination(target.position);
         }
 
+        protected override void OnEnable()
+        {
+            isStopped = false;
+            base.OnEnable();
+        }
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
@@ -40,6 +47,7 @@ namespace Enemies
         private void Attack(Player player)
         {
             agent.isStopped = true;
+            isStopped = true;
             //agent.enabled = false;
             StartCoroutine(AttackCoroutine(player));
         }
@@ -53,18 +61,19 @@ namespace Enemies
             if ((player.transform.position - transform.position).sqrMagnitude < attackRange * attackRange)
             {
                 player.TakeHit((int) damage, (player.transform.position - transform.position).normalized);
-                //player.GetComponent<Rigidbody>().AddForce((player.transform.position - transform.position).normalized * 1500f);
             }
             
             //agent.enabled = true;
             agent.isStopped = false;
+            isStopped = false;
             print("finished attack");
         }
 
         protected override IEnumerator Die()
         {
             //agent.enabled = false;
-            agent.isStopped = false;
+            agent.isStopped = true;
+            isStopped = true;
             yield return base.Die();
         }
     }
