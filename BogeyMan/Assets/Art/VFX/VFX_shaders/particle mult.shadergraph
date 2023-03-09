@@ -11,6 +11,12 @@
         },
         {
             "m_Id": "2eb6aa3babe94b43ab5f027fa8499edd"
+        },
+        {
+            "m_Id": "4065156accbb461594c02350fc26edc8"
+        },
+        {
+            "m_Id": "6c50dacdfa01452d8074cd42980fd774"
         }
     ],
     "m_Keywords": [],
@@ -711,6 +717,34 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "4065156accbb461594c02350fc26edc8",
+    "m_Guid": {
+        "m_GuidSerialized": "923b799e-25ab-4b16-93bc-a9308ba1efe7"
+    },
+    "m_Name": "offset speed",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "offset speed",
+    "m_DefaultReferenceName": "_offset_speed",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 0.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Texture2DMaterialSlot",
     "m_ObjectId": "59e84ad875d248b5b25f315a16894d44",
@@ -869,6 +903,34 @@
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "6c50dacdfa01452d8074cd42980fd774",
+    "m_Guid": {
+        "m_GuidSerialized": "549df9fc-1bb0-438e-94d3-6117870133f0"
+    },
+    "m_Name": "noise scale",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "noise scale",
+    "m_DefaultReferenceName": "_noise_scale",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 0.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
 }
 
 {
@@ -1548,6 +1610,12 @@
         },
         {
             "m_Id": "2eb6aa3babe94b43ab5f027fa8499edd"
+        },
+        {
+            "m_Id": "4065156accbb461594c02350fc26edc8"
+        },
+        {
+            "m_Id": "6c50dacdfa01452d8074cd42980fd774"
         }
     ]
 }
