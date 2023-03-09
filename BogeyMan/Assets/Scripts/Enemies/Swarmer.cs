@@ -14,7 +14,7 @@ namespace Enemies
         {
             if (!agent.isActiveAndEnabled) return;
 
-            if (target is null)
+            if (target == null)
             {
                 agent.isStopped = true;
                 return;
@@ -22,7 +22,7 @@ namespace Enemies
             
             if ((target.transform.position - transform.position).sqrMagnitude < attackRange * attackRange)
             {
-                Attack(target.GetComponent<PlayerController>());
+                Attack(target.GetComponent<Player>());
                 return;
             }
 
@@ -37,14 +37,14 @@ namespace Enemies
             Gizmos.DrawWireSphere(transform.position, attackRange);
         }
 
-        protected override void Attack(PlayerController player)
+        private void Attack(Player player)
         {
             agent.isStopped = true;
-            agent.enabled = false;
+            //agent.enabled = false;
             StartCoroutine(AttackCoroutine(player));
         }
 
-        private IEnumerator AttackCoroutine(PlayerController player)
+        private IEnumerator AttackCoroutine(Player player)
         {
             print("start attack");
 
@@ -52,17 +52,19 @@ namespace Enemies
 
             if ((player.transform.position - transform.position).sqrMagnitude < attackRange * attackRange)
             {
-                player.GetComponent<Rigidbody>().AddForce((player.transform.position - transform.position).normalized * 1500f);
+                player.TakeHit((int) damage, (player.transform.position - transform.position).normalized);
+                //player.GetComponent<Rigidbody>().AddForce((player.transform.position - transform.position).normalized * 1500f);
             }
             
-            agent.enabled = true;
+            //agent.enabled = true;
             agent.isStopped = false;
             print("finished attack");
         }
 
         protected override IEnumerator Die()
         {
-            agent.enabled = false;
+            //agent.enabled = false;
+            agent.isStopped = false;
             yield return base.Die();
         }
     }

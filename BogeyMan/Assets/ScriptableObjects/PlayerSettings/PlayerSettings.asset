@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerSettings
   m_EditorClassIdentifier: 
   <maxLife>k__BackingField: 100
-  <movementSpeed>k__BackingField: 0.1
+  <movementSpeed>k__BackingField: 0.2
   <knockbackForceWhenHit>k__BackingField: 1
   <invulnerabilityDurationWhenHit>k__BackingField: 2.5
   <lightAttackDamage>k__BackingField: 1
@@ -27,3 +27,9 @@ MonoBehaviour:
   <heavyAttackChargeDuration>k__BackingField: 0.8
   <heavyAttackProjectionForce>k__BackingField: 0.4
   <heavyAttackProjectionDuration>k__BackingField: 0.4
+  <censerAttackDamage>k__BackingField: 2
+  <censerAttackCooldown>k__BackingField: 1.5
+  <censerAttackSpeedIncreasePercentage>k__BackingField: 15
+  <censerAttackChargeDuration>k__BackingField: 0.8
+  <censerAttackProjectionForce>k__BackingField: 0.8
+  <censerAttackProjectionDuration>k__BackingField: 0.2

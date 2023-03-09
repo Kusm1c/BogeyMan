@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  maxHP: 1
+  maxHP: 2
   moveSpeed: 3.5
   attackSpeed: 0.5
   damage: 1
@@ -131,7 +131,7 @@ MonoBehaviour:
   weight: 1
   focusSphere: {fileID: 4466520341230836795}
   meshRenderer: {fileID: 8080724220004049759}
-  dispawnTime: 2
+  disappearanceTime: 2
   agent: {fileID: 8491232095502880538}
   attackRange: 1.5
 --- !u!195 &8491232095502880538
