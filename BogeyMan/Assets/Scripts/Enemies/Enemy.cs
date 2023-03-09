@@ -35,6 +35,7 @@ namespace Enemies
         [SerializeField, Min(0)] private float disappearanceTime = 2f;
 
         protected bool hasTarget;
+        private Spawner spawner;
         private MaterialPropertyBlock propertyBlock => _propertyBlock ??= new MaterialPropertyBlock();
         private MaterialPropertyBlock _propertyBlock;
         private Transform _target;
@@ -46,12 +47,28 @@ namespace Enemies
         private void Awake()
         {
             hp = maxHP;
+            spawner = gameObject.GetComponentInParent<Spawner>();
         }
 
         protected virtual void OnEnable()
         {
+            meshRenderer.GetPropertyBlock(propertyBlock);
+            Color oldColor = _propertyBlock.GetColor(color);
+            propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, 1f));
+            meshRenderer.SetPropertyBlock(propertyBlock);
+            meshRenderer.shadowCastingMode = ShadowCastingMode.On;
+
+            hp = maxHP;
             isDead = false;
             hasTarget = false;
+        }
+        
+        private void OnDisable()
+        {
+            if (spawner != null)
+            {
+                spawner.SwarmerDeath(gameObject);
+            }
         }
 
         private void OnValidate()
