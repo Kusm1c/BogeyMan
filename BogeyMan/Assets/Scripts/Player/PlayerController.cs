@@ -178,15 +178,6 @@ public class PlayerController : MonoBehaviour
 	}
 
 	#endregion Attacks
-
-	// provisoire
-	private void OnTriggerEnter(Collider other)
-	{
-		if (other.gameObject.layer == LayerMask.NameToLayer("Enemies"))
-		{
-			Destroy(other.gameObject);
-		}
-	}
 }
 
 public enum Weapon

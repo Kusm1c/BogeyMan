@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3088900439472663062}
   - component: {fileID: 6366382803950003342}
   - component: {fileID: 4058905423327165884}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 1501731578388866264}
   - component: {fileID: 658257432470299131}
   - component: {fileID: 2061055738545736745}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 7592217184768167802}
   - component: {fileID: 8564399348815982333}
   - component: {fileID: 7663848631580128599}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3269989905047016077}
   - component: {fileID: 5746437704088830590}
-  m_Layer: 6
+  - component: {fileID: 5116113432305940548}
+  m_Layer: 3
   m_Name: FastAttackHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,6 +326,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.2880323, y: 2, z: 0.3}
   m_Center: {x: 1.1440161, y: 0, z: 0}
+--- !u!114 &5116113432305940548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4651344026537281553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a75870ee5e31114e90d8e769c2f765e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 213620274695512290}
+  attackType: 0
 --- !u!1 &4798070462726616029
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +350,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7698073305621674336}
   - component: {fileID: 6325197091757875136}
-  m_Layer: 6
+  - component: {fileID: 8495769058284669009}
+  m_Layer: 3
   m_Name: HeavyAttackKnockbackCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,6 +394,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8495769058284669009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4798070462726616029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a75870ee5e31114e90d8e769c2f765e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 213620274695512290}
+  attackType: 2
 --- !u!1 &4915880295208853643
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +418,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3720373004805175426}
   - component: {fileID: 3691996279806024922}
-  m_Layer: 6
+  - component: {fileID: 111909728251828105}
+  m_Layer: 3
   m_Name: HeavyAttackHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,6 +464,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &111909728251828105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4915880295208853643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a75870ee5e31114e90d8e769c2f765e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 213620274695512290}
+  attackType: 1
 --- !u!1 &5543004630804945216
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +489,7 @@ GameObject:
   - component: {fileID: 6686225765399291258}
   - component: {fileID: 4314233447801536788}
   - component: {fileID: 856126242555674107}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +571,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5069039617313847078}
   - component: {fileID: 7922944165240289851}
-  m_Layer: 6
+  - component: {fileID: 7346328236726929215}
+  m_Layer: 3
   m_Name: CenserSpecialAttackHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -570,6 +616,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7346328236726929215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421924170090232868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a75870ee5e31114e90d8e769c2f765e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 213620274695512290}
+  attackType: 3
 --- !u!1 &7358819471295053203
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,7 +647,7 @@ GameObject:
   - component: {fileID: 8468839835424052004}
   - component: {fileID: 3930733521442476943}
   - component: {fileID: 3682057049061259466}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}

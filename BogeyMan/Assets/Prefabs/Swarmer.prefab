@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 714073902298407029}
   - component: {fileID: 6873108586386843805}
   - component: {fileID: 8491232095502880538}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Swarmer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 8297341850785059638}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4631881805213334822
 MeshFilter:
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6483dfb12a6039c488cc50d64ea9894b, type: 2}
+  - {fileID: 2100000, guid: 8dc10d5484ffea246b212c402ab88bba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,6 +130,8 @@ MonoBehaviour:
   focusRange: 15.33
   weight: 1
   focusSphere: {fileID: 4466520341230836795}
+  meshRenderer: {fileID: 8080724220004049759}
+  dispawnTime: 2
   agent: {fileID: 8491232095502880538}
   attackRange: 1.5
 --- !u!195 &8491232095502880538
