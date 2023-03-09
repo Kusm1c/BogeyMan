@@ -4,44 +4,60 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+	[SerializeField] private Player player = null;
     [SerializeField] private PlayerInput playerInput = null;
 	[SerializeField] private Rigidbody rb = null;
 	[SerializeField] private Animator animator = null;
-	[SerializeField] private PlayerControllerSettings_SO settings = null;
+
+	[SerializeField] private Weapon weapon = Weapon.Censer;
 
 	Vector2 movementDirection;
 	Vector2 aimDirection;
 	private float speed;
 	private bool stuned = false;
 	private bool canAttack = true;
+	private bool canAim = true;
 
 	private void Start()
 	{
 		ResetSpeed();
 	}
 
-	private void FixedUpdate()
+	#region Movements
+	public void Move(InputAction.CallbackContext context)
 	{
-		Move();
-		Aim();
-	}
-
-	private void Move()
-	{
-		movementDirection = playerInput.actions["Movement"].ReadValue<Vector2>();
-		Vector2 movement = movementDirection * speed;
+		movementDirection = context.ReadValue<Vector2>();
+		Vector2 movement = movementDirection * speed / Time.deltaTime;
 		rb.velocity = new Vector3(movement.x, 0, movement.y);
 	}
 
-	private void Aim()
+	public void Aim(InputAction.CallbackContext context)
 	{
-		Vector2 aim = playerInput.actions["Aim"].ReadValue<Vector2>();
+		if (!canAim) return;
+		Vector2 aim = context.ReadValue<Vector2>();
 		if (aim.magnitude < 0.1f) return;
 		aimDirection = aim.normalized;
 		float angle = Mathf.Atan2(-aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.Euler(0, angle, 0);
 	}
 
+	private void DecreaseSpeed(int percentage)
+	{
+		speed *= (100 - percentage) * 0.01f;
+	}
+
+	private void ResetSpeed()
+	{
+		speed = player.settings.movementSpeed;
+	}
+
+	public void Knockback(Vector2 direction)
+	{
+		rb.AddForce(direction * player.settings.knockbackForceWhenHit, ForceMode.Impulse);
+	}
+	#endregion Movements
+
+	#region Stun
 	public void Stun(float duration)
 	{
 		if (stuned == false)
@@ -58,36 +74,102 @@ public class PlayerController : MonoBehaviour
 		playerInput.enabled = true;
 		stuned = false;
 	}
+	#endregion Stun
 
+	#region Attacks
+
+	#region LightAttack
 	public void LightAttack(InputAction.CallbackContext context)
 	{
 		if (!context.started || !canAttack) return;
 
 		canAttack = false;
+		canAim = false;
 		animator.SetTrigger("LightAttack");
-		DecreaseSpeed(settings.lightAttackSpeedReductionPercentage);
+		DecreaseSpeed(player.settings.lightAttackSpeedReductionPercentage);
+		player.SetInvulnerability(true);
 	}
 
+	private void LightAttackFinished()
+	{
+		StartCoroutine(WaitForCooldown(player.settings.lightAttackCooldown));
+		ResetSpeed();
+		player.SetInvulnerability(false);
+		canAim = true;
+	}
+	#endregion LightAttack
+
+	#region HeavyAttack
 	public void HeavyAttack(InputAction.CallbackContext context)
 	{
 		if (!context.started || !canAttack) return;
 
 		canAttack = false;
+		canAim = false;
+		DecreaseSpeed(player.settings.heavyAttackChargeSpeedReductionPercentage);
+		StartCoroutine(HeavyAttackCharge());
+	}
+
+	private IEnumerator HeavyAttackCharge()
+	{
+		yield return new WaitForSeconds(player.settings.heavyAttackChargeDuration);
+
 		animator.SetTrigger("HeavyAttack");
+		ResetSpeed();
 		DecreaseSpeed(100);
+		player.SetInvulnerability(true);
 	}
 
-	public void LightAttackFinished()
+	private void HeavyAttackFinished()
 	{
-		StartCoroutine(WaitForCooldown(settings.lightAttackCooldown));
+		StartCoroutine(WaitForCooldown(player.settings.heavyAttackCooldown));
 		ResetSpeed();
+		player.SetInvulnerability(false);
+		canAim = true;
+	}
+	#endregion HeavyAttack
+
+	#region SpecialAttack
+	public void SpecialAttack(InputAction.CallbackContext context)
+	{
+		if (!context.started || !canAttack)
+			return;
+
+		switch (weapon)
+		{
+			case Weapon.Shovel:
+			{
+				break;
+			}
+			case Weapon.Censer:
+			{
+				canAttack = false;
+				canAim = false;
+				DecreaseSpeed(100);
+				StartCoroutine(CenserSpecialAttackCharge());
+				break;
+			}
+		}
 	}
 
-	public void HeavyAttackFinished()
+	private IEnumerator CenserSpecialAttackCharge()
 	{
-		StartCoroutine(WaitForCooldown(settings.heavyAttackCooldown));
+		yield return new WaitForSeconds(player.settings.censerAttackChargeDuration);
+
+		animator.SetTrigger("CenserSpecialAttack");
 		ResetSpeed();
+		DecreaseSpeed(- player.settings.censerAttackSpeedIncreasePercentage);
+		player.SetInvulnerability(true);
 	}
+
+	private void CenserSpecialAttackFinished()
+	{
+		StartCoroutine(WaitForCooldown(player.settings.censerAttackCooldown));
+		ResetSpeed();
+		player.SetInvulnerability(false);
+		canAim = true;
+	}
+	#endregion SpecialAttack
 
 	private IEnumerator WaitForCooldown(float cooldown)
 	{
@@ -95,22 +177,10 @@ public class PlayerController : MonoBehaviour
 		canAttack = true;
 	}
 
-	private void DecreaseSpeed(int percentage)
-	{
-		speed *= (100 - percentage) * 0.01f;
-	}
+	#endregion Attacks
+}
 
-	private void ResetSpeed()
-	{
-		speed = settings.movementSpeed;
-	}
-
-	private void OnTriggerEnter(Collider other)
-	{
-		if (other.gameObject.layer == LayerMask.NameToLayer("Enemies"))
-		{
-			print("enemy hit");
-			Destroy(other.gameObject);
-		}
-	}
+public enum Weapon
+{
+	Shovel, Censer
 }
