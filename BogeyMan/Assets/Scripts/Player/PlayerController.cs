@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private Player player = null;
     [SerializeField] private PlayerInput playerInput = null;
 	[SerializeField] private Rigidbody rb = null;
-	[SerializeField] private Animator animator = null;
+	[SerializeField] private Animator characterAnimator = null;
+	[SerializeField] private Animator hitBoxesAnimator = null;
 	[SerializeField] private Transform partToRotate = null;
 
 	[SerializeField] private Weapon weapon = Weapon.Censer;
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
 		movementDirection = context.ReadValue<Vector2>();
 		Vector2 movement = movementDirection * speed / Time.deltaTime;
 		rb.velocity = new Vector3(movement.x, 0, movement.y);
+		characterAnimator.SetFloat("speed", movementDirection.magnitude);
 	}
 
 	public void Aim(InputAction.CallbackContext context)
@@ -86,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
 		canAttack = false;
 		canAim = false;
-		animator.SetTrigger("LightAttack");
+		hitBoxesAnimator.SetTrigger("LightAttack");
 		DecreaseSpeed(player.settings.lightAttackSpeedReductionPercentage);
 		player.SetInvulnerability(true);
 	}
@@ -115,7 +117,7 @@ public class PlayerController : MonoBehaviour
 	{
 		yield return new WaitForSeconds(player.settings.heavyAttackChargeDuration);
 
-		animator.SetTrigger("HeavyAttack");
+		hitBoxesAnimator.SetTrigger("HeavyAttack");
 		ResetSpeed();
 		DecreaseSpeed(100);
 		player.SetInvulnerability(true);
@@ -157,7 +159,7 @@ public class PlayerController : MonoBehaviour
 	{
 		yield return new WaitForSeconds(player.settings.censerAttackChargeDuration);
 
-		animator.SetTrigger("CenserSpecialAttack");
+		hitBoxesAnimator.SetTrigger("CenserSpecialAttack");
 		ResetSpeed();
 		DecreaseSpeed(- player.settings.censerAttackSpeedIncreasePercentage);
 		player.SetInvulnerability(true);
