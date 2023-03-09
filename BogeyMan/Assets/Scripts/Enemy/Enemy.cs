@@ -11,15 +11,21 @@ public class Enemy : MonoBehaviour
     private Vector3 target;
     private Vector3 direction;
     private float distance;
-    
+
     [SerializeField] private float avoidanceDistance = 1f;
+    [SerializeField] private Spawner spawner;
     
     private NavMeshAgent agent;
     public float stopDistance = 1.5f;
     
     // [SerializeField] private Camera mainCamera;
     // private CameraControl cameraControl;
-    
+
+    private void Awake()
+    {
+        spawner = gameObject.GetComponentInParent<Spawner>() ?? throw new Exception("No spawner found");
+    }
+
     private void Start()
     {
         // cameraControl = mainCamera.GetComponent<CameraControl>();
@@ -44,10 +50,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Avoidance()
+    private void OnDisable()
     {
-        
+        spawner.SwarmerDeath(gameObject);
     }
+
 
     // private void OnCollisionEnter(Collision collision)
     // {
