@@ -20,6 +20,7 @@ public class Spawner : MonoBehaviour
         public int randomSwarmSpawnPart;
         [Range(0, 100)] public float respawnForLoses;
         public float distanceBetweenSwarmers;
+        public int isAlive;
     }
 
     [SerializeField] private int swarmSize;
@@ -28,7 +29,6 @@ public class Spawner : MonoBehaviour
     
     private List<GameObject> swarmers = new List<GameObject>();
 
-    [ExecuteAlways]
     private void OnValidate()
     {
         if (swarmSize < 0) swarmSize = 0;
@@ -52,10 +52,27 @@ public class Spawner : MonoBehaviour
         
     }
 
-    // private void Update()
-    // {
-    //     
-    // }
+    private void Update()
+    {
+        foreach (SwarmerType swarmerType in swarmerType)
+        {
+            Debug.Log("Checking Alive");
+            var alive = 0;
+            foreach (GameObject swarmer in swarmers)
+            {
+                Debug.Log("Checking Alive foreach swarmer");
+                if (swarmer.activeSelf)
+                {
+                    Debug.Log("Checking Alive foreach swarmer if");
+                    alive++;
+                }
+            }
+            if (alive !=  swarmerType.isAlive)
+            {
+                swarmerType.isAlive = alive;
+            }
+        }
+    }
 
 
     private void SwarmerPool()

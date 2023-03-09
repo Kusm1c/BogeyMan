@@ -71,6 +71,7 @@ namespace Enemies
 
             propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, 0f));
             meshRenderer.SetPropertyBlock(propertyBlock);
+            gameObject.SetActive(false);
         }
     }
 }
