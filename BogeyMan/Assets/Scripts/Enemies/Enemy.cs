@@ -36,10 +36,9 @@ namespace Enemies
 
         public void TakeHit(float strength, Vector3 direction)
         {
+            transform.Translate(direction * strength / weight);
             TakeHit();
         }
-        
-        protected abstract void Attack(PlayerController player);
 
         [ContextMenu("Take Hit")]
         private void TakeHit()
