@@ -29,4 +29,13 @@ public class PlayerSettings_SO : ScriptableObject
 	[field: SerializeField] public float heavyAttackChargeDuration { get; private set; } = 0.8f;
 	[field: SerializeField] public float heavyAttackProjectionForce { get; private set; } = 0.4f;
 	[field: SerializeField] public float heavyAttackProjectionDuration { get; private set; } = 0.4f;
+
+	[field: Header("Censer special attack")]
+	[field: SerializeField] public int censerAttackDamage { get; private set; } = 2;
+	[field: SerializeField] public float censerAttackCooldown { get; private set; } = 1.5f;
+	[field: Range(0, 100)]
+	[field: SerializeField] public int censerAttackSpeedIncreasePercentage { get; private set; } = 15;
+	[field: SerializeField] public float censerAttackChargeDuration { get; private set; } = 0.8f;
+	[field: SerializeField] public float censerAttackProjectionForce { get; private set; } = 0.8f;
+	[field: SerializeField] public float censerAttackProjectionDuration { get; private set; } = 0.2f;
 }

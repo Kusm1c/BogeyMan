@@ -9,11 +9,14 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private Rigidbody rb = null;
 	[SerializeField] private Animator animator = null;
 
+	[SerializeField] private Weapon weapon = Weapon.Censer;
+
 	Vector2 movementDirection;
 	Vector2 aimDirection;
 	private float speed;
 	private bool stuned = false;
 	private bool canAttack = true;
+	private bool canAim = true;
 
 	private void Start()
 	{
@@ -30,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
 	public void Aim(InputAction.CallbackContext context)
 	{
-		if (!canAttack) return;
+		if (!canAim) return;
 		Vector2 aim = context.ReadValue<Vector2>();
 		if (aim.magnitude < 0.1f) return;
 		aimDirection = aim.normalized;
@@ -81,16 +84,18 @@ public class PlayerController : MonoBehaviour
 		if (!context.started || !canAttack) return;
 
 		canAttack = false;
+		canAim = false;
 		animator.SetTrigger("LightAttack");
 		DecreaseSpeed(player.settings.lightAttackSpeedReductionPercentage);
 		player.SetInvulnerability(true);
 	}
 
-	public void LightAttackFinished()
+	private void LightAttackFinished()
 	{
 		StartCoroutine(WaitForCooldown(player.settings.lightAttackCooldown));
 		ResetSpeed();
 		player.SetInvulnerability(false);
+		canAim = true;
 	}
 	#endregion LightAttack
 
@@ -100,6 +105,7 @@ public class PlayerController : MonoBehaviour
 		if (!context.started || !canAttack) return;
 
 		canAttack = false;
+		canAim = false;
 		DecreaseSpeed(player.settings.heavyAttackChargeSpeedReductionPercentage);
 		StartCoroutine(HeavyAttackCharge());
 	}
@@ -114,13 +120,56 @@ public class PlayerController : MonoBehaviour
 		player.SetInvulnerability(true);
 	}
 
-	public void HeavyAttackFinished()
+	private void HeavyAttackFinished()
 	{
 		StartCoroutine(WaitForCooldown(player.settings.heavyAttackCooldown));
 		ResetSpeed();
 		player.SetInvulnerability(false);
+		canAim = true;
 	}
 	#endregion HeavyAttack
+
+	#region SpecialAttack
+	public void SpecialAttack(InputAction.CallbackContext context)
+	{
+		if (!context.started || !canAttack)
+			return;
+
+		switch (weapon)
+		{
+			case Weapon.Shovel:
+			{
+				break;
+			}
+			case Weapon.Censer:
+			{
+				canAttack = false;
+				canAim = false;
+				DecreaseSpeed(100);
+				StartCoroutine(CenserSpecialAttackCharge());
+				break;
+			}
+		}
+	}
+
+	private IEnumerator CenserSpecialAttackCharge()
+	{
+		yield return new WaitForSeconds(player.settings.censerAttackChargeDuration);
+
+		animator.SetTrigger("CenserSpecialAttack");
+		ResetSpeed();
+		DecreaseSpeed(- player.settings.censerAttackSpeedIncreasePercentage);
+		player.SetInvulnerability(true);
+	}
+
+	private void CenserSpecialAttackFinished()
+	{
+		StartCoroutine(WaitForCooldown(player.settings.censerAttackCooldown));
+		ResetSpeed();
+		player.SetInvulnerability(false);
+		canAim = true;
+	}
+	#endregion SpecialAttack
 
 	private IEnumerator WaitForCooldown(float cooldown)
 	{
@@ -130,6 +179,7 @@ public class PlayerController : MonoBehaviour
 
 	#endregion Attacks
 
+	// provisoire
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Enemies"))
@@ -137,4 +187,9 @@ public class PlayerController : MonoBehaviour
 			Destroy(other.gameObject);
 		}
 	}
+}
+
+public enum Weapon
+{
+	Shovel, Censer
 }
