@@ -10,7 +10,7 @@ public class PlayerSettings_SO : ScriptableObject
 
 	[field: Header("Movement")]
 	[field: SerializeField] public float movementSpeed { get; private set; } = 1f;
-	[field: SerializeField] public float knockbackForceWhenHit { get; private set; } = 1f;
+	[field: SerializeField] public float knockbackDistanceWhenHit { get; private set; } = 1f;
 	[field: SerializeField] public float invulnerabilityDurationWhenHit { get; private set; } = 2.5f;
 
 	[field : Header("Light attack")]

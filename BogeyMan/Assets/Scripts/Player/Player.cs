@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
 	[field: SerializeField] public PlayerSettings_SO settings { get; private set; } = null;
 	[SerializeField] private PlayerController playerController = null;
+	[SerializeField] private PlayerUI ui = null;
 
     public int currentLife { get; private set; } = 0;
 
@@ -19,8 +20,14 @@ public class Player : MonoBehaviour
 	public void TakeHit(int damageTaken, Vector2 knockbackDirection)
 	{
 		currentLife -= damageTaken;
+		ui.UpdateLifeBar(currentLife, settings.maxLife);
 		playerController.Knockback(knockbackDirection);
 		SetInvulnerability(true, settings.invulnerabilityDurationWhenHit);
+		playerController.Stun(0.4f);
+		if (currentLife <= 0)
+		{
+			Die();
+		}
 	}
 
 	public void SetInvulnerability(bool invulnerable, float duration = 0)
@@ -36,5 +43,10 @@ public class Player : MonoBehaviour
 	{
 		yield return new WaitForSeconds(duration);
 		SetInvulnerability(false);
+	}
+
+	private void Die()
+	{
+
 	}
 }
