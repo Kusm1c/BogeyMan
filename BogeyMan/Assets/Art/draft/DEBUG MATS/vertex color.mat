@@ -32,6 +32,7 @@ Material:
   - _LAYEREDLIT_3_LAYERS
   - _LAYER_MASK_VERTEX_COLOR_MUL
   - _MASKMAP0
+  - _NORMALMAP0
   - _NORMALMAP_TANGENT_SPACE0
   - _NORMALMAP_TANGENT_SPACE1
   - _NORMALMAP_TANGENT_SPACE2
@@ -210,7 +211,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap0:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 07bb92d35bc61d5428dfab6157fc67cb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap1:
@@ -530,12 +531,12 @@ Material:
     - _Smoothness2: 0.5
     - _Smoothness3: 0.5
     - _SmoothnessRemapMax: 1
-    - _SmoothnessRemapMax0: 0.67550975
+    - _SmoothnessRemapMax0: 0.34357575
     - _SmoothnessRemapMax1: 1
     - _SmoothnessRemapMax2: 1
     - _SmoothnessRemapMax3: 1
     - _SmoothnessRemapMin: 0
-    - _SmoothnessRemapMin0: 0.06577505
+    - _SmoothnessRemapMin0: 0.15775666
     - _SmoothnessRemapMin1: 0
     - _SmoothnessRemapMin2: 0
     - _SmoothnessRemapMin3: 0
