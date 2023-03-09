@@ -27,7 +27,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float swarmSpawnRadius;
     [SerializeField] private float swarmSpawnSpeed;
     
-    private List<GameObject> swarmers = new List<GameObject>();
+    [SerializeField] private List<GameObject> swarmersDead = new();
+    [SerializeField] private List<GameObject> swarmersAlive = new();
 
     private void OnValidate()
     {
@@ -52,28 +53,6 @@ public class Spawner : MonoBehaviour
         
     }
 
-    private void Update()
-    {
-        foreach (SwarmerType swarmerType in swarmerType)
-        {
-            Debug.Log("Checking Alive");
-            var alive = 0;
-            foreach (GameObject swarmer in swarmers)
-            {
-                Debug.Log("Checking Alive foreach swarmer");
-                if (swarmer.activeSelf)
-                {
-                    Debug.Log("Checking Alive foreach swarmer if");
-                    alive++;
-                }
-            }
-            if (alive !=  swarmerType.isAlive)
-            {
-                swarmerType.isAlive = alive;
-            }
-        }
-    }
-
 
     private void SwarmerPool()
     {
@@ -84,14 +63,13 @@ public class Spawner : MonoBehaviour
                 GameObject swarmer = Instantiate(swarmerType.swarmerType, transform);
                 swarmer.GetComponent<NavMeshAgent>().radius = swarmerType.distanceBetweenSwarmers;
                 swarmer.SetActive(false);
-                swarmers.Add(swarmer);
+                swarmersDead.Add(swarmer);
             }
         }
     }
 
     private void ChooseRandomSwarmSpawnPart()
     {
-        Debug.Log("Choosing Random Swarm Spawn Part");
         int sum = 0;
         foreach (SwarmerType swarmerType in swarmerType)
         {
@@ -116,12 +94,13 @@ public class Spawner : MonoBehaviour
         }
         else
         {
-            if (swarmers.Count > 0)
+            if (swarmersDead.Count > 0)
             {
-                GameObject swarmer = swarmers[0];
+                GameObject swarmer = swarmersDead[0];
                 swarmer.transform.position = randomPosInRadius;
                 swarmer.SetActive(true);
-                swarmers.Remove(swarmer);
+                swarmersDead.Remove(swarmer);
+                swarmersAlive.Add(swarmer);
                 yield return new WaitForSeconds(swarmSpawnSpeed);
                 StartCoroutine(SpawnSwarm());
             }
@@ -137,5 +116,23 @@ public class Spawner : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, swarmSpawnRadius);
+    }
+    
+    public void SwarmerDeath(GameObject swarmer)
+    {
+        swarmersAlive.Remove(swarmer);
+        swarmersDead.Add(swarmer);
+        swarmer.SetActive(false);
+        foreach (SwarmerType swarmerType in swarmerType)
+        {
+            if (swarmerType.swarmerType == swarmer)
+            {
+                swarmerType.isAlive--;
+                if (swarmerType.isAlive < 0)
+                {
+                    swarmerType.isAlive = 0;
+                }
+            }
+        }
     }
 }
