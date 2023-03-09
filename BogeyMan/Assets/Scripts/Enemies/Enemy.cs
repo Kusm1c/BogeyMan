@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ namespace Enemies
         [SerializeField, Min(0)] protected float weight = 1f;
         [SerializeField] private SphereCollider focusSphere;
         [SerializeField] private MeshRenderer meshRenderer;
-        [SerializeField] private float dispawnTime;
+        [SerializeField, Min(0)] private float disappearanceTime = 2f;
         
 
         private MaterialPropertyBlock propertyBlock => _propertyBlock ??= new MaterialPropertyBlock();
@@ -58,12 +57,12 @@ namespace Enemies
             meshRenderer.GetPropertyBlock(propertyBlock);
             Color oldColor = _propertyBlock.GetColor(color);
 
-            float length = dispawnTime;
+            float length = disappearanceTime;
 
             while (length > 0f)
             {
                 meshRenderer.GetPropertyBlock(propertyBlock);
-                propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, length / dispawnTime));
+                propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, length / disappearanceTime));
                 meshRenderer.SetPropertyBlock(propertyBlock);
                 
                 yield return null;

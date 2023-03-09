@@ -14,7 +14,7 @@ namespace Enemies
         {
             if (!agent.isActiveAndEnabled) return;
 
-            if (target is null)
+            if (target == null)
             {
                 agent.isStopped = true;
                 return;
