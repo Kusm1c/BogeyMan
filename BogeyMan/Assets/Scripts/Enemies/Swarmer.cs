@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Enemy
+namespace Enemies
 {
     public class Swarmer : Enemy
     {
@@ -55,9 +55,15 @@ namespace Enemy
                 player.GetComponent<Rigidbody>().AddForce((player.transform.position - transform.position).normalized * 1500f);
             }
             
-            agent.isStopped = false;
             agent.enabled = true;
+            agent.isStopped = false;
             print("finished attack");
+        }
+
+        protected override IEnumerator Die()
+        {
+            agent.enabled = false;
+            yield return base.Die();
         }
     }
 }

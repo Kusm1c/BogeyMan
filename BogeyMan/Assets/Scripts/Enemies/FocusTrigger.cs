@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Enemy
+namespace Enemies
 {
-    public class AttackTrigger : MonoBehaviour
+    public class FocusTrigger : MonoBehaviour
     {
         [SerializeField] private Enemy enemy;
 
