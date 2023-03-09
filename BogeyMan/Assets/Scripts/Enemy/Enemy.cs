@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float avoidanceDistance = 1f;
     
     private NavMeshAgent agent;
+    public float stopDistance = 1.5f;
     
     // [SerializeField] private Camera mainCamera;
     // private CameraControl cameraControl;
@@ -37,7 +38,7 @@ public class Enemy : MonoBehaviour
         {
             agent.SetDestination(target);
         }
-        if (distance < 1.5f)
+        if (distance < stopDistance)
         {
             agent.speed = 0f;
         }
