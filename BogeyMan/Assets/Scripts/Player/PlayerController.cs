@@ -26,12 +26,17 @@ public class PlayerController : MonoBehaviour
 	}
 
 	#region Movements
-	public void Move(InputAction.CallbackContext context)
+	private void FixedUpdate()
 	{
-		movementDirection = context.ReadValue<Vector2>();
-		Vector2 movement = movementDirection * speed / Time.deltaTime;
+		Move();
+	}
+
+	public void Move()
+	{
+		movementDirection = playerInput.actions["Movement"].ReadValue<Vector2>();
+		Vector2 movement = movementDirection * speed / Time.fixedDeltaTime;
 		rb.velocity = new Vector3(movement.x, 0, movement.y);
-		characterAnimator.SetFloat("speed", movementDirection.magnitude);
+		characterAnimator.SetFloat("speed", movementDirection.magnitude * speed / player.settings.movementSpeed);
 	}
 
 	public void Aim(InputAction.CallbackContext context)
@@ -46,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
 	private void DecreaseSpeed(int percentage)
 	{
-		speed *= (100 - percentage) * 0.01f;
+		speed = player.settings.movementSpeed * (100 - percentage) * 0.01f;
 	}
 
 	private void ResetSpeed()
@@ -118,7 +123,6 @@ public class PlayerController : MonoBehaviour
 		yield return new WaitForSeconds(player.settings.heavyAttackChargeDuration);
 
 		hitBoxesAnimator.SetTrigger("HeavyAttack");
-		ResetSpeed();
 		DecreaseSpeed(100);
 		player.SetInvulnerability(true);
 	}
@@ -160,7 +164,6 @@ public class PlayerController : MonoBehaviour
 		yield return new WaitForSeconds(player.settings.censerAttackChargeDuration);
 
 		hitBoxesAnimator.SetTrigger("CenserSpecialAttack");
-		ResetSpeed();
 		DecreaseSpeed(- player.settings.censerAttackSpeedIncreasePercentage);
 		player.SetInvulnerability(true);
 	}
