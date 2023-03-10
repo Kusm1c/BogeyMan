@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: Swarmer
   m_EditorClassIdentifier: 
   maxHP: 2
-  moveSpeed: 3.5
   attackSpeed: 0.5
   damage: 10
-  focusRange: 15
+  focusRange: 30.2
   attackRange: 1.5
+  moveSpeed: 2.35
+  angularSpeed: 120
+  acceleration: 8
   weight: 1
+  linearDrag: 6.84
   disappearanceTime: 2
+  debug: 0
