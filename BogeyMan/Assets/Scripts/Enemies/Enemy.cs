@@ -124,7 +124,7 @@ namespace Enemies
 
         protected abstract void Attack(Player player);
 
-        public void TakeHit(float strength, Vector3 direction)
+        public void TakeHit(float strength, Vector3 direction, int damage = 1)
         {
             if (isDead) return;
 
@@ -132,13 +132,12 @@ namespace Enemies
             rigidbody.WakeUp();
             rigidbody.velocity = direction * strength;
 
-            TakeHit();
+            TakeHit(damage);
         }
 
-        [ContextMenu("Take Hit")]
-        private void TakeHit()
+        private void TakeHit(int damage = 1)
         {
-            hp--;
+            hp -= damage;
 
             if (hp >= 1) return;
             
