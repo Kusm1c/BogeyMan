@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
 		canAttack = false;
 		canAim = false;
 		hitBoxesAnimator.SetTrigger("LightAttack");
+		characterAnimator.SetTrigger("LightAttack");
 		DecreaseSpeed(player.settings.lightAttackSpeedReductionPercentage);
 		player.SetInvulnerability(true);
 	}
@@ -117,6 +118,7 @@ public class PlayerController : MonoBehaviour
 		canAim = false;
 		DecreaseSpeed(player.settings.heavyAttackChargeSpeedReductionPercentage);
 		StartCoroutine(HeavyAttackCharge());
+		characterAnimator.SetTrigger("HeavyAttack");
 	}
 
 	private IEnumerator HeavyAttackCharge()
