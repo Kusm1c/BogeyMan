@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 	public void TakeHit(int damageTaken, Vector2 knockbackDirection)
 	{
 		currentLife -= damageTaken;
-		ui.UpdateLifeBar(currentLife, settings.maxLife);
+		//ui.UpdateLifeBar(currentLife, settings.maxLife);
 		playerController.Knockback(knockbackDirection);
 		SetInvulnerability(true, settings.invulnerabilityDurationWhenHit);
 		playerController.Stun(0.4f);
