@@ -23,22 +23,22 @@ public class PlayerAttackCollider : MonoBehaviour
 		{
 			case AttackType.Light:
 			{
-				enemy.TakeHit(player.settings.lightAttackProjectionForce, direction);
+				enemy.TakeHit(player.settings.lightAttackProjectionForce, direction, player.settings.lightAttackDamage);
 				break;
 			}
 			case AttackType.Heavy:
 			{
-				enemy.TakeHit(0, direction);
+				enemy.TakeHit(0, direction, player.settings.heavyAttackDamage);
 				break;
 			}
 			case AttackType.HeavyProjection:
 			{
-				enemy.TakeHit(player.settings.heavyAttackProjectionForce, direction);
+				enemy.TakeHit(player.settings.heavyAttackProjectionForce, direction, 0);
 				break;
 			}
 			case AttackType.CenserSpecial:
 			{
-				enemy.TakeHit(player.settings.censerAttackProjectionForce, direction);
+				enemy.TakeHit(player.settings.censerAttackProjectionForce, direction, player.settings.censerAttackDamage);
 				break;
 			}
 		}
