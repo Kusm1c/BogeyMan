@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: facd2ac135b14ea191a0dc1651d5dd8f, type: 3}
+  m_Name: Swarmer
+  m_EditorClassIdentifier: 
+  maxHP: 2
+  attackSpeed: 0.5
+  damage: 10
+  focusRange: 30.2
+  attackRange: 1.5
+  moveSpeed: 2.35
+  angularSpeed: 120
+  acceleration: 8
+  weight: 1
+  linearDrag: 6.84
+  disappearanceTime: 2
+  debug: 0

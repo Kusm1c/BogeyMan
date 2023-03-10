@@ -1,0 +1,31 @@
+using UnityEngine;
+
+namespace Enemies
+{
+    [CreateAssetMenu(fileName = "EnemySettings", menuName = "Scriptable Objects/Enemy Settings", order = 0)]
+    public class EnemySettings_SO : ScriptableObject
+    {
+        [Min(0)] public int maxHP = 1;
+        [Min(0)] public float attackSpeed = 0.5f;
+        [Min(0)] public float damage = 10f;
+        [Min(0)] public float focusRange = 15f;
+        [Min(0)] public float attackRange = 1.5f;
+        
+        [Header("Movement")]
+        [Min(0)] public float moveSpeed = 3.5f;
+        [Min(0)] public float angularSpeed = 120f;
+        [Min(0)] public float acceleration = 8f;
+        
+        [Header("Take Hit")]
+        [Min(0)] public float weight = 1f;
+        [Min(0)] public float linearDrag = 5f;
+        [Min(0)] public float disappearanceTime = 2f;
+
+#if UNITY_EDITOR
+        [Space]
+        [Header("=== Click this to Balance in real time ===")]
+        public bool debug;
+#endif
+        
+    }
+}
