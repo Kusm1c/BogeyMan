@@ -20,6 +20,9 @@
         },
         {
             "m_Id": "549d333e081f48929dacc2877852eccd"
+        },
+        {
+            "m_Id": "7c048782153d487a8d6d34ca7c803c3a"
         }
     ],
     "m_Keywords": [],
@@ -152,6 +155,9 @@
         },
         {
             "m_Id": "1659d071c4eb4f0f80c11fdb9257bc37"
+        },
+        {
+            "m_Id": "470c0b77b3c545c0a2fde4230cd633df"
         }
     ],
     "m_GroupDatas": [
@@ -291,6 +297,20 @@
                     "m_Id": "25b99d04bb6f49fdb9ceb70b09dc32c9"
                 },
                 "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "470c0b77b3c545c0a2fde4230cd633df"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "3186b0d3ec054ac784f392d6d7f9d9c1"
+                },
+                "m_SlotId": 1
             }
         },
         {
@@ -980,6 +1000,27 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
+    "m_ObjectId": "0e9a9be436004504aa19d5020935297b",
+    "m_Id": 0,
+    "m_DisplayName": "tex tiling",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.TimeNode",
     "m_ObjectId": "10ff502281b84397aa9071b436de8952",
     "m_Group": {
@@ -1654,9 +1695,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 1237.0,
-            "y": -641.0,
-            "width": 56.0,
+            "x": 1236.0001220703125,
+            "y": -575.0,
+            "width": 55.9998779296875,
             "height": 24.0
         }
     },
@@ -1950,6 +1991,42 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "470c0b77b3c545c0a2fde4230cd633df",
+    "m_Group": {
+        "m_Id": "e38e84eac7494cacb4a5b4fd421a3fb5"
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -1388.0,
+            "y": 284.9999694824219,
+            "width": 122.0,
+            "height": 34.000030517578128
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "0e9a9be436004504aa19d5020935297b"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "7c048782153d487a8d6d34ca7c803c3a"
+    }
 }
 
 {
@@ -2623,6 +2700,9 @@
             "m_Id": "b1ae0a33b7e84cb5866441af066d3e22"
         },
         {
+            "m_Id": "7c048782153d487a8d6d34ca7c803c3a"
+        },
+        {
             "m_Id": "821412cd075a4941a819efb9e9bcc838"
         },
         {
@@ -2769,6 +2849,34 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector2ShaderProperty",
+    "m_ObjectId": "7c048782153d487a8d6d34ca7c803c3a",
+    "m_Guid": {
+        "m_GuidSerialized": "482fcdfa-30ef-49de-8b20-184aeb13fd53"
+    },
+    "m_Name": "tex tiling",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "tex tiling",
+    "m_DefaultReferenceName": "_tex_tiling",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 0.0,
+        "w": 0.0
+    }
 }
 
 {
