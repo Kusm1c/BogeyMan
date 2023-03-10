@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private Animator characterAnimator = null;
 	[SerializeField] private Animator hitBoxesAnimator = null;
 	[SerializeField] private Transform partToRotate = null;
+	[SerializeField] private Grab grab = null;
 
 	[SerializeField] private Weapon weapon = Weapon.Censer;
 
@@ -184,6 +185,14 @@ public class PlayerController : MonoBehaviour
 	}
 
 	#endregion Attacks
+
+	public void Grab(InputAction.CallbackContext context)
+	{
+		if (!context.performed)
+			return;
+
+		grab.GrabInput();
+	}
 }
 
 public enum Weapon

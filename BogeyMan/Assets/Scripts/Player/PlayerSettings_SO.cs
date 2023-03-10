@@ -38,4 +38,8 @@ public class PlayerSettings_SO : ScriptableObject
 	[field: SerializeField] public float censerAttackChargeDuration { get; private set; } = 0.8f;
 	[field: SerializeField] public float censerAttackProjectionForce { get; private set; } = 0.8f;
 	[field: SerializeField] public float censerAttackProjectionDuration { get; private set; } = 0.2f;
+
+	[field: Header("Grab")]
+	[field: SerializeField] public float throwSpeed { get; private set; } = 1;
+	[field: SerializeField] public float throwDuration { get; private set; } = 2;
 }
