@@ -10,17 +10,13 @@ TerrainLayer:
   m_DiffuseTexture: {fileID: 2800000, guid: 933072fa76b4af847b951a5b126922ab, type: 3}
   m_NormalMapTexture: {fileID: 2800000, guid: 0a1d420397699ec4d8a7668a030a0572, type: 3}
   m_MaskMapTexture: {fileID: 2800000, guid: 7644db2d8b5bce941a103fd25493e814, type: 3}
-  m_TileSize: {x: 17, y: 17}
+  m_TileSize: {x: 10, y: 10}
   m_TileOffset: {x: 0, y: 0}
-  m_Specular: {r: 1, g: 1, b: 1, a: 0}
+  m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0
-<<<<<<< HEAD:BogeyMan/Assets/Art/Environnement/Environment Layers/T_Grass.terrainlayer
-  m_Smoothness: 0.577
-=======
   m_Smoothness: 0
->>>>>>> PxCrabe:BogeyMan/Assets/Art/VFX/VFX_alphas/NewLayer.terrainlayer
   m_NormalScale: 1
   m_DiffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
-  m_DiffuseRemapMax: {x: 0.735849, y: 0.735849, z: 0.735849, w: 1}
+  m_DiffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
   m_MaskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
-  m_MaskMapRemapMax: {x: 1, y: 1, z: 1, w: 0.2566942}
+  m_MaskMapRemapMax: {x: 1, y: 1, z: 1, w: 0.3259465}
