@@ -7,7 +7,9 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private Player player = null;
     [SerializeField] private PlayerInput playerInput = null;
 	[SerializeField] private Rigidbody rb = null;
-	[SerializeField] private Animator animator = null;
+	[SerializeField] private Animator characterAnimator = null;
+	[SerializeField] private Animator hitBoxesAnimator = null;
+	[SerializeField] private Transform partToRotate = null;
 
 	[SerializeField] private Weapon weapon = Weapon.Censer;
 
@@ -24,11 +26,17 @@ public class PlayerController : MonoBehaviour
 	}
 
 	#region Movements
-	public void Move(InputAction.CallbackContext context)
+	private void FixedUpdate()
 	{
-		movementDirection = context.ReadValue<Vector2>();
-		Vector2 movement = movementDirection * speed / Time.deltaTime;
+		Move();
+	}
+
+	public void Move()
+	{
+		movementDirection = playerInput.actions["Movement"].ReadValue<Vector2>();
+		Vector2 movement = movementDirection * speed / Time.fixedDeltaTime;
 		rb.velocity = new Vector3(movement.x, 0, movement.y);
+		characterAnimator.SetFloat("speed", movementDirection.magnitude * speed / player.settings.movementSpeed);
 	}
 
 	public void Aim(InputAction.CallbackContext context)
@@ -38,12 +46,12 @@ public class PlayerController : MonoBehaviour
 		if (aim.magnitude < 0.1f) return;
 		aimDirection = aim.normalized;
 		float angle = Mathf.Atan2(-aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-		transform.rotation = Quaternion.Euler(0, angle, 0);
+		partToRotate.rotation = Quaternion.Euler(0, angle, 0);
 	}
 
 	private void DecreaseSpeed(int percentage)
 	{
-		speed *= (100 - percentage) * 0.01f;
+		speed = player.settings.movementSpeed * (100 - percentage) * 0.01f;
 	}
 
 	private void ResetSpeed()
@@ -53,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
 	public void Knockback(Vector2 direction)
 	{
-		rb.AddForce(direction * player.settings.knockbackForceWhenHit, ForceMode.Impulse);
+		rb.AddForce(direction * player.settings.knockbackDistanceWhenHit, ForceMode.Impulse);
 	}
 	#endregion Movements
 
@@ -85,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
 		canAttack = false;
 		canAim = false;
-		animator.SetTrigger("LightAttack");
+		hitBoxesAnimator.SetTrigger("LightAttack");
 		DecreaseSpeed(player.settings.lightAttackSpeedReductionPercentage);
 		player.SetInvulnerability(true);
 	}
@@ -114,8 +122,7 @@ public class PlayerController : MonoBehaviour
 	{
 		yield return new WaitForSeconds(player.settings.heavyAttackChargeDuration);
 
-		animator.SetTrigger("HeavyAttack");
-		ResetSpeed();
+		hitBoxesAnimator.SetTrigger("HeavyAttack");
 		DecreaseSpeed(100);
 		player.SetInvulnerability(true);
 	}
@@ -156,8 +163,7 @@ public class PlayerController : MonoBehaviour
 	{
 		yield return new WaitForSeconds(player.settings.censerAttackChargeDuration);
 
-		animator.SetTrigger("CenserSpecialAttack");
-		ResetSpeed();
+		hitBoxesAnimator.SetTrigger("CenserSpecialAttack");
 		DecreaseSpeed(- player.settings.censerAttackSpeedIncreasePercentage);
 		player.SetInvulnerability(true);
 	}
