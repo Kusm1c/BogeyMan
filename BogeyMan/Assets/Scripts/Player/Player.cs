@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+	[SerializeField] private int playerIndex = 0;
 	[field: SerializeField] public PlayerSettings_SO settings { get; private set; } = null;
 	[SerializeField] private PlayerController playerController = null;
-	[SerializeField] private PlayerUI ui = null;
+	[SerializeField] private PlayerWorldUI ui = null;
 
     public int currentLife { get; private set; } = 0;
 
