@@ -39,6 +39,20 @@ public class CameraControl : MonoBehaviour
 
     private void Update()
     {
+        if (player1 == null || player2 == null)
+        {
+            Player[] players = FindObjectsOfType<Player>();
+            if (players.Length > 0)
+            {
+                player1 = players[0].gameObject;
+                
+                if (players.Length > 1)
+                {
+                    player2 = players[1].gameObject;
+                }
+            }
+            return;
+        }
         transform.position = (player1.transform.position + player2.transform.position) / 2f;
         transform.position += offset;
         transform.rotation = rotation;
