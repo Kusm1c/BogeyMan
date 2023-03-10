@@ -23,13 +23,15 @@ public class CameraControl : MonoBehaviour
     [SerializeField] private Vector3 offset;
     [Space]
 
-    private float distance;
+    [SerializeField] private float distance;
+    [SerializeField] private float lastDistance;
+    [SerializeField] private float minDistanceChangeToFocus = 1f;
     private float zoom;
     
     [Header("Camera shake")]
-    [SerializeField] private float shakeDuration = 0.5f;
-    [SerializeField] private float shakeMagnitude = 0.5f;
-
+    [SerializeField] private AnimationCurve shakeCurve;
+    [SerializeField] private float time = 0;
+    
     public static CameraControl instance;
     
     private void Awake()
@@ -39,30 +41,31 @@ public class CameraControl : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+            StartCoroutine(ScreenShake());
+
         transform.position = (player1.transform.position + player2.transform.position) / 2f;
         transform.position += offset;
         transform.rotation = rotation;
         
         distance = Vector3.Distance(player1.transform.position, player2.transform.position);
-        zoom = Mathf.Clamp(distance, minZoom, maxZoom);
+        if (!(distance - lastDistance > minDistanceChangeToFocus)) return;
         
+        zoom = Mathf.Clamp(distance, minZoom, maxZoom);
+
         offset = Vector3.Lerp(offset, offset.normalized * zoom, Time.deltaTime * zoomSpeed);
 
     }
 
     public IEnumerator ScreenShake()
     {
-        float elapsed = 0.0f;
-        Vector3 originalCamPos = transform.position;
-        while (elapsed < shakeDuration)
+        float timeElapsed = 0;
+        while (timeElapsed < time)
         {
-            float x = Random.Range(-1f, 1f) * shakeMagnitude;
-            float y = Random.Range(-1f, 1f) * shakeMagnitude;
-            transform.position = new Vector3(originalCamPos.x + x, originalCamPos.y + y, originalCamPos.z);
-            elapsed += Time.deltaTime;
+            timeElapsed += Time.deltaTime;
+            float shake = shakeCurve.Evaluate(timeElapsed);
+            transform.position = new Vector3(Random.Range(-shake, shake), Random.Range(-shake, shake), Random.Range(-shake, shake));
             yield return null;
         }
-
-        transform.position = originalCamPos;
     }
 }
