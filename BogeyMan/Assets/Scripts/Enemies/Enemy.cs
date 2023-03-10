@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.AI;
 
 namespace Enemies
 {
-    public abstract class Enemy : MonoBehaviour
+    public abstract class Enemy : MonoBehaviour, IGrabable
     {
         public Transform target
         {
@@ -118,5 +119,28 @@ namespace Enemies
             meshRenderer.SetPropertyBlock(propertyBlock);
             gameObject.SetActive(false);
         }
+
+		#region IGrabableImplementation
+		public void Grab()
+        {
+            GetComponent<NavMeshAgent>().isStopped = true;
+        }
+
+        public void Release()
+        {
+            transform.parent = null;
+            GetComponent<NavMeshAgent>().isStopped = false;
+        }
+
+        public void Throw()
+        {
+
+        }
+
+        public void Impact()
+        {
+            GetComponent<NavMeshAgent>().isStopped = false;
+        }
+        #endregion IGrabableImplementation
     }
 }

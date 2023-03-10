@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IGrabable
 {
     [SerializeField] private float speed = 1f;
     
@@ -55,20 +55,41 @@ public class Enemy : MonoBehaviour
         spawner.SwarmerDeath(gameObject);
     }
 
+	public void Grab()
+	{
+        GetComponent<NavMeshAgent>().enabled = false;
+    }
 
-    // private void OnCollisionEnter(Collision collision)
-    // {
-    //     //if collision with "Wall"
-    //     if (collision.gameObject.GetComponent<Wall>() != null)
-    //     {
-    //         agent.speed = 0f;
-    //         StartCoroutine(cameraControl.ScreenShake());
-    //         agent.speed = speed;
-    //     }
-    //
-    //     if (collision.gameObject.GetComponent<EnemyTest>() != null)
-    //     {
-    //         //from where the collision happened and the force of the collision 
-    //     }
-    // }
+	public void Release()
+	{
+        transform.parent = null;
+        GetComponent<NavMeshAgent>().enabled = true;
+    }
+
+	public void Throw()
+	{
+		throw new NotImplementedException();
+	}
+
+	public void Impact()
+	{
+        GetComponent<NavMeshAgent>().enabled = true;
+    }
+
+
+	// private void OnCollisionEnter(Collision collision)
+	// {
+	//     //if collision with "Wall"
+	//     if (collision.gameObject.GetComponent<Wall>() != null)
+	//     {
+	//         agent.speed = 0f;
+	//         StartCoroutine(cameraControl.ScreenShake());
+	//         agent.speed = speed;
+	//     }
+	//
+	//     if (collision.gameObject.GetComponent<EnemyTest>() != null)
+	//     {
+	//         //from where the collision happened and the force of the collision 
+	//     }
+	// }
 }
