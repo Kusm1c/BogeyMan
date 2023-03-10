@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 namespace Enemies
 {
-    public abstract class Enemy : MonoBehaviour
+    public abstract class Enemy : MonoBehaviour, IGrabable
     {
         public Transform target
         {
@@ -38,6 +38,7 @@ namespace Enemies
         private Transform _target;
         private bool isDead;
         protected bool isStopped;
+        protected bool isGrabbed = false;
 
         private int hp;
         private static readonly int color = Shader.PropertyToID("_BaseColor");
@@ -73,7 +74,8 @@ namespace Enemies
                 return;
             }
 
-            if ((target.transform.position - transform.position).sqrMagnitude <
+            if (!isGrabbed &&
+                (target.transform.position - transform.position).sqrMagnitude <
                 settings.attackRange * settings.attackRange)
             {
                 Attack(target.GetComponent<Player>());
@@ -124,7 +126,7 @@ namespace Enemies
 
         protected abstract void Attack(Player player);
 
-        public void TakeHit(float strength, Vector3 direction)
+        public void TakeHit(float strength, Vector3 direction, int damage = 1)
         {
             if (isDead) return;
 
@@ -132,13 +134,12 @@ namespace Enemies
             rigidbody.WakeUp();
             rigidbody.velocity = direction * strength;
 
-            TakeHit();
+            TakeHit(damage);
         }
 
-        [ContextMenu("Take Hit")]
-        private void TakeHit()
+        private void TakeHit(int damage = 1)
         {
-            hp--;
+            hp -= damage;
 
             if (hp >= 1) return;
             
@@ -171,6 +172,32 @@ namespace Enemies
             meshRenderer.SetPropertyBlock(propertyBlock);
             gameObject.SetActive(false);
         }
+
+		#region IGrabableImplementation
+		public void Grab()
+        {
+            agent.enabled = false;
+            isGrabbed = true;
+        }
+
+        public void Release()
+        {
+            transform.parent = null;
+            agent.enabled = true;
+            isGrabbed = false;
+        }
+
+        public void Throw()
+        {
+
+        }
+
+        public void Impact()
+        {
+            agent.enabled = true;
+            isGrabbed = false;
+        }
+        #endregion IGrabableImplementation
 
 #if UNITY_EDITOR
         #region Debug
