@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour, IGrabable
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private float speed = 1f;
     
@@ -53,27 +53,6 @@ public class Enemy : MonoBehaviour, IGrabable
     private void OnDisable()
     {
         spawner.SwarmerDeath(gameObject);
-    }
-
-	public void Grab()
-	{
-        GetComponent<NavMeshAgent>().enabled = false;
-    }
-
-	public void Release()
-	{
-        transform.parent = null;
-        GetComponent<NavMeshAgent>().enabled = true;
-    }
-
-	public void Throw()
-	{
-		throw new NotImplementedException();
-	}
-
-	public void Impact()
-	{
-        GetComponent<NavMeshAgent>().enabled = true;
     }
 
 

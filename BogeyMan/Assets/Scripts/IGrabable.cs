@@ -5,12 +5,15 @@ using UnityEngine;
 public interface IGrabable
 {
     Transform transform { get; }
+    public bool IsThrowable();
+    public float GetThrowSpeed();
+    public float GetThrowDuration();
+    public Collider GetCollider();
+    public void OnGrab();
 
-    public void Grab();
+    public void OnRelease();
 
-    public void Release();
+    public void OnImpact();
 
-    public void Impact();
-
-    public void Throw();
+    public void OnThrow();
 }

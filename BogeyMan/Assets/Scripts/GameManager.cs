@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CanvasManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    [field : SerializeField] public PlayerUI[] playerUIs { get; private set; } = new PlayerUI[2];
-    public static CanvasManager Instance;
+    public static GameManager Instance = null;
+    [field: SerializeField] public Player[] Players {get; private set; } = new Player[2];
+    public bool SlowMotionIsActive = false;
 
     private void Awake()
     {

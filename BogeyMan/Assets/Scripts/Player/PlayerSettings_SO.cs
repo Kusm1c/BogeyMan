@@ -11,6 +11,7 @@ public class PlayerSettings_SO : ScriptableObject
 	[field: Header("Movement")]
 	[field: SerializeField] public float movementSpeed { get; private set; } = 1f;
 	[field: SerializeField] public float knockbackDistanceWhenHit { get; private set; } = 1f;
+	[field: SerializeField] public float knockbackSpeedWhenHit { get; private set; } = 8f;
 	[field: SerializeField] public float invulnerabilityDurationWhenHit { get; private set; } = 2.5f;
 
 	[field : Header("Light attack")]
@@ -40,6 +41,15 @@ public class PlayerSettings_SO : ScriptableObject
 	[field: SerializeField] public float censerAttackProjectionDuration { get; private set; } = 0.2f;
 
 	[field: Header("Grab")]
+	[field: SerializeField] public int throwDamage { get; private set; } = 1;
 	[field: SerializeField] public float throwSpeed { get; private set; } = 1;
 	[field: SerializeField] public float throwDuration { get; private set; } = 2;
+
+
+
+	[field: SerializeField] public float slowMotionReflectPRange { get; private set; } = 3f;
+	[field: SerializeField] public float reflectSpeedMultiplier { get; private set; } = 1.3f;
+	[field: SerializeField] public int reflectSAdditionnalDamage { get; private set; } = 1;
+	[field: SerializeField] public float slowmotionTimeScale{ get; private set; } = 0.04f;
+
 }

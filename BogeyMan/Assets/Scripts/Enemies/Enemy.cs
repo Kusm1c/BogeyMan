@@ -59,7 +59,7 @@ namespace Enemies
             }
 #endif
             
-            if (!rigidbody.IsSleeping() && rigidbody.velocity.magnitude < 0.1f)
+            if (!rigidbody.IsSleeping() && rigidbody.velocity.magnitude < 0.1f && isGrabbed == false)
             {
                 rigidbody.velocity = Vector3.zero;
                 rigidbody.Sleep();
@@ -173,26 +173,46 @@ namespace Enemies
             gameObject.SetActive(false);
         }
 
-		#region IGrabableImplementation
-		public void Grab()
+        #region IGrabableImplementation
+        public virtual bool IsThrowable()
+        {
+            return true;
+        }
+
+        public void OnGrab()
         {
             agent.enabled = false;
             isGrabbed = true;
         }
 
-        public void Release()
+
+        public float GetThrowSpeed()
+        {
+            return 10f;
+        }
+
+        public float GetThrowDuration()
+        {
+            return 1.5f;
+        }
+        public Collider GetCollider()
+        {
+            return GetComponent<Collider>();
+        }
+
+        public void OnRelease()
         {
             transform.parent = null;
             agent.enabled = true;
             isGrabbed = false;
         }
 
-        public void Throw()
+        public void OnThrow()
         {
 
         }
 
-        public void Impact()
+        public void OnImpact()
         {
             agent.enabled = true;
             isGrabbed = false;
@@ -212,8 +232,9 @@ namespace Enemies
             rigidbody.drag = settings.linearDrag;
         }
 
+
         #endregion
 #endif
-        
+
     }
 }

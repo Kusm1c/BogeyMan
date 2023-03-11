@@ -7,11 +7,12 @@ using UnityEngine.AI;
 public class Grab : MonoBehaviour
 {
     [SerializeField] Player player = null;
-
+    [SerializeField] private Transform grabbedObjectPivot = null;
+    [SerializeField] private ThrownObjectParent thrownObjectParentPrefab = null;
+    [SerializeField] private Transform thrownObjectParentSpawnPos = null;
     private IGrabable grabbedObject = null;
     private List<IGrabable> grabableObjects = new List<IGrabable>();
     private IGrabable nearestGrabable = null;
-    private float initialMass = 0;
     Rigidbody rb;
 
     public void GrabInput()
@@ -25,7 +26,15 @@ public class Grab : MonoBehaviour
         }
 		else
 		{
-            StartCoroutine(ThrowObject(grabbedObject));
+            if (grabbedObject.IsThrowable() == true)
+            {
+                ThrowObject(grabbedObject);
+            }
+            else
+            {
+                Release(grabbedObject);
+            }
+            
             if (grabableObjects.Count > 0)
 			{
                 GrabObject(nearestGrabable);
@@ -35,60 +44,87 @@ public class Grab : MonoBehaviour
 
     private void GrabObject(IGrabable objectToGrab)
 	{
+        player.playerState.isGrabbing = true;
         grabbedObject = objectToGrab;
-        grabbedObject.transform.position = transform.position;
-        grabbedObject.transform.parent = transform;
+        grabbedObject.transform.parent = grabbedObjectPivot;
+        grabbedObject.transform.position = grabbedObjectPivot.position;
         rb = grabbedObject.transform.GetComponent<Rigidbody>();
-        rb.Sleep();
-        grabbedObject.Grab();
+        rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
+        objectToGrab.GetCollider().enabled = false;
+        grabbedObject.OnGrab();
         grabableObjects.Remove(grabbedObject);
-        initialMass = rb.mass;
-        rb.mass = 0;
     }
 
-    private IEnumerator ThrowObject(IGrabable objectToThrow)
+    private void ThrowObject(IGrabable objectToThrow)
     {
-        rb.mass = initialMass;
+        player.playerState.isGrabbing = false;
+        
         grabbedObject = null;
         objectToThrow.transform.parent = null;
-        rb.WakeUp();
-        Vector3 direction = (objectToThrow.transform.position - player.transform.position).normalized;
+        Vector3 direction = new Vector3(player.playerController.aimDirection.x, 0 ,player.playerController.aimDirection.y);
         
-        objectToThrow.Throw();
+        objectToThrow.OnThrow();
         direction.y = 0;
+        direction = direction.normalized;
+        ThrownObjectParent trownObjectParentInstance = Instantiate(thrownObjectParentPrefab.gameObject, thrownObjectParentSpawnPos.position, Quaternion.identity).GetComponent<ThrownObjectParent>();
+        trownObjectParentInstance.Throw(objectToThrow.GetThrowSpeed(), objectToThrow.GetThrowDuration(), player, direction, player.settings.throwDamage, objectToThrow);
+        /*
         //rb.velocity = direction * player.settings.throwSpeed;
         rb.AddForce(direction * player.settings.throwSpeed);
 
         yield return new WaitForSeconds(player.settings.throwDuration);
+
+        //rb.isKinematic = false;
         rb.velocity = Vector3.zero;
-        objectToThrow.Impact();
+        objectToThrow.Impact();*/
     }
 
-    private void Update()
+    private void Release(IGrabable objectToRelease)
+    {
+        player.playerState.isGrabbing = false;
+        rb.velocity = Vector3.zero;
+        grabbedObject = null;
+        ResetGrabbedObject(objectToRelease);
+    }
+    public static void ResetGrabbedObject(IGrabable objectToRelease)
+    {
+        objectToRelease.transform.GetComponent<Rigidbody>().isKinematic = false;
+        objectToRelease.GetCollider().enabled = true;
+        objectToRelease.transform.parent = null;
+        objectToRelease.OnRelease();
+
+    }
+
+    private void FixedUpdate()
     {
         if (grabableObjects.Count > 0)
         {
             nearestGrabable = grabableObjects[0];
-            foreach(IGrabable grabable in grabableObjects)
-			{
-                if ((grabable.transform.position - transform.position).magnitude
-                    < (nearestGrabable.transform.position - transform.position).magnitude)
-				{
-                    nearestGrabable = grabable;
-				}
-			}
-        }
 
+            if (grabableObjects.Count > 1)
+            {
+                foreach (IGrabable grabable in grabableObjects)
+                {
+                    if ((grabable.transform.position - transform.position).magnitude
+                        < (nearestGrabable.transform.position - transform.position).magnitude)
+                    {
+                        nearestGrabable = grabable;
+                    }
+                }
+            }
+        }
+        /*
         if (grabbedObject != null)
 		{
-            grabbedObject.transform.position = transform.position;
-		}
+            grabbedObject.transform.position = grabbedObjectPivot.position;
+		}*/
     }
 
     private void OnTriggerEnter(Collider other)
     {
         IGrabable grabable = other.gameObject.GetComponent<IGrabable>();
-        if (grabable != null)
+        if (grabable != null && grabable != grabbedObject)
 		{
             grabableObjects.Add(grabable);
         }
