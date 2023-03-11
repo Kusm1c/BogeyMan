@@ -7,7 +7,8 @@ public class Player : MonoBehaviour
 	[SerializeField] private int playerIndex = 0;
 	[field: SerializeField] public PlayerSettings_SO settings { get; private set; } = null;
 	[SerializeField] private PlayerController playerController = null;
-	[SerializeField] private PlayerWorldUI ui = null;
+	[SerializeField] private PlayerWorldUI worldUi = null;
+	private PlayerUI ui = null;
 
     public int currentLife { get; private set; } = 0;
 
@@ -15,13 +16,14 @@ public class Player : MonoBehaviour
 
 	private void Start()
 	{
+		ui = CanvasManager.Instance.playerUIs[playerIndex];
 		currentLife = settings.maxLife;
 	}
 
 	public void TakeHit(int damageTaken, Vector2 knockbackDirection)
 	{
 		currentLife -= damageTaken;
-		//ui.UpdateLifeBar(currentLife, settings.maxLife);
+		ui.UpdateLifeBar(currentLife, settings.maxLife);
 		playerController.Knockback(knockbackDirection);
 		SetInvulnerability(true, settings.invulnerabilityDurationWhenHit);
 		playerController.Stun(0.4f);
