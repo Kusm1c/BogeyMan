@@ -11,7 +11,7 @@ public class Grab : MonoBehaviour
     [SerializeField] private ThrownObjectParent thrownObjectParentPrefab = null;
     [SerializeField] private Transform thrownObjectParentSpawnPos = null;
     private IGrabable grabbedObject = null;
-    private List<IGrabable> grabableObjects = new List<IGrabable>();
+    [HideInInspector] public List<IGrabable> GrabableObjects = new List<IGrabable>();
     private IGrabable nearestGrabable = null;
     Rigidbody rb;
 
@@ -19,7 +19,7 @@ public class Grab : MonoBehaviour
 	{
         if (grabbedObject == null)
 		{
-            if (grabableObjects.Count > 0)
+            if (GrabableObjects.Count > 0)
             {
                 GrabObject(nearestGrabable);
             }
@@ -35,7 +35,7 @@ public class Grab : MonoBehaviour
                 Release(grabbedObject);
             }
             
-            if (grabableObjects.Count > 0)
+            if (GrabableObjects.Count > 0)
 			{
                 GrabObject(nearestGrabable);
             }
@@ -44,16 +44,19 @@ public class Grab : MonoBehaviour
 
     private void GrabObject(IGrabable objectToGrab)
 	{
-        player.playerState.isGrabbing = true;
         grabbedObject = objectToGrab;
-        grabbedObject.transform.parent = grabbedObjectPivot;
-        grabbedObject.transform.position = grabbedObjectPivot.position;
-        rb = grabbedObject.transform.GetComponent<Rigidbody>();
-        rb.velocity = Vector3.zero;
-        rb.isKinematic = true;
+        player.playerState.isGrabbing = true;
+        grabbedObject.OnGrab(player);
+        if(player.playerState.isGrabbingSummoner == false)
+        {
+            grabbedObject.transform.parent = grabbedObjectPivot;
+            grabbedObject.transform.position = grabbedObjectPivot.position;
+            rb = grabbedObject.transform.GetComponent<Rigidbody>();
+            rb.velocity = Vector3.zero;
+            rb.isKinematic = true;
+        }
         objectToGrab.GetCollider().enabled = false;
-        grabbedObject.OnGrab();
-        grabableObjects.Remove(grabbedObject);
+        GrabableObjects.Remove(grabbedObject);
     }
 
     private void ThrowObject(IGrabable objectToThrow)
@@ -83,9 +86,18 @@ public class Grab : MonoBehaviour
     private void Release(IGrabable objectToRelease)
     {
         player.playerState.isGrabbing = false;
-        rb.velocity = Vector3.zero;
         grabbedObject = null;
-        ResetGrabbedObject(objectToRelease);
+        if (player.playerState.isGrabbingSummoner == true)
+        {
+            objectToRelease.GetCollider().enabled = true;
+            objectToRelease.OnRelease();
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
+            ResetGrabbedObject(objectToRelease);
+        }
+
     }
     public static void ResetGrabbedObject(IGrabable objectToRelease)
     {
@@ -98,13 +110,13 @@ public class Grab : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (grabableObjects.Count > 0)
+        if (GrabableObjects.Count > 0)
         {
-            nearestGrabable = grabableObjects[0];
+            nearestGrabable = GrabableObjects[0];
 
-            if (grabableObjects.Count > 1)
+            if (GrabableObjects.Count > 1)
             {
-                foreach (IGrabable grabable in grabableObjects)
+                foreach (IGrabable grabable in GrabableObjects)
                 {
                     if ((grabable.transform.position - transform.position).magnitude
                         < (nearestGrabable.transform.position - transform.position).magnitude)
@@ -126,7 +138,7 @@ public class Grab : MonoBehaviour
         IGrabable grabable = other.gameObject.GetComponent<IGrabable>();
         if (grabable != null && grabable != grabbedObject)
 		{
-            grabableObjects.Add(grabable);
+            GrabableObjects.Add(grabable);
         }
     }
 
@@ -135,7 +147,7 @@ public class Grab : MonoBehaviour
         IGrabable grabable = other.gameObject.GetComponent<IGrabable>();
         if (grabable != null)
         {
-            grabableObjects.Remove(grabable);
+            GrabableObjects.Remove(grabable);
         }
     }
 }

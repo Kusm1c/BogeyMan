@@ -179,7 +179,7 @@ namespace Enemies
             return true;
         }
 
-        public void OnGrab()
+        public void OnGrab(Player player)
         {
             agent.enabled = false;
             isGrabbed = true;

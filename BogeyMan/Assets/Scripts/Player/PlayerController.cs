@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,7 +11,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private Animator characterAnimator = null;
 	[SerializeField] private Animator hitBoxesAnimator = null;
 	[SerializeField] private Transform partToRotate = null;
-	[SerializeField] private Grab grab = null;
+	[field: SerializeField] public Grab grab { get; private set; }  = null;
 
 	[SerializeField] private Weapon weapon = Weapon.Censer;
 
@@ -34,6 +35,11 @@ public class PlayerController : MonoBehaviour
 		if (player.playerState.canMove == true)
         {
 			Move();
+		}
+        else
+        {
+			rb.velocity = Vector3.zero;
+			characterAnimator.SetFloat("speed", 0);
 		}
 	}
 

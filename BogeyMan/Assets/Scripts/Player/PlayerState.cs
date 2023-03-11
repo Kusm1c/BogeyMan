@@ -35,6 +35,5 @@ public class PlayerState : MonoBehaviour
 
     public bool canAim => isAttacking == false
                         && isDead == false
-                        && isGrabbingSummoner == false
                         && isKnockedBack == false;
 }

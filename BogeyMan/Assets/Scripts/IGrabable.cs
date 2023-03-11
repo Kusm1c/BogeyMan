@@ -9,7 +9,7 @@ public interface IGrabable
     public float GetThrowSpeed();
     public float GetThrowDuration();
     public Collider GetCollider();
-    public void OnGrab();
+    public void OnGrab(Player grabbingPlayer);
 
     public void OnRelease();
 
