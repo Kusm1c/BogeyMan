@@ -113,7 +113,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_35d1b7c4e94b474b9b13ed0c35a941b7: 0.35
-    - Vector1_821412cd075a4941a819efb9e9bcc838: -0.47
+    - Vector1_821412cd075a4941a819efb9e9bcc838: -0.4
     - Vector1_a9956e33487c4aaa90cc1ed1feddcd5c: 25
     - Vector1_b23469f6ad8f4c25a1b78384bb63e1fe: 1.54
     - _AddPrecomputedVelocity: 0
@@ -191,6 +191,7 @@ Material:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _tex_tiling: {r: 2, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &9016100754997218917
 MonoBehaviour:
