@@ -95,6 +95,7 @@ public class ThrownObjectParent : MonoBehaviour
                 GameManager.Instance.SlowMotionIsActive = true;
                 Time.timeScale = LastHitingPlayer.settings.slowmotionTimeScale;
                 Time.fixedDeltaTime = 0.02F * Time.timeScale;
+                p.playerController.SetSlowMotionLightAttackAcceleration(p.settings.slowmotionTimeScale);
             }
         }
         else
@@ -104,6 +105,7 @@ public class ThrownObjectParent : MonoBehaviour
                 GameManager.Instance.SlowMotionIsActive = false;
                 Time.timeScale = 1;
                 Time.fixedDeltaTime = 0.02F * Time.timeScale;
+                p.playerController.SetSlowMotionLightAttackAcceleration(1);
             }
             if (Time.time > flyStartTime + Duration)
             {

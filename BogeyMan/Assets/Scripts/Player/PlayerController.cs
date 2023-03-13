@@ -139,6 +139,11 @@ public class PlayerController : MonoBehaviour
 		canLightAttack = false;
 		yield return new WaitForSeconds(cooldown);
 		canLightAttack = true;
+	}	public void SetSlowMotionLightAttackAcceleration(float newTimeScale)
+	{
+		float slowMotionMultiplier = 1f / newTimeScale;
+		characterAnimator.SetFloat("SlowMotion", slowMotionMultiplier);
+		hitBoxesAnimator.SetFloat("SlowMotion", slowMotionMultiplier);
 	}
 	#endregion LightAttack
 
