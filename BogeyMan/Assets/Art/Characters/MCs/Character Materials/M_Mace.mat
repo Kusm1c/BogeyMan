@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_SwarmerRNG
+  m_Name: M_Mace
   m_Shader: {fileID: -6465566751694194690, guid: a42cbfaaf480a0148bf1392bc2c18565,
     type: 3}
   m_Parent: {fileID: 0}
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Base_color:
-        m_Texture: {fileID: 2800000, guid: 0e035b72ec81e6845b5702aaf558bfd9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2e991689de7f5ee4e8fd355398d94d4c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
@@ -65,7 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emissive_map:
-        m_Texture: {fileID: 2800000, guid: 10955b8140e933948932733bf1c878c9, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
@@ -97,11 +97,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal_map:
-        m_Texture: {fileID: 2800000, guid: 7a421257095d50947918595a45ef3935, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5d74aa2f6f7dc6641a5f547d8f7c10ab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OMG:
-        m_Texture: {fileID: 2800000, guid: 5f14c8eb089529a4aaef0e3801f0379a, type: 3}
+        m_Texture: {fileID: 2800000, guid: d8ca4c07808b80244ad1ebaeea39e132, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
@@ -184,7 +184,7 @@ Material:
     - _EmissiveExposureWeight: 1
     - _EmissiveIntensity: 1
     - _EmissiveIntensityUnit: 0
-    - _Emissive_intensiy: 10
+    - _Emissive_intensiy: 20
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
@@ -277,8 +277,8 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
-    - _Emissive_color: {r: 10.680627, g: 2.6068413, b: 0, a: 0}
-    - _Hit_color: {r: 0.54901963, g: 0.05490196, b: 0.05490196, a: 0}
+    - _Emissive_color: {r: 0, g: 0, b: 0, a: 0}
+    - _Hit_color: {r: 0.5471698, g: 0.05420078, b: 0.05420078, a: 0}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _Normal_tiling: {r: 1, g: 1, b: 0, a: 0}
