@@ -70,8 +70,8 @@ public class Grab : MonoBehaviour
         objectToThrow.OnThrow();
         direction.y = 0;
         direction = direction.normalized;
-        ThrownObjectParent trownObjectParentInstance = Instantiate(thrownObjectParentPrefab.gameObject, thrownObjectParentSpawnPos.position, Quaternion.identity).GetComponent<ThrownObjectParent>();
-        trownObjectParentInstance.Throw(objectToThrow.GetThrowSpeed(), objectToThrow.GetThrowDuration(), player, direction, player.settings.throwDamage, objectToThrow);
+        ThrownObjectParent thrownObjectParentInstance = Instantiate(thrownObjectParentPrefab.gameObject, thrownObjectParentSpawnPos.position, Quaternion.identity).GetComponent<ThrownObjectParent>();
+        thrownObjectParentInstance.Throw(objectToThrow.GetThrowSpeed(), objectToThrow.GetThrowDuration(), player, direction, player.settings.throwDamage, objectToThrow);
         /*
         //rb.velocity = direction * player.settings.throwSpeed;
         rb.AddForce(direction * player.settings.throwSpeed);

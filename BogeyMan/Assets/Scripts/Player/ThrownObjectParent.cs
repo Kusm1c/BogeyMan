@@ -9,7 +9,7 @@ public class ThrownObjectParent : MonoBehaviour
     [HideInInspector] public float Duration;
     [HideInInspector] public int Damage;
     private float flyStartTime = 0;
-    [HideInInspector] public Player LastHiitingPlayer = null;
+    [HideInInspector] public Player LastHitingPlayer = null;
     private IGrabable thrownObject = null;
     private Rigidbody rb = null;
 
@@ -31,14 +31,14 @@ public class ThrownObjectParent : MonoBehaviour
         flyStartTime = Time.time;
         Speed = speed;
         Duration = duration;
-        LastHiitingPlayer = throwingPlayer;
+        LastHitingPlayer = throwingPlayer;
         rb.velocity = direction.normalized * speed;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         IGrabable collidedGrabable = other.GetComponent<IGrabable>();
-        if(collidedGrabable == thrownObject || other.GetComponentInParent<Player>() == LastHiitingPlayer || other.isTrigger == true)
+        if(collidedGrabable == thrownObject || other.GetComponentInParent<Player>() == LastHitingPlayer || other.isTrigger == true)
         {
             return;
         }
@@ -69,38 +69,32 @@ public class ThrownObjectParent : MonoBehaviour
 
                 enemy.TakeHit(20f, direction, Damage);
             }
-
-            //push back and damage
         }
     }
 
     private void FixedUpdate()
     {
         bool InRangeForSlowmotion = false;
-        Player p = GameManager.Instance.Players[LastHiitingPlayer.playerIndex == 1 ? 0 : 1];
+        Player p = GameManager.Instance.Players[LastHitingPlayer.playerIndex == 1 ? 0 : 1];
         if (p != null)
         {
             Vector2 flatPlayerPos = new Vector2(p.transform.position.x, p.transform.position.z);
             Vector2 flatTrownObjectPos = new Vector2(transform.position.x, transform.position.z);
 
             float distance = Vector2.Distance(flatTrownObjectPos, flatPlayerPos);
-            if (distance <= p.settings.slowMotionReflectPRange)
+            if (distance <= p.settings.slowMotionReflectRange)
             {
                 InRangeForSlowmotion = true;
             }
         }
-        else
-        {
-            print("player inexistant");
-        }
-
 
         if(InRangeForSlowmotion == true)
         { 
             if(GameManager.Instance.SlowMotionIsActive == false)
             {
                 GameManager.Instance.SlowMotionIsActive = true;
-                Time.timeScale = LastHiitingPlayer.settings.slowmotionTimeScale;
+                Time.timeScale = LastHitingPlayer.settings.slowmotionTimeScale;
+                Time.fixedDeltaTime = 0.02F * Time.timeScale;
             }
         }
         else
@@ -109,6 +103,7 @@ public class ThrownObjectParent : MonoBehaviour
             {
                 GameManager.Instance.SlowMotionIsActive = false;
                 Time.timeScale = 1;
+                Time.fixedDeltaTime = 0.02F * Time.timeScale;
             }
             if (Time.time > flyStartTime + Duration)
             {

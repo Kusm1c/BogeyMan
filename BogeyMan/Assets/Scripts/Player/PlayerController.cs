@@ -32,14 +32,17 @@ public class PlayerController : MonoBehaviour
 	#region Movements
 	private void FixedUpdate()
 	{
-		if (player.playerState.canMove == true)
-        {
-			Move();
-		}
-        else
-        {
-			rb.velocity = Vector3.zero;
-			characterAnimator.SetFloat("speed", 0);
+		if (player.playerState.canMove == true)
+        {
+			Move();
+		}
+        else
+        {
+			if (player.playerState.isKnockedBack == false)
+			{
+				rb.velocity = Vector3.zero;
+			}
+			characterAnimator.SetFloat("speed", 0);
 		}
 	}
 
@@ -49,9 +52,8 @@ public class PlayerController : MonoBehaviour
 		movementDirection = movementDirection.normalized * Mathf.Min(movementDirection.magnitude, 1f);
 		Vector2 movement = movementDirection * speed;
 		rb.velocity = new Vector3(movement.x, 0, movement.y);
-
-
-		characterAnimator.SetFloat("speed", movementDirection.magnitude * speed / player.settings.movementSpeed);
+		float animationSpeed = movementDirection.magnitude * speed / player.settings.movementSpeed;
+		characterAnimator.SetFloat("speed", animationSpeed);
 	}
 
 	public void Aim(InputAction.CallbackContext context)
@@ -76,24 +78,21 @@ public class PlayerController : MonoBehaviour
 
 	public void Knockback(Vector2 direction)
 	{
-
-		player.playerState.isKnockedBack = true;
-
+		player.playerState.isKnockedBack = true;
 		Vector3 directionVector3 = new Vector3(direction.x, 0, direction.y);
 		rb.AddForce(directionVector3.normalized * player.settings.knockbackSpeedWhenHit, ForceMode.VelocityChange);
 		StartCoroutine(WaitForEndOfKnockback());
 	}
 
-	private IEnumerator WaitForEndOfKnockback()
-    {
-		float duration = player.settings.knockbackDistanceWhenHit / player.settings.knockbackSpeedWhenHit;
-		yield return new WaitForSeconds(duration);
-
-		rb.AddForce(Vector3.zero, ForceMode.VelocityChange);
-		player.playerState.isKnockedBack = false;
+	private IEnumerator WaitForEndOfKnockback()
+    {
+		float duration = player.settings.knockbackDistanceWhenHit / player.settings.knockbackSpeedWhenHit;
+		
+		yield return new WaitForSeconds(duration);
+		rb.AddForce(Vector3.zero, ForceMode.VelocityChange);
+		player.playerState.isKnockedBack = false;
 	}
-	#endregion Movements
-
+	#endregion Movements
 	#region Stun
 	public void Stun(float duration)
 	{
@@ -118,7 +117,7 @@ public class PlayerController : MonoBehaviour
 	#region LightAttack
 	public void LightAttack(InputAction.CallbackContext context)
 	{
-		if (!context.started || !player.playerState.canAttack) return;
+		if (!context.started || !player.playerState.canAttack || !canLightAttack) return;
 
 		player.playerState.isAttacking = true;
 		hitBoxesAnimator.SetTrigger("LightAttack");
@@ -146,7 +145,7 @@ public class PlayerController : MonoBehaviour
 	#region HeavyAttack
 	public void HeavyAttack(InputAction.CallbackContext context)
 	{
-		if (!context.started || !player.playerState.canAttack) return;
+		if (!context.started || !player.playerState.canAttack || !canHeavyAttack) return;
 
 		player.playerState.isAttacking = true;
 		DecreaseSpeed(player.settings.heavyAttackChargeSpeedReductionPercentage);
@@ -182,23 +181,12 @@ public class PlayerController : MonoBehaviour
 	#region SpecialAttack
 	public void SpecialAttack(InputAction.CallbackContext context)
 	{
-		if (!context.started || !player.playerState.canAttack)
+		if (!context.started || !player.playerState.canAttack || !canSpecialAttack)
 			return;
 
-		switch (weapon)
-		{
-			case Weapon.Shovel:
-			{
-				break;
-			}
-			case Weapon.Censer:
-			{
-				player.playerState.isAttacking = true;
-				DecreaseSpeed(100);
-				StartCoroutine(CenserSpecialAttackCharge());
-				break;
-			}
-		}
+		player.playerState.isAttacking = true;
+		DecreaseSpeed(100);
+		StartCoroutine(CenserSpecialAttackCharge());
 	}
 
 	private IEnumerator CenserSpecialAttackCharge()
@@ -217,7 +205,6 @@ public class PlayerController : MonoBehaviour
 		player.SetInvulnerability(false);
 		player.playerState.isAttacking = false;
 	}
-
 	private IEnumerator WaitForSpecialAttackCooldown(float cooldown)
 	{
 		canSpecialAttack = false;

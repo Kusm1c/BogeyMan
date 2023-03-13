@@ -34,8 +34,8 @@ public class Player : MonoBehaviour
 		currentLife -= damageTaken;
 		ui.UpdateLifeBar(currentLife, settings.maxLife);
 		playerController.Knockback(knockbackDirection);
+		print(knockbackDirection);
 		SetInvulnerability(true, settings.invulnerabilityDurationWhenHit);
-		playerController.Stun(0.4f);
 		if (currentLife <= 0)
 		{
 			Die();

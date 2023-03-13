@@ -46,7 +46,7 @@ public class PlayerAttackCollider : MonoBehaviour
 		else
 		{
 			ThrownObjectParent thrownObject = other.gameObject.GetComponent<ThrownObjectParent>();
-			if (thrownObject != null && thrownObject.LastHiitingPlayer != player)
+			if (thrownObject != null && thrownObject.LastHitingPlayer != player)
 			{
 				Vector3 direction = new Vector3(player.playerController.aimDirection.x, 0, player.playerController.aimDirection.y);
 				direction.y = 0;
@@ -56,9 +56,22 @@ public class PlayerAttackCollider : MonoBehaviour
 									thrownObject.Duration, 
 									player,
 									direction, 
-									thrownObject.Damage + player.settings.reflectSAdditionnalDamage);
+									thrownObject.Damage + player.settings.reflectAdditionnalDamage);
 
+				if (GameManager.Instance.SlowMotionIsActive == true)
+				{
+					GameManager.Instance.SlowMotionIsActive = false;
+					Time.timeScale = 1;
+					Time.fixedDeltaTime = 0.02F * Time.timeScale;
+				}
 			}
+			
+			/*Projectile projectile = other.gameObject.GetComponent<Projectile>();
+			else if (projectile)
+			{
+				// renvoi dans l'autre sens
+
+			}*/
 		}
 
 	}
