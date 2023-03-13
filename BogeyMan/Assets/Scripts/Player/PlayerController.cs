@@ -153,7 +153,6 @@ public class PlayerController : MonoBehaviour
 		player.playerState.isAttacking = true;
 		DecreaseSpeed(player.settings.heavyAttackChargeSpeedReductionPercentage);
 		StartCoroutine(HeavyAttackCharge());
-		characterAnimator.SetTrigger("HeavyAttack");
 	}
 
 	private IEnumerator HeavyAttackCharge()
@@ -161,6 +160,7 @@ public class PlayerController : MonoBehaviour
 		yield return new WaitForSeconds(player.settings.heavyAttackChargeDuration);
 
 		hitBoxesAnimator.SetTrigger("HeavyAttack");
+		characterAnimator.SetTrigger("HeavyAttack");
 		DecreaseSpeed(100);
 		player.SetInvulnerability(true);
 	}
