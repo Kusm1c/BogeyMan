@@ -63,7 +63,7 @@ public class PlayerFunny : MonoBehaviour
             }
             else
             {
-                Debug.Log("Object is visible");
+                // Debug.Log("Object is visible");
             }
         }
     }
