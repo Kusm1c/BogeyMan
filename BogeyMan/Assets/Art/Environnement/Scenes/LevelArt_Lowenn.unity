@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 3.206761, g: 2.9816592, b: 4.265858, a: 1}
+  m_IndirectSpecularColor: {r: 3.203755, g: 2.9794047, b: 4.2635274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -159,7 +159,7 @@ TerrainCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_TerrainData: {fileID: 15600000, guid: 6e34513fe746a9e41b50a9910b665018, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 52424dad885897844a5cc04aa4ca2333, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &4078853
 Terrain:
@@ -170,7 +170,7 @@ Terrain:
   m_GameObject: {fileID: 4078851}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 6e34513fe746a9e41b50a9910b665018, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 52424dad885897844a5cc04aa4ca2333, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -207,7 +207,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4078851}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -221, y: 0, z: -187}
+  m_LocalPosition: {x: -92, y: 0, z: -90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
