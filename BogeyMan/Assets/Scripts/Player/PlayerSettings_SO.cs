@@ -49,4 +49,9 @@ public class PlayerSettings_SO : ScriptableObject
 	[field: SerializeField] public int reflectAdditionnalDamage { get; private set; } = 1;
 	[field: SerializeField] public float slowmotionTimeScale{ get; private set; } = 0.04f;
 
+	[field: Header("Revival")]
+	[field: SerializeField] public float revivalDuration { get; private set; } = 3f;
+	[field: SerializeField] public float revivalDelayAfterAnim { get; private set; } = 0.2f;
+
+
 }

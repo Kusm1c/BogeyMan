@@ -7,13 +7,11 @@ public class PlayerController : MonoBehaviour
 {
 	[SerializeField] private Player player = null;
     [SerializeField] private PlayerInput playerInput = null;
-	[SerializeField] private Rigidbody rb = null;
-	[SerializeField] private Animator characterAnimator = null;
+	[field: SerializeField] public Rigidbody rb { get; private set; } = null;
+	[field: SerializeField] public Animator characterAnimator { get; private set; } = null;
 	[SerializeField] private Animator hitBoxesAnimator = null;
 	[SerializeField] private Transform partToRotate = null;
 	[field: SerializeField] public Grab grab { get; private set; }  = null;
-
-	[SerializeField] private Weapon weapon = Weapon.Censer;
 
 	Vector2 movementDirection;
 	public Vector2 aimDirection { get; private set; } = Vector2.right;
@@ -222,10 +220,28 @@ public class PlayerController : MonoBehaviour
 
 	public void Grab(InputAction.CallbackContext context)
 	{
-		if (!context.performed)
-			return;
+		if (context.performed)
+		{
+			grab.GrabInput();
+		}
+		
+		if (player.playerState.isOnDeadAlly)
+		{
+			Player ally = GameManager.Instance.Players[player.playerIndex == 1 ? 0 : 1];
 
-		grab.GrabInput();
+			if (context.performed)
+			{
+				player.StartRevivingAlly();
+				print("start");
+			}
+
+			if (context.canceled)
+			{
+				player.StopRevivingAlly();
+				ally.CancelRevival();
+				print("canceled");
+			}
+		}
 	}
 }
 
