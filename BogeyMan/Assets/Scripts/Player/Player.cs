@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -11,7 +12,7 @@ public class Player : MonoBehaviour
 	[field: SerializeField] public PlayerState playerState { get; private set; } = null;
 	private PlayerUI ui = null;
 
-    public int currentLife { get; private set; } = 0;
+	public int currentLife { get; private set; } = 0;
 
     private void Awake()
     {
@@ -20,7 +21,9 @@ public class Player : MonoBehaviour
 			playerIndex = 1;
         }
 		GameManager.Instance.Players[playerIndex] = this;
-	}
+		CinemachineTargetGroup targetGroup = GameObject.Find("Target Group").GetComponent<CinemachineTargetGroup>();
+		targetGroup.m_Targets[playerIndex].target = transform;
+    }
 
 
 	private void Start()
