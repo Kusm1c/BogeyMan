@@ -29,6 +29,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _LAYEREDLIT_3_LAYERS
   - _LAYER_MASK_VERTEX_COLOR_MUL
   - _MASKMAP0
   - _NORMALMAP0
@@ -62,7 +63,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap0:
-        m_Texture: {fileID: 2800000, guid: a12b34093f89d784b90eb7b097566404, type: 3}
+        m_Texture: {fileID: 2800000, guid: e273bc3c3fb26ec4a8a877b1e95a43f6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap1:
@@ -190,7 +191,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap0:
-        m_Texture: {fileID: 2800000, guid: fa7de9c1ec52e3a4096bfd48d190c0ab, type: 3}
+        m_Texture: {fileID: 2800000, guid: 52aa127a5bda6ec4da5cac588306384a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap1:
@@ -210,7 +211,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap0:
-        m_Texture: {fileID: 2800000, guid: 137ea2364085b4a4caf9cd00d82eec0d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 07bb92d35bc61d5428dfab6157fc67cb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap1:
@@ -336,7 +337,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AORemapMax: 1
-    - _AORemapMax0: 1
+    - _AORemapMax0: 0
     - _AORemapMax1: 1
     - _AORemapMax2: 1
     - _AORemapMax3: 1
@@ -475,7 +476,7 @@ Material:
     - _Ior: 1.5
     - _IridescenceMask: 1
     - _IridescenceThickness: 1
-    - _LayerCount: 2
+    - _LayerCount: 3
     - _LinkDetailsWithBase: 1
     - _LinkDetailsWithBase0: 1
     - _LinkDetailsWithBase1: 1
@@ -503,7 +504,7 @@ Material:
     - _NormalMapSpace2: 0
     - _NormalMapSpace3: 0
     - _NormalScale: 1
-    - _NormalScale0: 1
+    - _NormalScale0: 0.31
     - _NormalScale1: 1
     - _NormalScale2: 1
     - _NormalScale3: 1
@@ -525,17 +526,17 @@ Material:
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
     - _Smoothness: 0.5
-    - _Smoothness0: 0.557
+    - _Smoothness0: 0
     - _Smoothness1: 0.5
     - _Smoothness2: 0.5
     - _Smoothness3: 0.5
     - _SmoothnessRemapMax: 1
-    - _SmoothnessRemapMax0: 0.5218154
+    - _SmoothnessRemapMax0: 0.34357575
     - _SmoothnessRemapMax1: 1
     - _SmoothnessRemapMax2: 1
     - _SmoothnessRemapMax3: 1
     - _SmoothnessRemapMin: 0
-    - _SmoothnessRemapMin0: 0
+    - _SmoothnessRemapMin0: 0.15775666
     - _SmoothnessRemapMin1: 0
     - _SmoothnessRemapMin2: 0
     - _SmoothnessRemapMin3: 0
