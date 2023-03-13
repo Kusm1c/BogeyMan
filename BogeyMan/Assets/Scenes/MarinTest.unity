@@ -249,7 +249,7 @@ PrefabInstance:
     - target: {fileID: 8409234809258495724, guid: 591bc8756ad5cee409536e5b8717d73b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8409234809258495724, guid: 591bc8756ad5cee409536e5b8717d73b,
         type: 3}
@@ -661,7 +661,6 @@ Transform:
   - {fileID: 1482488394}
   - {fileID: 506176483}
   - {fileID: 1468204542}
-  - {fileID: 778950077}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -690,13 +689,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778950076}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.52, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 769641192}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &778950078
 MonoBehaviour:
@@ -715,10 +714,10 @@ MonoBehaviour:
       type: 3}
     swarmSpawnPartRange: {x: 100, y: 100}
     randomSwarmSpawnPart: 1
-    respawnForLoses: 30.4
+    respawnForLoses: 2.3
     distanceBetweenSwarmers: 0.6
     isAlive: 0
-  swarmSize: 10
+  swarmSize: 50
   swarmSpawnRadius: 20.8
   swarmSpawnSpeed: 2.23
   swarmersDead: []
@@ -765,7 +764,7 @@ MonoBehaviour:
         m_Flags: 0
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 7358819471295053203, guid: fc38f1adac185f547adb2a2cffb2f267,
+  m_PlayerPrefab: {fileID: 8897288084280924099, guid: 9951a93fafe93064c86f92131dd94271,
     type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
@@ -1137,10 +1136,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4466520341230836795, guid: 62d480e7b92bb364b83c3e01ceb0d258,
+        type: 3}
+      propertyPath: m_Radius
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5085981795380715295, guid: 62d480e7b92bb364b83c3e01ceb0d258,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5085981795380715295, guid: 62d480e7b92bb364b83c3e01ceb0d258,
         type: 3}
@@ -1192,6 +1196,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6873108586386843805, guid: 62d480e7b92bb364b83c3e01ceb0d258,
+        type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: 56aeacd43f4420c40bc889dcd9b25ed3,
+        type: 2}
     - target: {fileID: 6873108586386843805, guid: 62d480e7b92bb364b83c3e01ceb0d258,
         type: 3}
       propertyPath: dispawnTime
