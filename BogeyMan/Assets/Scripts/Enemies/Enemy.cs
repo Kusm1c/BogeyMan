@@ -43,15 +43,14 @@ namespace Enemies
         [SerializeField] private new Rigidbody rigidbody;
         [SerializeField] protected NavMeshAgent agent;
 
-        protected bool hasTarget;
-        private Spawner spawner;
+        private bool hasTarget;
         private MaterialPropertyBlock propertyBlock => _propertyBlock ??= new MaterialPropertyBlock();
         private MaterialPropertyBlock _propertyBlock;
         private Transform _target;
         private Collider _collider;
         protected bool isDead;
         protected bool isStopped;
-        protected bool isGrabbed = false;
+        protected bool isGrabbed;
 
         private int hp;
         private static readonly int color = Shader.PropertyToID("_BaseColor");
@@ -60,7 +59,6 @@ namespace Enemies
         {
             hp = settings.maxHP;
             rigidbody.Sleep();
-            spawner = gameObject.GetComponentInParent<Spawner>();
         }
 
         protected virtual void Update()
@@ -111,14 +109,6 @@ namespace Enemies
             isDead = false;
             hasTarget = false;
             isStopped = false;
-        }
-        
-        private void OnDisable()
-        {
-            if (spawner != null)
-            {
-                spawner.SwarmerDeath(gameObject);
-            }
         }
 
         private void OnValidate()
@@ -174,7 +164,7 @@ namespace Enemies
             StartCoroutine(Die());
         }
 
-        private IEnumerator Die()
+        protected virtual IEnumerator Die()
         {
             //agent.isStopped = true;
             isStopped = true;
@@ -197,7 +187,9 @@ namespace Enemies
 
             propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, 0f));
             meshRenderer.SetPropertyBlock(propertyBlock);
-            gameObject.SetActive(false);
+            Pooler.instance.DePop("Swarmer", gameObject); // TODO
+            
+            onDeath?.Invoke(this);
         }
 
         #region IGrabableImplementation
@@ -245,6 +237,8 @@ namespace Enemies
             isGrabbed = false;
         }
         #endregion IGrabableImplementation
+
+        public Action<Enemy> onDeath;
 
 #if UNITY_EDITOR
         #region Debug

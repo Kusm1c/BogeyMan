@@ -12,24 +12,6 @@ public class Pooler : MonoBehaviour
     private GameObject objectInstance;
     private int i;
 
-    [System.Serializable]
-    private class Pool
-    {
-        public GameObject prefab;
-        public Queue<GameObject> queue = new();
-
-        public int baseCount;
-        public float baseRefreshSpeed = 5;
-        [HideInInspector] public float refreshSpeed;
-    }
-    
-    [System.Serializable]
-    private class PoolKey
-    {
-        public string key;
-        public Pool pool;
-    }
-
     private void Awake()
     {
         instance = this;
@@ -105,7 +87,6 @@ public class Pooler : MonoBehaviour
     {
         if (pools[key].queue.Count == 0)
         {
-            Debug.LogWarning("pool of " + key + " is empty");
             AddInstance(pools[key]);
         }
         
@@ -141,5 +122,23 @@ public class Pooler : MonoBehaviour
         yield return new WaitForSeconds(t);
         
         DePop(key, go);
+    }
+    
+    [System.Serializable]
+    private class Pool
+    {
+        public GameObject prefab;
+        public Queue<GameObject> queue = new();
+
+        public int baseCount;
+        public float baseRefreshSpeed = 5;
+        [HideInInspector] public float refreshSpeed;
+    }
+    
+    [System.Serializable]
+    private class PoolKey
+    {
+        public string key;
+        public Pool pool;
     }
 }

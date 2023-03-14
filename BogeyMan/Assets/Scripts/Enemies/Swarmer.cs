@@ -29,6 +29,11 @@ namespace Enemies
         {
             yield return attackWait;
 
+            if (isDead || isGrabbed)
+            {
+                yield break;
+            }
+            
             try
             {
                 if ((player.transform.position - transform.position).sqrMagnitude <
