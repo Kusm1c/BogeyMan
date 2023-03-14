@@ -31,7 +31,8 @@ namespace Enemies
 
             if ((player.transform.position - transform.position).sqrMagnitude < settings.attackRange * settings.attackRange)
             {
-                player.TakeHit((int) settings.damage, (player.transform.position - transform.position).normalized);
+                Vector3 transformForward = transform.forward;
+                player.TakeHit((int) settings.damage, new Vector2(transformForward.x, transformForward.z));
             }
             
             agent.isStopped = false;
