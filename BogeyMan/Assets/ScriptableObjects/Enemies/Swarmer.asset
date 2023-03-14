@@ -23,4 +23,11 @@ MonoBehaviour:
   weight: 1
   linearDrag: 6.84
   disappearanceTime: 2
+  throwable: 1
+  throwSpeed: 10
+  throwDuration: 1.5
+  damageOnCollisionWhenFlying: 1
+  damageOnImpact: 2
+  impactRadius: 3
+  impactForce: 20
   debug: 0

@@ -29,19 +29,14 @@ public class PlayerSettings_SO : ScriptableObject
 	[field: SerializeField] public int heavyAttackChargeSpeedReductionPercentage { get; private set; } = 40;
 	[field: SerializeField] public float heavyAttackChargeDuration { get; private set; } = 0.8f;
 	[field: SerializeField] public float heavyAttackProjectionForce { get; private set; } = 0.4f;
-	[field: SerializeField] public float heavyAttackProjectionDuration { get; private set; } = 0.4f;
 
-	[field: Header("Censer special attack")]
-	[field: SerializeField] public int censerAttackDamage { get; private set; } = 2;
-	[field: SerializeField] public float censerAttackCooldown { get; private set; } = 1.5f;
+	[field: Header("Special attack")]
+	[field: SerializeField] public int specialAttackDamage { get; private set; } = 2;
+	[field: SerializeField] public float specialAttackCooldown { get; private set; } = 1.5f;
 	[field: Range(0, 100)]
-	[field: SerializeField] public int censerAttackSpeedIncreasePercentage { get; private set; } = 15;
-	[field: SerializeField] public float censerAttackChargeDuration { get; private set; } = 0.8f;
-	[field: SerializeField] public float censerAttackProjectionForce { get; private set; } = 0.8f;
-	[field: SerializeField] public float censerAttackProjectionDuration { get; private set; } = 0.2f;
-
-	[field: Header("Throw")]
-	[field: SerializeField] public int throwDamage { get; private set; } = 1;
+	[field: SerializeField] public int specialAttackSpeedIncreasePercentage { get; private set; } = 15;
+	[field: SerializeField] public float specialAttackChargeDuration { get; private set; } = 0.8f;
+	[field: SerializeField] public float specialAttackProjectionForce { get; private set; } = 0.8f;
 
 	[field : Header("Reflect")]
 	[field: SerializeField] public float slowMotionReflectRange { get; private set; } = 3f;
@@ -52,6 +47,4 @@ public class PlayerSettings_SO : ScriptableObject
 	[field: Header("Revival")]
 	[field: SerializeField] public float revivalDuration { get; private set; } = 3f;
 	[field: SerializeField] public float revivalDelayAfterAnim { get; private set; } = 0.2f;
-
-
 }

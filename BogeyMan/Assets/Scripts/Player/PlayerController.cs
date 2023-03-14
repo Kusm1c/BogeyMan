@@ -194,16 +194,16 @@ public class PlayerController : MonoBehaviour
 
 	private IEnumerator CenserSpecialAttackCharge()
 	{
-		yield return new WaitForSeconds(player.settings.censerAttackChargeDuration);
+		yield return new WaitForSeconds(player.settings.specialAttackChargeDuration);
 
 		hitBoxesAnimator.SetTrigger("CenserSpecialAttack");
-		DecreaseSpeed(- player.settings.censerAttackSpeedIncreasePercentage);
+		DecreaseSpeed(- player.settings.specialAttackSpeedIncreasePercentage);
 		player.SetInvulnerability(true);
 	}
 
 	private void CenserSpecialAttackFinished()
 	{
-		StartCoroutine(WaitForSpecialAttackCooldown(player.settings.censerAttackCooldown));
+		StartCoroutine(WaitForSpecialAttackCooldown(player.settings.specialAttackCooldown));
 		ResetSpeed();
 		player.SetInvulnerability(false);
 		player.playerState.isAttacking = false;

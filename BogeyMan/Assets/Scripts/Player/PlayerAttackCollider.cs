@@ -38,7 +38,7 @@ public class PlayerAttackCollider : MonoBehaviour
 					}
 				case AttackType.CenserSpecial:
 					{
-						enemy.TakeHit(player.settings.censerAttackProjectionForce, direction, player.settings.censerAttackDamage);
+						enemy.TakeHit(player.settings.specialAttackProjectionForce, direction, player.settings.specialAttackDamage);
 						break;
 					}
 			}
