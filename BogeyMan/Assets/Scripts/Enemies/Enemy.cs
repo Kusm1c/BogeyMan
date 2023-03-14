@@ -39,7 +39,7 @@ namespace Enemies
 
         [SerializeField] protected EnemySettings_SO settings;
         [SerializeField] private SphereCollider focusSphere;
-        [SerializeField] private MeshRenderer meshRenderer;
+        [SerializeField] private new Renderer renderer;
         [SerializeField] private new Rigidbody rigidbody;
         [SerializeField] protected NavMeshAgent agent;
 
@@ -99,11 +99,11 @@ namespace Enemies
 
         protected virtual void OnEnable()
         {
-            meshRenderer.GetPropertyBlock(propertyBlock);
+            renderer.GetPropertyBlock(propertyBlock);
             Color oldColor = _propertyBlock.GetColor(color);
             propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, 1f));
-            meshRenderer.SetPropertyBlock(propertyBlock);
-            meshRenderer.shadowCastingMode = ShadowCastingMode.On;
+            renderer.SetPropertyBlock(propertyBlock);
+            renderer.shadowCastingMode = ShadowCastingMode.On;
 
             hp = settings.maxHP;
             isDead = false;
@@ -169,24 +169,24 @@ namespace Enemies
             //agent.isStopped = true;
             isStopped = true;
             isDead = true;
-            meshRenderer.shadowCastingMode = ShadowCastingMode.Off;
-            meshRenderer.GetPropertyBlock(propertyBlock);
+            renderer.shadowCastingMode = ShadowCastingMode.Off;
+            renderer.GetPropertyBlock(propertyBlock);
             Color oldColor = _propertyBlock.GetColor(color);
 
             float length = settings.disappearanceTime;
 
             while (length > 0f)
             {
-                meshRenderer.GetPropertyBlock(propertyBlock);
+                renderer.GetPropertyBlock(propertyBlock);
                 propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, length / settings.disappearanceTime));
-                meshRenderer.SetPropertyBlock(propertyBlock);
+                renderer.SetPropertyBlock(propertyBlock);
                 
                 yield return null;
                 length -= Time.deltaTime;
             }
 
             propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, 0f));
-            meshRenderer.SetPropertyBlock(propertyBlock);
+            renderer.SetPropertyBlock(propertyBlock);
             Pooler.instance.DePop("Swarmer", gameObject); // TODO
             
             onDeath?.Invoke(this);
