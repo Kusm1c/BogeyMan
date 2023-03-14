@@ -71,16 +71,7 @@ public class Grab : MonoBehaviour
         direction.y = 0;
         direction = direction.normalized;
         ThrownObjectParent thrownObjectParentInstance = Instantiate(thrownObjectParentPrefab.gameObject, thrownObjectParentSpawnPos.position, Quaternion.identity).GetComponent<ThrownObjectParent>();
-        thrownObjectParentInstance.Throw(objectToThrow.GetThrowSpeed(), objectToThrow.GetThrowDuration(), player, direction, player.settings.throwDamage, objectToThrow);
-        /*
-        //rb.velocity = direction * player.settings.throwSpeed;
-        rb.AddForce(direction * player.settings.throwSpeed);
-
-        yield return new WaitForSeconds(player.settings.throwDuration);
-
-        //rb.isKinematic = false;
-        rb.velocity = Vector3.zero;
-        objectToThrow.Impact();*/
+        thrownObjectParentInstance.Throw(objectToThrow.GetThrowSpeed(), objectToThrow.GetThrowDuration(), player, direction, objectToThrow.GetThrowDamage(), objectToThrow);
     }
 
     private void Release(IGrabable objectToRelease)
@@ -99,13 +90,13 @@ public class Grab : MonoBehaviour
         }
 
     }
+
     public static void ResetGrabbedObject(IGrabable objectToRelease)
     {
         objectToRelease.transform.GetComponent<Rigidbody>().isKinematic = false;
         objectToRelease.GetCollider().enabled = true;
         objectToRelease.transform.parent = null;
         objectToRelease.OnRelease();
-
     }
 
     private void FixedUpdate()
@@ -126,11 +117,6 @@ public class Grab : MonoBehaviour
                 }
             }
         }
-        /*
-        if (grabbedObject != null)
-		{
-            grabbedObject.transform.position = grabbedObjectPivot.position;
-		}*/
     }
 
     private void OnTriggerEnter(Collider other)

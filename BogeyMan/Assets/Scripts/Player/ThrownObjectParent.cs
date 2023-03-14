@@ -67,7 +67,7 @@ public class ThrownObjectParent : MonoBehaviour
                 if (Vector2.Dot(OrthogonalFlatDirection, flatEnemyRelativePos) < 0)
                     direction *= -1f;
 
-                enemy.TakeHit(20f, direction, Damage);
+                enemy.TakeHit(thrownObject.GetThrowForce(), direction, Damage);
             }
         }
     }
@@ -119,9 +119,9 @@ public class ThrownObjectParent : MonoBehaviour
     {
         GetComponent<Collider>().enabled = false;
         //fx
-        thrownObject.OnImpact();
         Grab.ResetGrabbedObject(thrownObject);
-        Destroy(gameObject); // a pooler is better. destroying here may cause attached fx to dissapear early
+        thrownObject.OnImpact();
+        Destroy(gameObject);
     }
 
     private void OnDestroy()

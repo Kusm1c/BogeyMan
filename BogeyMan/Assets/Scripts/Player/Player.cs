@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
 		ui.UpdateLifeBar(currentLife, settings.maxLife);
 		playerController.Knockback(knockbackDirection);
 		SetInvulnerability(true, settings.invulnerabilityDurationWhenHit);
+		playerController.characterAnimator.SetFloat("Random", UnityEngine.Random.Range(0, 3));
 		playerController.characterAnimator.SetTrigger("Hit");
 		if (currentLife <= 0)
 		{
