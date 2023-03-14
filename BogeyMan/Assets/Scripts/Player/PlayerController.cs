@@ -250,7 +250,7 @@ public class PlayerController : MonoBehaviour
 
 	public void Grab(InputAction.CallbackContext context)
 	{
-		if (context.performed)
+		if (context.performed || player.playerState.isOnDeadAlly == false)
 		{
 			if (player.playerState.isGrabbingSummoner)
 			{
@@ -267,7 +267,7 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 		
-		if (player.playerState.isOnDeadAlly)
+		if (player.playerState.isOnDeadAlly && player.playerState.isDead == false)
 		{
 			Player ally = GameManager.Instance.Players[player.playerIndex == 1 ? 0 : 1];
 
