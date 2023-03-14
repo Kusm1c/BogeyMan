@@ -79,10 +79,14 @@ public class PlayerController : MonoBehaviour
 
 	public void Aim(InputAction.CallbackContext context)
 	{
+		// Aim direction
 		if (!player.playerState.canAim) return;
 		Vector2 aim = context.ReadValue<Vector2>();
 		if (aim.magnitude < 0.1f) return;
 		aimDirection = aim.normalized;
+
+		// Rotation
+		if (player.playerState.isGrabbingSummoner) return;
 		float angle = Mathf.Atan2(-aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 		partToRotate.rotation = Quaternion.Euler(0, angle, 0);
 	}
@@ -248,8 +252,13 @@ public class PlayerController : MonoBehaviour
 	{
 		if (context.performed)
 		{
-			if (player.playerState.isGrabbing)
+			if (player.playerState.isGrabbingSummoner)
 			{
+				grab.GrabInput();
+			}
+			else if (player.playerState.isGrabbing)
+			{
+				print(player.playerState.isGrabbing);
 				characterAnimator.SetTrigger("Throw");
 			}
 			else
