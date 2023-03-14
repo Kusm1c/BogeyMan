@@ -97,7 +97,7 @@ Transform:
   - {fileID: 4803598136363767784}
   - {fileID: 7179297114535671769}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &316202731512695464
 Animator:
@@ -260,11 +260,11 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9882367, b: 0.68799996, a: 1}
   m_Intensity: 315
   m_Range: 3.5
-  m_SpotAngle: 65.1
-  m_InnerSpotAngle: 21.80208
+  m_SpotAngle: 100
+  m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Intensity: 35
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 3
-  m_InnerSpotPercent: 61.4
+  m_InnerSpotPercent: 20
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
   m_VolumetricDimmer: 1
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_ShapeRadius: 0
   m_SoftnessScale: 1
   m_UseCustomSpotLightShadowCone: 0
-  m_CustomSpotLightShadowCone: 30
+  m_CustomSpotLightShadowCone: 1
   m_MaxSmoothness: 0.99
   m_ApplyRangeAttenuation: 1
   m_DisplayAreaLightEmissiveMesh: 0
