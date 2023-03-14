@@ -49,7 +49,7 @@ namespace Enemies
         private MaterialPropertyBlock _propertyBlock;
         private Transform _target;
         private Collider _collider;
-        private bool isDead;
+        protected bool isDead;
         protected bool isStopped;
         protected bool isGrabbed = false;
 

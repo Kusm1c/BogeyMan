@@ -2,30 +2,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Serialization;
+using GD.MinMaxSlider;
 using Random = UnityEngine.Random;
 
 namespace Enemies
 {
     public class Spawner : MonoBehaviour
     {
-        [FormerlySerializedAs("swarmerType")] [Header("Swarm Settings")] [SerializeField]
+        [Header("Swarm Settings")] [SerializeField]
         private List<UnitSpawnSettings> units;
         [Serializable]
         private class UnitSpawnSettings
         {
             public string unitName;
-            /*[MinMaxSlider(0f, 100f)]*/ public Vector2Int swarmSpawnPartRange;
-            public int randomSwarmSpawnPart;
+            [MinMaxSlider(0f, 100f)] public Vector2Int randomSpawnChance;
+            [HideInInspector] public int randomSwarmSpawnPart;
             [Range(0, 100)] public float respawnForLoses;
-            
+
         }
 
         [SerializeField, Min(0)] private int swarmSize;
-        [FormerlySerializedAs("swarmSpawnRadius")] [SerializeField, Min(0f)] private float spawnRadius;
-        [FormerlySerializedAs("swarmSpawnSpeed")] [SerializeField, Min(0f)] private float spawnDelay = 2f;
-        
+        [SerializeField, Min(0f)] private float spawnRadius = 15f;
+        [SerializeField, Min(0f)] private float spawnDelay = 2f;
+
         private int aliveCount;
         private readonly WaitForSeconds waitForPointOneSeconds = new(0.1f);
         private WaitForSeconds waitForSpawnDelay;
@@ -38,8 +37,8 @@ namespace Enemies
             }
             foreach (UnitSpawnSettings unitSettings in units)
             {
-                if (unitSettings.swarmSpawnPartRange.x < 0) unitSettings.swarmSpawnPartRange.x = 0;
-                if (unitSettings.swarmSpawnPartRange.y < 0) unitSettings.swarmSpawnPartRange.y = 0;
+                if (unitSettings.randomSpawnChance.x < 0) unitSettings.randomSpawnChance.x = 0;
+                if (unitSettings.randomSpawnChance.y < 0) unitSettings.randomSpawnChance.y = 0;
             }
         }
 
@@ -52,22 +51,25 @@ namespace Enemies
         {
             ChooseRandomSwarmSpawnPart();
             StartCoroutine(SpawnSwarm());
-        
+
         }
 
         private void ChooseRandomSwarmSpawnPart()
         {
-            int sum = 0;
-            foreach (UnitSpawnSettings swarmerType in units)
-            {
-                swarmerType.randomSwarmSpawnPart =
-                    Random.Range(swarmerType.swarmSpawnPartRange.x, swarmerType.swarmSpawnPartRange.y);
-                sum += swarmerType.randomSwarmSpawnPart;
-            }
-            if (sum != 100)
-            {
-                ChooseRandomSwarmSpawnPart();
-            }
+          int sum = 0;
+          foreach (UnitSpawnSettings swarmerType in units)
+          {
+              swarmerType.randomSwarmSpawnPart = Random.Range(swarmerType.randomSpawnChance.x, swarmerType.randomSpawnChance.y);
+              sum += swarmerType.randomSwarmSpawnPart;
+          }
+
+          if (sum != 100)
+          {
+              foreach (UnitSpawnSettings swarmerType in units)
+              {
+                  swarmerType.randomSwarmSpawnPart = swarmerType.randomSwarmSpawnPart * 100 / sum;
+              }
+          }
         }
 
         private IEnumerator SpawnSwarm()
@@ -85,7 +87,7 @@ namespace Enemies
                 randomPosInRadius = new Vector3(Random.insideUnitCircle.x * spawnRadius,
                     spawnerPosition.y, Random.insideUnitCircle.y * spawnRadius) + spawnerPosition;
             }
-            
+
             if (Physics.CheckSphere(randomPosInRadius, 1.5f, LayerMask.GetMask("Wall")))
             {
                 yield return null;
@@ -94,7 +96,7 @@ namespace Enemies
             }
 
             if (aliveCount >= swarmSize) yield break;
-            
+
             GameObject swarmer = Pooler.instance.Pop(units[0].unitName, randomPosInRadius);
             swarmer.SetActive(true);
             aliveCount++;
@@ -107,7 +109,7 @@ namespace Enemies
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, spawnRadius);
         }
-    
+
         public void SwarmerDeath(GameObject swarmer)
         {
             aliveCount--;
