@@ -132,7 +132,13 @@ public class SummonerArms : MonoBehaviour, IGrabable
 
     }
 
+	public int GetThrowDamage()
+	{
+        return 0;
+    }
 
-
-
+	public float GetThrowForce()
+	{
+        return 0;
+	}
 }

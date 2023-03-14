@@ -8,6 +8,8 @@ public interface IGrabable
     public bool IsThrowable();
     public float GetThrowSpeed();
     public float GetThrowDuration();
+    public int GetThrowDamage();
+    public float GetThrowForce();
     public Collider GetCollider();
     public void OnGrab(Player grabbingPlayer);
 

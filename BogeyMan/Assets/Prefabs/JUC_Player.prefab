@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3838042791391523331
+--- !u!1001 &2118454399568554576
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -14,11 +14,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 3587718aa7698a3498c9b0efd325d281,
         type: 2}
-    - target: {fileID: 3720373004805175426, guid: f0174ab042bf35146a38c67a5b859d7e,
+    - target: {fileID: 3682057049061259466, guid: f0174ab042bf35146a38c67a5b859d7e,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.55
-      objectReference: {fileID: 0}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 83a98bf47c536104aa79f751f06295c9, type: 2}
     - target: {fileID: 4613234622698192452, guid: f0174ab042bf35146a38c67a5b859d7e,
         type: 3}
       propertyPath: m_RootOrder
@@ -74,60 +74,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4915880295208853643, guid: f0174ab042bf35146a38c67a5b859d7e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5746437704088830590, guid: f0174ab042bf35146a38c67a5b859d7e,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 3.063552
-      objectReference: {fileID: 0}
-    - target: {fileID: 5746437704088830590, guid: f0174ab042bf35146a38c67a5b859d7e,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1.5635992
-      objectReference: {fileID: 0}
-    - target: {fileID: 5746437704088830590, guid: f0174ab042bf35146a38c67a5b859d7e,
-        type: 3}
-      propertyPath: m_Center.x
-      value: 1.4983494
-      objectReference: {fileID: 0}
-    - target: {fileID: 5746437704088830590, guid: f0174ab042bf35146a38c67a5b859d7e,
-        type: 3}
-      propertyPath: m_Center.y
-      value: -0.000000059604645
-      objectReference: {fileID: 0}
-    - target: {fileID: 6421924170090232868, guid: f0174ab042bf35146a38c67a5b859d7e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6686225765399291258, guid: f0174ab042bf35146a38c67a5b859d7e,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6686225765399291258, guid: f0174ab042bf35146a38c67a5b859d7e,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6686225765399291258, guid: f0174ab042bf35146a38c67a5b859d7e,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6686225765399291258, guid: f0174ab042bf35146a38c67a5b859d7e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.488
-      objectReference: {fileID: 0}
     - target: {fileID: 7358819471295053203, guid: f0174ab042bf35146a38c67a5b859d7e,
         type: 3}
       propertyPath: m_Name
-      value: JUC Player
+      value: JUC_Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
