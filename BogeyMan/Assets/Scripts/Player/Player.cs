@@ -4,16 +4,28 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+	[field: SerializeField] public int playerIndex { get; private set; } = 0;
 	[field: SerializeField] public PlayerSettings_SO settings { get; private set; } = null;
-	[SerializeField] private PlayerController playerController = null;
-	[SerializeField] private PlayerUI ui = null;
+	[field: SerializeField] public PlayerController playerController { get; private set; } = null;
+	[SerializeField] private PlayerWorldUI worldUi = null;
+	[field: SerializeField] public PlayerState playerState { get; private set; } = null;
+	private PlayerUI ui = null;
 
     public int currentLife { get; private set; } = 0;
 
-	private bool isInvulnerable = false;
+    private void Awake()
+    {
+		if(GameManager.Instance.Players[0] != null)
+        {
+			playerIndex = 1;
+        }
+		GameManager.Instance.Players[playerIndex] = this;
+	}
+
 
 	private void Start()
 	{
+		ui = CanvasManager.Instance.playerUIs[playerIndex];
 		currentLife = settings.maxLife;
 	}
 
@@ -32,7 +44,7 @@ public class Player : MonoBehaviour
 
 	public void SetInvulnerability(bool invulnerable, float duration = 0)
 	{
-		isInvulnerable = invulnerable;
+		playerState.isInvulnerable = invulnerable;
 		if (duration > 0)
 		{
 			StartCoroutine(InvulnerabilityCoroutine(duration));

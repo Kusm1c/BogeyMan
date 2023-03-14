@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using GD.MinMaxSlider;
+//using GD.MinMaxSlider;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -16,7 +16,7 @@ public class Spawner : MonoBehaviour
     private class SwarmerType
     {
         public GameObject swarmerType;
-        [MinMaxSlider(0f, 100f)] public Vector2Int swarmSpawnPartRange;
+        /*[MinMaxSlider(0f, 100f)]*/ public Vector2Int swarmSpawnPartRange;
         public int randomSwarmSpawnPart;
         [Range(0, 100)] public float respawnForLoses;
         public float distanceBetweenSwarmers;
