@@ -24,7 +24,7 @@ namespace Enemies
                 _target = value;
             }
         }
-        
+
         private new Collider collider {
             get
             {
@@ -69,14 +69,14 @@ namespace Enemies
                 Debug();
             }
 #endif
-            
+
             if (!rigidbody.IsSleeping() && rigidbody.velocity.magnitude < 0.1f && isGrabbed == false)
             {
                 rigidbody.velocity = Vector3.zero;
                 rigidbody.Sleep();
                 agent.enabled = true;
             }
-            
+
             if (!agent.isActiveAndEnabled) return;
 
             if (!hasTarget || isStopped)
@@ -131,7 +131,7 @@ namespace Enemies
                 rigidbody.drag = settings.linearDrag;
             }
         }
-        
+
         private void OnDrawGizmosSelected()
         {
             if (settings != null)
@@ -159,7 +159,7 @@ namespace Enemies
             hp -= damage;
 
             if (hp >= 1) return;
-            
+
             StopAllCoroutines();
             StartCoroutine(Die());
         }
@@ -180,7 +180,7 @@ namespace Enemies
                 renderer.GetPropertyBlock(propertyBlock);
                 propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, length / settings.disappearanceTime));
                 renderer.SetPropertyBlock(propertyBlock);
-                
+
                 yield return null;
                 length -= Time.deltaTime;
             }
@@ -188,14 +188,14 @@ namespace Enemies
             propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, 0f));
             renderer.SetPropertyBlock(propertyBlock);
             Pooler.instance.DePop("Swarmer", gameObject); // TODO
-            
+
             onDeath?.Invoke(this);
         }
 
         #region IGrabableImplementation
         public virtual bool IsThrowable()
         {
-            return true;
+            return settings.throwable;
         }
 
         public void OnGrab(Player player)
@@ -204,16 +204,26 @@ namespace Enemies
             isGrabbed = true;
         }
 
-
         public float GetThrowSpeed()
         {
-            return 10f;
+            return settings.throwSpeed;
         }
 
         public float GetThrowDuration()
         {
-            return 1.5f;
+            return settings.throwDuration;
         }
+
+        public int GetThrowDamage()
+        {
+            return settings.damageOnCollisionWhenFlying;
+        }
+
+        public float GetThrowForce()
+        {
+            return settings.forceOnCollisionWhenFlying;
+        }
+
         public Collider GetCollider()
         {
             return collider;
@@ -235,6 +245,17 @@ namespace Enemies
         {
             agent.enabled = true;
             isGrabbed = false;
+
+            Collider[] enemiesHit;
+            enemiesHit = Physics.OverlapSphere(transform.position, settings.impactRadius);
+            foreach(Collider hit in enemiesHit)
+			{
+                Enemies.Enemy enemy = hit.transform.GetComponent<Enemies.Enemy>();
+                if (enemy != null)
+				{
+                    enemy.TakeHit(settings.impactForce, (enemy.transform.position - transform.position).normalized, settings.damageOnImpact);
+                }
+			}
         }
         #endregion IGrabableImplementation
 
@@ -252,10 +273,8 @@ namespace Enemies
             rigidbody.mass = settings.weight;
             rigidbody.drag = settings.linearDrag;
         }
-
-
-        #endregion
+		#endregion
 #endif
 
-    }
+	}
 }
