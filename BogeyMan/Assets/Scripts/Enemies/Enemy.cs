@@ -24,6 +24,18 @@ namespace Enemies
                 _target = value;
             }
         }
+        
+        private new Collider collider {
+            get
+            {
+                if (_collider == null)
+                {
+                    _collider = GetComponent<Collider>();
+                }
+
+                return _collider;
+            }
+        }
 
         [SerializeField] protected EnemySettings_SO settings;
         [SerializeField] private SphereCollider focusSphere;
@@ -36,6 +48,7 @@ namespace Enemies
         private MaterialPropertyBlock propertyBlock => _propertyBlock ??= new MaterialPropertyBlock();
         private MaterialPropertyBlock _propertyBlock;
         private Transform _target;
+        private Collider _collider;
         private bool isDead;
         protected bool isStopped;
         protected bool isGrabbed = false;
@@ -110,18 +123,32 @@ namespace Enemies
 
         private void OnValidate()
         {
-            focusSphere.radius = settings.focusRange;
-            agent.speed = settings.moveSpeed;
-            agent.angularSpeed = settings.angularSpeed;
-            agent.acceleration = settings.acceleration;
-            rigidbody.mass = settings.weight;
-            rigidbody.drag = settings.linearDrag;
+            if (focusSphere != null)
+            {
+                focusSphere.radius = settings.focusRange;
+            }
+
+            if (agent != null)
+            {
+                agent.speed = settings.moveSpeed;
+                agent.angularSpeed = settings.angularSpeed;
+                agent.acceleration = settings.acceleration;
+            }
+
+            if (rigidbody != null)
+            {
+                rigidbody.mass = settings.weight;
+                rigidbody.drag = settings.linearDrag;
+            }
         }
         
         private void OnDrawGizmosSelected()
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, settings.attackRange);
+            if (settings != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(transform.position, settings.attackRange);
+            }
         }
 
         protected abstract void Attack(Player player);
@@ -149,7 +176,7 @@ namespace Enemies
 
         private IEnumerator Die()
         {
-            agent.isStopped = true;
+            //agent.isStopped = true;
             isStopped = true;
             isDead = true;
             meshRenderer.shadowCastingMode = ShadowCastingMode.Off;
@@ -197,7 +224,7 @@ namespace Enemies
         }
         public Collider GetCollider()
         {
-            return GetComponent<Collider>();
+            return collider;
         }
 
         public void OnRelease()
