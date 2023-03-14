@@ -1,71 +1,55 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Enemies
 {
     public class Swarmer : Enemy
     {
-        [SerializeField] private NavMeshAgent agent;
-        [SerializeField] private float attackRange;
-        
+        private WaitForSeconds attackWait;
 
-        private void Update()
+        protected override void Awake()
         {
-            if (!agent.isActiveAndEnabled) return;
-
-            if (target == null)
-            {
-                agent.isStopped = true;
-                return;
-            }
-            
-            if ((target.transform.position - transform.position).sqrMagnitude < attackRange * attackRange)
-            {
-                Attack(target.GetComponent<Player>());
-                return;
-            }
-
-            agent.isStopped = false;
-            agent.speed = moveSpeed;
-            agent.SetDestination(target.position);
+            attackWait = new WaitForSeconds(settings.attackSpeed);
+#if UNITY_EDITOR
+            currentAttackSpeed = settings.attackSpeed;
+#endif
+            base.Awake();
         }
 
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, attackRange);
-        }
-
-        private void Attack(Player player)
+        protected override void Attack(Player player)
         {
             agent.isStopped = true;
-            //agent.enabled = false;
+            isStopped = true;
+            
             StartCoroutine(AttackCoroutine(player));
         }
 
         private IEnumerator AttackCoroutine(Player player)
         {
-            print("start attack");
+            yield return attackWait;
 
-            yield return new WaitForSeconds(attackSpeed);
-
-            if ((player.transform.position - transform.position).sqrMagnitude < attackRange * attackRange)
+            if ((player.transform.position - transform.position).sqrMagnitude < settings.attackRange * settings.attackRange)
             {
-                player.TakeHit((int) damage, (player.transform.position - transform.position).normalized);
-                //player.GetComponent<Rigidbody>().AddForce((player.transform.position - transform.position).normalized * 1500f);
+                player.TakeHit((int) settings.damage, (player.transform.position - transform.position).normalized);
             }
             
-            //agent.enabled = true;
             agent.isStopped = false;
-            print("finished attack");
+            isStopped = false;
         }
 
-        protected override IEnumerator Die()
+#if UNITY_EDITOR
+        private float currentAttackSpeed;
+        
+        protected override void Debug()
         {
-            //agent.enabled = false;
-            agent.isStopped = false;
-            yield return base.Die();
+            if (Math.Abs(currentAttackSpeed - settings.attackSpeed) > 0.001f)
+            {
+                attackWait = new WaitForSeconds(settings.attackSpeed);
+            }
+            
+            base.Debug();
         }
+#endif
     }
 }
