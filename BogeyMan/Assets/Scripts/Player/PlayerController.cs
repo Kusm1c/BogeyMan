@@ -223,7 +223,14 @@ public class PlayerController : MonoBehaviour
 	{
 		if (context.performed)
 		{
-			grab.GrabInput();
+			if (player.playerState.isGrabbing)
+			{
+				characterAnimator.SetTrigger("Throw");
+			}
+			else
+			{
+				characterAnimator.SetTrigger("Grab");
+			}
 		}
 		
 		if (player.playerState.isOnDeadAlly)
