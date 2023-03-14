@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    public bool isKnockedBack = false;
-    public bool isAttacking = false;
-    public bool isGrabbing = false;
-    public bool isGrabbingSummoner = false;
-    public bool isOnDeadAlly = false;
-    public bool isReflecting = false;
-    public bool isDead = false;
-    public bool isInvulnerable = false;
+    [HideInInspector] public bool isKnockedBack = false;
+    [HideInInspector] public bool isAttacking = false;
+    [HideInInspector] public bool isGrabbing = false;
+    [HideInInspector] public bool isGrabbingSummoner = false;
+    [HideInInspector] public bool isOnDeadAlly = false;
+    [HideInInspector] public bool isRevivingAlly = false;
+    [HideInInspector] public bool isReflecting = false;
+    [HideInInspector] public bool isDead = false;
+    [HideInInspector] public bool isInvulnerable = false;
 
     public bool canMove => isKnockedBack == false
                         && isGrabbingSummoner == false 
-                        && isDead == false;
+                        && isDead == false
+                        && isRevivingAlly == false;
 
     public bool canAttack => isAttacking == false
                         && isGrabbingSummoner == false

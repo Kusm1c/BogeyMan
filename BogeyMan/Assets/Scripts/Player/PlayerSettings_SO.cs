@@ -40,16 +40,18 @@ public class PlayerSettings_SO : ScriptableObject
 	[field: SerializeField] public float censerAttackProjectionForce { get; private set; } = 0.8f;
 	[field: SerializeField] public float censerAttackProjectionDuration { get; private set; } = 0.2f;
 
-	[field: Header("Grab")]
+	[field: Header("Throw")]
 	[field: SerializeField] public int throwDamage { get; private set; } = 1;
-	[field: SerializeField] public float throwSpeed { get; private set; } = 1;
-	[field: SerializeField] public float throwDuration { get; private set; } = 2;
 
-
-
-	[field: SerializeField] public float slowMotionReflectPRange { get; private set; } = 3f;
+	[field : Header("Reflect")]
+	[field: SerializeField] public float slowMotionReflectRange { get; private set; } = 3f;
 	[field: SerializeField] public float reflectSpeedMultiplier { get; private set; } = 1.3f;
-	[field: SerializeField] public int reflectSAdditionnalDamage { get; private set; } = 1;
+	[field: SerializeField] public int reflectAdditionnalDamage { get; private set; } = 1;
 	[field: SerializeField] public float slowmotionTimeScale{ get; private set; } = 0.04f;
+
+	[field: Header("Revival")]
+	[field: SerializeField] public float revivalDuration { get; private set; } = 3f;
+	[field: SerializeField] public float revivalDelayAfterAnim { get; private set; } = 0.2f;
+
 
 }
