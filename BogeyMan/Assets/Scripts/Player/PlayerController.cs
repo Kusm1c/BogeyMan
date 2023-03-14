@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
 		
 		yield return new WaitForSeconds(duration);
 		rb.AddForce(Vector3.zero, ForceMode.VelocityChange);
+		yield return new WaitForSeconds(0.1f);
 		player.playerState.isKnockedBack = false;
 	}
 	#endregion Movements

@@ -13,29 +13,36 @@ public class PlayerState : MonoBehaviour
     [HideInInspector] public bool isReflecting = false;
     [HideInInspector] public bool isDead = false;
     [HideInInspector] public bool isInvulnerable = false;
+    [HideInInspector] public bool isStunned = false;
 
     public bool canMove => isKnockedBack == false
                         && isGrabbingSummoner == false 
                         && isDead == false
-                        && isRevivingAlly == false;
+                        && isRevivingAlly == false
+                        && isStunned == false;
 
     public bool canAttack => isAttacking == false
                         && isGrabbingSummoner == false
-                        && isDead == false;
+                        && isDead == false
+                        && isStunned == false;
 
     public bool canThrow => isAttacking == false
                         && isOnDeadAlly == false
                         && isDead == false
-                        && isGrabbing == true;
+                        && isGrabbing == true
+                        && isStunned == false;
 
     public bool canReflect => canAttack == true
-                        && isDead == false;
+                        && isDead == false
+                        && isStunned == false;
 
     public bool canGrab => isAttacking == false
                         && isOnDeadAlly == false
-                        && isDead == false;
+                        && isDead == false
+                        && isStunned == false;
 
     public bool canAim => isAttacking == false
                         && isDead == false
-                        && isKnockedBack == false;
+                        && isKnockedBack == false
+                        && isStunned == false;
 }
