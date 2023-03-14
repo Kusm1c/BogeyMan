@@ -176,7 +176,7 @@ namespace Enemies
         #region IGrabableImplementation
         public virtual bool IsThrowable()
         {
-            return true;
+            return settings.throwable;
         }
 
         public void OnGrab(Player player)
@@ -185,16 +185,26 @@ namespace Enemies
             isGrabbed = true;
         }
 
-
         public float GetThrowSpeed()
         {
-            return 10f;
+            return settings.throwSpeed;
         }
 
         public float GetThrowDuration()
         {
-            return 1.5f;
+            return settings.throwDuration;
         }
+
+        public int GetThrowDamage()
+        {
+            return settings.damageOnCollisionWhenFlying;
+        }
+
+        public float GetThrowForce()
+        {
+            return settings.forceOnCollisionWhenFlying;
+        }
+
         public Collider GetCollider()
         {
             return GetComponent<Collider>();
@@ -216,6 +226,17 @@ namespace Enemies
         {
             agent.enabled = true;
             isGrabbed = false;
+
+            Collider[] enemiesHit;
+            enemiesHit = Physics.OverlapSphere(transform.position, settings.impactRadius);
+            foreach(Collider hit in enemiesHit)
+			{
+                Enemies.Enemy enemy = hit.transform.GetComponent<Enemies.Enemy>();
+                if (enemy != null)
+				{
+                    enemy.TakeHit(settings.impactForce, (enemy.transform.position - transform.position).normalized, settings.damageOnImpact);
+                }
+			}
         }
         #endregion IGrabableImplementation
 
@@ -231,10 +252,8 @@ namespace Enemies
             rigidbody.mass = settings.weight;
             rigidbody.drag = settings.linearDrag;
         }
-
-
-        #endregion
+		#endregion
 #endif
 
-    }
+	}
 }

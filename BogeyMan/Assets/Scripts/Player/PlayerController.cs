@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,13 +7,11 @@ public class PlayerController : MonoBehaviour
 {
 	[SerializeField] private Player player = null;
     [SerializeField] private PlayerInput playerInput = null;
-	[SerializeField] private Rigidbody rb = null;
-	[SerializeField] private Animator characterAnimator = null;
+	[field: SerializeField] public Rigidbody rb { get; private set; } = null;
+	[field: SerializeField] public Animator characterAnimator { get; private set; } = null;
 	[SerializeField] private Animator hitBoxesAnimator = null;
 	[SerializeField] private Transform partToRotate = null;
 	[field: SerializeField] public Grab grab { get; private set; }  = null;
-
-	[SerializeField] private Weapon weapon = Weapon.Censer;
 
 	Vector2 movementDirection;
 	public Vector2 aimDirection { get; private set; } = Vector2.right;
@@ -24,22 +22,30 @@ public class PlayerController : MonoBehaviour
 	private bool canHeavyAttack = true;
 	private bool canSpecialAttack = true;
 
+	private Camera mainCamera;
+
+	private Vector3 positionOnScreen;
+
 	private void Start()
 	{
 		ResetSpeed();
+		mainCamera = Camera.main;
 	}
 
 	#region Movements
 	private void FixedUpdate()
 	{
-		if (player.playerState.canMove == true)
-        {
-			Move();
-		}
-        else
-        {
-			rb.velocity = Vector3.zero;
-			characterAnimator.SetFloat("speed", 0);
+		if (player.playerState.canMove == true)
+        {
+			Move();
+		}
+        else
+        {
+			if (player.playerState.isKnockedBack == false)
+			{
+				rb.velocity = Vector3.zero;
+			}
+			characterAnimator.SetFloat("speed", 0);
 		}
 	}
 
@@ -48,10 +54,27 @@ public class PlayerController : MonoBehaviour
 		movementDirection = playerInput.actions["Movement"].ReadValue<Vector2>();
 		movementDirection = movementDirection.normalized * Mathf.Min(movementDirection.magnitude, 1f);
 		Vector2 movement = movementDirection * speed;
+
+		positionOnScreen = mainCamera.WorldToViewportPoint(transform.position);
+		switch (positionOnScreen.x)
+		{
+			case < 0.1f when movementDirection.x < 0:
+			case > 0.9f when movementDirection.x > 0:
+				movement.x = 0;
+				break;
+		}
+
+		switch (positionOnScreen.y)
+		{
+			case < 0.1f when movementDirection.y < 0:
+			case > 0.9f when movementDirection.y > 0:
+				movement.y = 0;
+				break;
+		}
+
 		rb.velocity = new Vector3(movement.x, 0, movement.y);
-
-
-		characterAnimator.SetFloat("speed", movementDirection.magnitude * speed / player.settings.movementSpeed);
+		float animationSpeed = movementDirection.magnitude * speed / player.settings.movementSpeed;
+		characterAnimator.SetFloat("speed", animationSpeed);
 	}
 
 	public void Aim(InputAction.CallbackContext context)
@@ -76,24 +99,22 @@ public class PlayerController : MonoBehaviour
 
 	public void Knockback(Vector2 direction)
 	{
-
-		player.playerState.isKnockedBack = true;
-
+		player.playerState.isKnockedBack = true;
 		Vector3 directionVector3 = new Vector3(direction.x, 0, direction.y);
 		rb.AddForce(directionVector3.normalized * player.settings.knockbackSpeedWhenHit, ForceMode.VelocityChange);
 		StartCoroutine(WaitForEndOfKnockback());
 	}
 
-	private IEnumerator WaitForEndOfKnockback()
-    {
-		float duration = player.settings.knockbackDistanceWhenHit / player.settings.knockbackSpeedWhenHit;
-		yield return new WaitForSeconds(duration);
-
-		rb.AddForce(Vector3.zero, ForceMode.VelocityChange);
-		player.playerState.isKnockedBack = false;
-	}
+	private IEnumerator WaitForEndOfKnockback()
+    {
+		float duration = player.settings.knockbackDistanceWhenHit / player.settings.knockbackSpeedWhenHit;
+		
+		yield return new WaitForSeconds(duration);
+		rb.AddForce(Vector3.zero, ForceMode.VelocityChange);
+		yield return new WaitForSeconds(0.1f);
+		player.playerState.isKnockedBack = false;
+	}
 	#endregion Movements
-
 	#region Stun
 	public void Stun(float duration)
 	{
@@ -118,7 +139,7 @@ public class PlayerController : MonoBehaviour
 	#region LightAttack
 	public void LightAttack(InputAction.CallbackContext context)
 	{
-		if (!context.started || !player.playerState.canAttack) return;
+		if (!context.started || !player.playerState.canAttack || !canLightAttack) return;
 
 		player.playerState.isAttacking = true;
 		hitBoxesAnimator.SetTrigger("LightAttack");
@@ -140,18 +161,24 @@ public class PlayerController : MonoBehaviour
 		canLightAttack = false;
 		yield return new WaitForSeconds(cooldown);
 		canLightAttack = true;
-	}
+	}
+
+	public void SetSlowMotionLightAttackAcceleration(float newTimeScale)
+	{
+		float slowMotionMultiplier = 1f / newTimeScale;
+		characterAnimator.SetFloat("SlowMotion", slowMotionMultiplier);
+		hitBoxesAnimator.SetFloat("SlowMotion", slowMotionMultiplier);
+	}
 	#endregion LightAttack
-
+
 	#region HeavyAttack
 	public void HeavyAttack(InputAction.CallbackContext context)
 	{
-		if (!context.started || !player.playerState.canAttack) return;
+		if (!context.started || !player.playerState.canAttack || !canHeavyAttack) return;
 
 		player.playerState.isAttacking = true;
 		DecreaseSpeed(player.settings.heavyAttackChargeSpeedReductionPercentage);
 		StartCoroutine(HeavyAttackCharge());
-		characterAnimator.SetTrigger("HeavyAttack");
 	}
 
 	private IEnumerator HeavyAttackCharge()
@@ -159,6 +186,7 @@ public class PlayerController : MonoBehaviour
 		yield return new WaitForSeconds(player.settings.heavyAttackChargeDuration);
 
 		hitBoxesAnimator.SetTrigger("HeavyAttack");
+		characterAnimator.SetTrigger("HeavyAttack");
 		DecreaseSpeed(100);
 		player.SetInvulnerability(true);
 	}
@@ -176,64 +204,77 @@ public class PlayerController : MonoBehaviour
 		canHeavyAttack = false;
 		yield return new WaitForSeconds(cooldown);
 		canHeavyAttack = true;
-	}
+	}
 	#endregion HeavyAttack
-
+
 	#region SpecialAttack
 	public void SpecialAttack(InputAction.CallbackContext context)
 	{
-		if (!context.started || !player.playerState.canAttack)
+		if (!context.started || !player.playerState.canAttack || !canSpecialAttack)
 			return;
 
-		switch (weapon)
-		{
-			case Weapon.Shovel:
-			{
-				break;
-			}
-			case Weapon.Censer:
-			{
-				player.playerState.isAttacking = true;
-				DecreaseSpeed(100);
-				StartCoroutine(CenserSpecialAttackCharge());
-				break;
-			}
-		}
+		player.playerState.isAttacking = true;
+		DecreaseSpeed(100);
+		StartCoroutine(CenserSpecialAttackCharge());
 	}
 
 	private IEnumerator CenserSpecialAttackCharge()
 	{
-		yield return new WaitForSeconds(player.settings.censerAttackChargeDuration);
+		yield return new WaitForSeconds(player.settings.specialAttackChargeDuration);
 
 		hitBoxesAnimator.SetTrigger("CenserSpecialAttack");
-		DecreaseSpeed(- player.settings.censerAttackSpeedIncreasePercentage);
+		DecreaseSpeed(- player.settings.specialAttackSpeedIncreasePercentage);
 		player.SetInvulnerability(true);
 	}
 
 	private void CenserSpecialAttackFinished()
 	{
-		StartCoroutine(WaitForSpecialAttackCooldown(player.settings.censerAttackCooldown));
+		StartCoroutine(WaitForSpecialAttackCooldown(player.settings.specialAttackCooldown));
 		ResetSpeed();
 		player.SetInvulnerability(false);
 		player.playerState.isAttacking = false;
-	}
-
+	}
 	private IEnumerator WaitForSpecialAttackCooldown(float cooldown)
 	{
 		canSpecialAttack = false;
 		yield return new WaitForSeconds(cooldown);
 		canSpecialAttack = true;
-	}
+	}
 	#endregion SpecialAttack
-
+
 	#endregion Attacks
-
+
 	public void Grab(InputAction.CallbackContext context)
 	{
-		if (!context.performed)
-			return;
+		if (context.performed)
+		{
+			if (player.playerState.isGrabbing)
+			{
+				characterAnimator.SetTrigger("Throw");
+			}
+			else
+			{
+				characterAnimator.SetTrigger("Grab");
+			}
+		}
+		
+		if (player.playerState.isOnDeadAlly)
+		{
+			Player ally = GameManager.Instance.Players[player.playerIndex == 1 ? 0 : 1];
 
-		grab.GrabInput();
+			if (context.performed)
+			{
+				player.StartRevivingAlly();
+				print("start");
+			}
+
+			if (context.canceled)
+			{
+				player.StopRevivingAlly();
+				ally.CancelRevival();
+				print("canceled");
+			}
+		}
 	}
 }
 
