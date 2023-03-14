@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 3.215016, g: 2.9690745, b: 4.1965413, a: 1}
+  m_IndirectSpecularColor: {r: 3.2150578, g: 2.9691088, b: 4.1966786, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5609,7 +5609,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1790377870}
-  - {fileID: 1686755679}
   - {fileID: 451039020}
   m_Father: {fileID: 0}
   m_RootOrder: 77
@@ -6937,10 +6936,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 7.412
       objectReference: {fileID: 0}
+    - target: {fileID: 3319517633227187601, guid: 1f6379963ef40274dbbec19030f66dac,
+        type: 3}
+      propertyPath: m_AngularDiameter
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5278915341598471393, guid: 1f6379963ef40274dbbec19030f66dac,
         type: 3}
       propertyPath: m_Name
       value: Sunset
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867492371518292518, guid: 1f6379963ef40274dbbec19030f66dac,
+        type: 3}
+      propertyPath: m_ShadowAngle
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14698,85 +14707,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 32ffd82e65b9d9e408262075303e6047,
     type: 3}
   m_PrefabInstance: {fileID: 1680566126}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &1686755678
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 721594035}
-    m_Modifications:
-    - target: {fileID: 2250864431527545734, guid: 1f6379963ef40274dbbec19030f66dac,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2250864431527545734, guid: 1f6379963ef40274dbbec19030f66dac,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -29.142864
-      objectReference: {fileID: 0}
-    - target: {fileID: 2250864431527545734, guid: 1f6379963ef40274dbbec19030f66dac,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.0418718
-      objectReference: {fileID: 0}
-    - target: {fileID: 2250864431527545734, guid: 1f6379963ef40274dbbec19030f66dac,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.2505223
-      objectReference: {fileID: 0}
-    - target: {fileID: 2250864431527545734, guid: 1f6379963ef40274dbbec19030f66dac,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.97934014
-      objectReference: {fileID: 0}
-    - target: {fileID: 2250864431527545734, guid: 1f6379963ef40274dbbec19030f66dac,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.12657538
-      objectReference: {fileID: 0}
-    - target: {fileID: 2250864431527545734, guid: 1f6379963ef40274dbbec19030f66dac,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.13536994
-      objectReference: {fileID: 0}
-    - target: {fileID: 2250864431527545734, guid: 1f6379963ef40274dbbec19030f66dac,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.08091182
-      objectReference: {fileID: 0}
-    - target: {fileID: 2250864431527545734, guid: 1f6379963ef40274dbbec19030f66dac,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 15.654
-      objectReference: {fileID: 0}
-    - target: {fileID: 2250864431527545734, guid: 1f6379963ef40274dbbec19030f66dac,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -14.72
-      objectReference: {fileID: 0}
-    - target: {fileID: 2250864431527545734, guid: 1f6379963ef40274dbbec19030f66dac,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 7.412
-      objectReference: {fileID: 0}
-    - target: {fileID: 5278915341598471393, guid: 1f6379963ef40274dbbec19030f66dac,
-        type: 3}
-      propertyPath: m_Name
-      value: Sunset
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1f6379963ef40274dbbec19030f66dac, type: 3}
---- !u!4 &1686755679 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2250864431527545734, guid: 1f6379963ef40274dbbec19030f66dac,
-    type: 3}
-  m_PrefabInstance: {fileID: 1686755678}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1713333148
 PrefabInstance:
