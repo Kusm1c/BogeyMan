@@ -70,7 +70,7 @@ public class Grab : MonoBehaviour
     private void ThrowObject(IGrabable objectToThrow)
     {
         player.playerState.isGrabbing = false;
-        
+        StopAllCoroutines();
         grabbedObject = null;
         objectToThrow.transform.parent = null;
         Vector3 direction = new Vector3(player.playerController.aimDirection.x, 0 ,player.playerController.aimDirection.y);
@@ -93,7 +93,6 @@ public class Grab : MonoBehaviour
     {
         player.playerState.isGrabbing = false;
         grabbedObject = null;
-        StopAllCoroutines();
         if (player.playerState.isGrabbingSummoner == true)
         {
             objectToRelease.GetCollider().enabled = true;

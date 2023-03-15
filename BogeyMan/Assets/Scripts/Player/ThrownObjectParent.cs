@@ -130,6 +130,11 @@ public class ThrownObjectParent : MonoBehaviour
         {
             GameManager.Instance.SlowMotionIsActive = false;
             Time.timeScale = 1;
+            Time.fixedDeltaTime = 0.02F * Time.timeScale;
+            foreach(Player p in GameManager.Instance.Players)
+			{
+                p.playerController.SetSlowMotionLightAttackAcceleration(1);
+            }
         }
     }
 }
