@@ -39,7 +39,6 @@ public class Grab : MonoBehaviour
 
     private void GrabObject(IGrabable objectToGrab)
 	{
-        print(objectToGrab);
         grabbedObject = objectToGrab;
         player.playerState.isGrabbing = true;
         grabbedObject.OnGrab(player);
@@ -50,10 +49,23 @@ public class Grab : MonoBehaviour
             rb = grabbedObject.transform.GetComponent<Rigidbody>();
             rb.velocity = Vector3.zero;
             rb.isKinematic = true;
+
+            Enemies.Enemy enemy = grabbedObject.transform.GetComponent<Enemies.Enemy>();
+            if (enemy != null)
+			{
+                StartCoroutine(WaitForRelease(player.settings.minMaxTimeGrabbingSwarmer));
+			}
         }
         objectToGrab.GetCollider().enabled = false;
         grabableObjects.Remove(grabbedObject);
     }
+
+    private IEnumerator WaitForRelease(Vector2 minMaxGrabTime)
+	{
+        float randomTime = UnityEngine.Random.Range(minMaxGrabTime.x, minMaxGrabTime.y);
+        yield return new WaitForSeconds(randomTime);
+        Release(grabbedObject);
+	}
 
     private void ThrowObject(IGrabable objectToThrow)
     {
@@ -81,6 +93,7 @@ public class Grab : MonoBehaviour
     {
         player.playerState.isGrabbing = false;
         grabbedObject = null;
+        StopAllCoroutines();
         if (player.playerState.isGrabbingSummoner == true)
         {
             objectToRelease.GetCollider().enabled = true;

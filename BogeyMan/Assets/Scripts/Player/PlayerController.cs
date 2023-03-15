@@ -250,7 +250,7 @@ public class PlayerController : MonoBehaviour
 
 	public void Grab(InputAction.CallbackContext context)
 	{
-		if (context.performed || player.playerState.isOnDeadAlly == false)
+		if (context.performed && player.playerState.isOnDeadAlly == false)
 		{
 			if (player.playerState.isGrabbingSummoner)
 			{
@@ -258,7 +258,6 @@ public class PlayerController : MonoBehaviour
 			}
 			else if (player.playerState.isGrabbing)
 			{
-				print(player.playerState.isGrabbing);
 				characterAnimator.SetTrigger("Throw");
 			}
 			else
@@ -274,14 +273,12 @@ public class PlayerController : MonoBehaviour
 			if (context.performed)
 			{
 				player.StartRevivingAlly();
-				print("start");
 			}
 
 			if (context.canceled)
 			{
 				player.StopRevivingAlly();
 				ally.CancelRevival();
-				print("canceled");
 			}
 		}
 	}
