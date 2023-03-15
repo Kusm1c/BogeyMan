@@ -80,7 +80,7 @@ MonoBehaviour:
   automatic: 0
   swarmSize: 10
   spawnRadius: 7
-  spawnDelay: 1
+  spawnDelay: 1.5
 --- !u!33 &1162184454331921558
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 241385889161358178}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 6.84
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -255,7 +255,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 30.2
+  m_Radius: 244.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5616501494619240399
 MonoBehaviour:

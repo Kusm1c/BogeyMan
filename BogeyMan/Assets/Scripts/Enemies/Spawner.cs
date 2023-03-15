@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GD.MinMaxSlider;
 using Random = UnityEngine.Random;
 
 namespace Enemies
@@ -125,7 +124,7 @@ namespace Enemies
         private class UnitSpawnSettings
         {
             public string unitName;
-            [MinMaxSlider(0f, 100f)] public Vector2Int randomSpawnChance;
+            public Vector2Int randomSpawnChance;
             [HideInInspector] public int randomSwarmSpawnPart;
             [Range(0, 100)] public float respawnForLoses;
         }
