@@ -21,6 +21,13 @@ MonoBehaviour:
   angularSpeed: 120
   acceleration: 8
   weight: 1
-  linearDrag: 6.84
+  linearDrag: 5.13
   disappearanceTime: 2
-  debug: 0
+  throwable: 1
+  throwSpeed: 10
+  throwDuration: 1.5
+  damageOnCollisionWhenFlying: 1
+  damageOnImpact: 2
+  impactRadius: 3
+  impactForce: 20
+  debug: 1

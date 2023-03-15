@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-//using GD.MinMaxSlider;
+using GD.MinMaxSlider;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -11,16 +11,18 @@ using Random = UnityEngine.Random;
 public class Spawner : MonoBehaviour
 {
     [Header("Swarm Settings")] [SerializeField]
-    private List<SwarmerType> swarmerType;
+    private List<SwarmerType> swarmerTypes;
     [Serializable]
     private class SwarmerType
     {
         public GameObject swarmerType;
-        /*[MinMaxSlider(0f, 100f)]*/ public Vector2Int swarmSpawnPartRange;
-        public int randomSwarmSpawnPart;
+        [MinMaxSlider(0f, 100f)] public Vector2Int randomSpawnChance;
         [Range(0, 100)] public float respawnForLoses;
         public float distanceBetweenSwarmers;
+        
+        [Header("Pas toucher")]
         public int isAlive;
+        public int randomSwarmSpawnPart;
     }
 
     [SerializeField] private int swarmSize;
@@ -30,15 +32,16 @@ public class Spawner : MonoBehaviour
     [SerializeField] private List<GameObject> swarmersDead = new();
     [SerializeField] private List<GameObject> swarmersAlive = new();
 
+    [ExecuteAlways]
     private void OnValidate()
     {
         if (swarmSize < 0) swarmSize = 0;
         if (swarmSpawnRadius < 0) swarmSpawnRadius = 0;
         if (swarmSpawnSpeed < 0) swarmSpawnSpeed = 0;
-        foreach (SwarmerType swarmerType in swarmerType)
+        foreach (SwarmerType swarmerType in swarmerTypes)
         {
-            if (swarmerType.swarmSpawnPartRange.x < 0) swarmerType.swarmSpawnPartRange.x = 0;
-            if (swarmerType.swarmSpawnPartRange.y < 0) swarmerType.swarmSpawnPartRange.y = 0;
+            if (swarmerType.randomSpawnChance.x < 0) swarmerType.randomSpawnChance.x = 0;
+            if (swarmerType.randomSpawnChance.y < 0) swarmerType.randomSpawnChance.y = 0;
             if (swarmerType.respawnForLoses < 0) swarmerType.respawnForLoses = 0;
             if (swarmerType.distanceBetweenSwarmers < 0) swarmerType.distanceBetweenSwarmers = 0;
         }
@@ -56,7 +59,7 @@ public class Spawner : MonoBehaviour
 
     private void SwarmerPool()
     {
-        foreach (SwarmerType swarmerType in swarmerType)
+        foreach (SwarmerType swarmerType in swarmerTypes)
         {
             for (int i = 0; i < swarmSize - swarmSize / swarmerType.randomSwarmSpawnPart; i++)
             {
@@ -71,15 +74,18 @@ public class Spawner : MonoBehaviour
     private void ChooseRandomSwarmSpawnPart()
     {
         int sum = 0;
-        foreach (SwarmerType swarmerType in swarmerType)
+        foreach (SwarmerType swarmerType in swarmerTypes)
         {
-            swarmerType.randomSwarmSpawnPart =
-                Random.Range(swarmerType.swarmSpawnPartRange.x, swarmerType.swarmSpawnPartRange.y);
+            swarmerType.randomSwarmSpawnPart = Random.Range(swarmerType.randomSpawnChance.x, swarmerType.randomSpawnChance.y);
             sum += swarmerType.randomSwarmSpawnPart;
         }
+
         if (sum != 100)
         {
-            ChooseRandomSwarmSpawnPart();
+            foreach (SwarmerType swarmerType in swarmerTypes)
+            {
+                swarmerType.randomSwarmSpawnPart = swarmerType.randomSwarmSpawnPart * 100 / sum;
+            }
         }
     }
 
@@ -123,7 +129,7 @@ public class Spawner : MonoBehaviour
         swarmersAlive.Remove(swarmer);
         swarmersDead.Add(swarmer);
         swarmer.SetActive(false);
-        foreach (SwarmerType swarmerType in swarmerType)
+        foreach (SwarmerType swarmerType in swarmerTypes)
         {
             if (swarmerType.swarmerType == swarmer)
             {
