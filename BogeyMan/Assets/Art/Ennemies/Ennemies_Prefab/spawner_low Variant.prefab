@@ -111,6 +111,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnerWalk
       objectReference: {fileID: 0}
+    - target: {fileID: 1924064911159825099, guid: 76e5b959c05cfdb44a760d646f6d26ca,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 56d7341fd85ea004b8b97766165ceeaf, type: 2}
+    - target: {fileID: 1924064911159825099, guid: 76e5b959c05cfdb44a760d646f6d26ca,
+        type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8473305171863654296, guid: 76e5b959c05cfdb44a760d646f6d26ca,
         type: 3}
       propertyPath: m_RootOrder
