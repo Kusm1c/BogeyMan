@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 8993040056194844961}
   - component: {fileID: 6568857403608710635}
   - component: {fileID: 4285422166469144189}
+  - component: {fileID: 5522970176893421685}
   m_Layer: 0
   m_Name: SM_Barrel_PREFAB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5432020502603712132
 Transform:
@@ -107,3 +108,19 @@ CapsuleCollider:
   m_Height: 0.44947445
   m_Direction: 1
   m_Center: {x: 0, y: -0.00000008195638, z: 0.22672874}
+--- !u!208 &5522970176893421685
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4623430389281922110}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.22500001, y: 0.22500001, z: 0.22700001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.22700001}
+  m_TimeToStationary: 0.5

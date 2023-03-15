@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 3773881807199579931}
   - component: {fileID: 8967667257662202061}
+  - component: {fileID: -8881451373557521411}
   m_Layer: 0
   m_Name: SM_HayWagon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3773881807199579931
 Transform:
@@ -55,6 +56,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2720419, y: 0.9548661, z: 2.1080108}
   m_Center: {x: -0.0415619, y: 0.47597018, z: 0.19033146}
+--- !u!208 &-8881451373557521411
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2867396231432904698}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &2986034025616252607
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,7 +88,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6147160304062935738
 Transform:
@@ -154,7 +171,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6709656541574095849
 Transform:
