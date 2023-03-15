@@ -183,6 +183,7 @@ public class PlayerController : MonoBehaviour
 
 		player.playerState.isAttacking = true;
 		DecreaseSpeed(player.settings.heavyAttackChargeSpeedReductionPercentage);
+		player.playerVfx.StartHeavyAttackCharge();
 		StartCoroutine(HeavyAttackCharge());
 	}
 
