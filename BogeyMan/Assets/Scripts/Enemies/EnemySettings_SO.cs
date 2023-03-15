@@ -21,6 +21,16 @@ namespace Enemies
         [Min(0)] public float linearDrag = 5f;
         [Min(0)] public float disappearanceTime = 2f;
 
+        [Header("Throw & Impact")]
+        public bool throwable = true;
+        [Min(0)] public float throwSpeed = 10f;
+        [Min(0)] public float throwDuration = 1.5f;
+        [Min(0)] public int damageOnCollisionWhenFlying = 1;
+        [Min(0)] public float forceOnCollisionWhenFlying = 15f;
+        [Min(0)] public int damageOnImpact = 2;
+        [Min(0)] public float impactRadius = 3f;
+        [Min(0)] public float impactForce = 20f;
+
 #if UNITY_EDITOR
         [Space]
         [Header("=== Click this to Balance in real time ===")]
