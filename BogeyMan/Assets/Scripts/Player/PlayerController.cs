@@ -170,7 +170,6 @@ public class PlayerController : MonoBehaviour
 	public void SetSlowMotionLightAttackAcceleration(float newTimeScale)
 	{
 		float slowMotionMultiplier = 1f / newTimeScale;
-		print(slowMotionMultiplier);
 		characterAnimator.SetFloat("SlowMotion", slowMotionMultiplier);
 		hitBoxesAnimator.SetFloat("SlowMotion", slowMotionMultiplier);
 	}
@@ -183,6 +182,7 @@ public class PlayerController : MonoBehaviour
 
 		player.playerState.isAttacking = true;
 		DecreaseSpeed(player.settings.heavyAttackChargeSpeedReductionPercentage);
+		player.playerVfx.StartHeavyAttackCharge();
 		StartCoroutine(HeavyAttackCharge());
 	}
 
