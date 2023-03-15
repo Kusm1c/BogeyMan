@@ -58,7 +58,7 @@ namespace Enemies
         protected virtual void Awake()
         {
             hp = settings.maxHP;
-            rigidbody.Sleep();
+            rigidbody.Disable();
         }
 
         protected virtual void Update()
@@ -70,10 +70,10 @@ namespace Enemies
             }
 #endif
 
-            if (!rigidbody.IsSleeping() && rigidbody.velocity.magnitude < 0.1f && isGrabbed == false)
+            if (!rigidbody.isKinematic && rigidbody.velocity.magnitude < 0.1f && isGrabbed == false)
             {
                 rigidbody.velocity = Vector3.zero;
-                rigidbody.Sleep();
+                rigidbody.Enable();
                 agent.enabled = true;
             }
 
@@ -148,7 +148,7 @@ namespace Enemies
             if (isDead) return;
 
             agent.enabled = false;
-            rigidbody.WakeUp();
+            rigidbody.Enable();
             rigidbody.velocity = direction * strength;
 
             TakeHit(damage);
@@ -238,7 +238,7 @@ namespace Enemies
 
         public void OnThrow()
         {
-
+            rigidbody.Enable();
         }
 
         public void OnImpact()

@@ -16,7 +16,7 @@ MonoBehaviour:
   attackSpeed: 0.5
   damage: 10
   focusRange: 30.2
-  attackRange: 1.5
+  attackRange: 2.5
   moveSpeed: 2.35
   angularSpeed: 120
   acceleration: 8
@@ -27,6 +27,7 @@ MonoBehaviour:
   throwSpeed: 10
   throwDuration: 1.5
   damageOnCollisionWhenFlying: 1
+  forceOnCollisionWhenFlying: 15
   damageOnImpact: 2
   impactRadius: 3
   impactForce: 20
