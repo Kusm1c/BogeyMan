@@ -51,7 +51,7 @@ public class SummonerArms : MonoBehaviour, IGrabable
         else
         {
             // Dismember summoner
-            print("Summoner dechired"); // à faire avant les lignes ci-dessous obligatoirement
+            print("Summoner dechired"); // Ã  faire avant les lignes ci-dessous obligatoirement
 
             // Degrab players
             foreach (Player player in GameManager.Instance.Players)

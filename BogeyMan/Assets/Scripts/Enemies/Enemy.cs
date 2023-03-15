@@ -62,8 +62,8 @@ namespace Enemies
         private MaterialPropertyBlock _propertyBlock;
         private Transform _target;
         private Collider _collider;
-        private readonly Clock attackCooldownClock = new();
         private bool _isStopped;
+        protected readonly Clock attackCooldownClock = new();
         protected bool isDead;
         protected bool isGrabbed;
 
@@ -85,20 +85,8 @@ namespace Enemies
             }
 #endif
 
-            if (!rigidbody.isKinematic && rigidbody.velocity.magnitude < 0.1f && isGrabbed == false)
-            {
-                rigidbody.velocity = Vector3.zero;
-                rigidbody.Enable();
-                agent.enabled = true;
-            }
-
-            if (!agent.isActiveAndEnabled) return;
-
-            if (!hasTarget || isStopped)
-            {
-                agent.isStopped = true;
+            if (UpdateChecks())
                 return;
-            }
 
             if (!isGrabbed &&
                 (target.transform.position - transform.position).sqrMagnitude <
@@ -113,6 +101,27 @@ namespace Enemies
             }
 
             Move();
+        }
+
+        protected bool UpdateChecks()
+        {
+            if (!isGrabbed && !rigidbody.isKinematic && rigidbody.velocity.magnitude < 0.1f)
+            {
+                rigidbody.velocity = Vector3.zero;
+                rigidbody.Enable();
+                agent.enabled = true;
+                return true;
+            }
+            
+            if (!agent.isActiveAndEnabled) return true;
+
+            if (!hasTarget || isStopped)
+            {
+                agent.isStopped = true;
+                return true;
+            }
+
+            return false;
         }
 
         protected virtual void Move()
@@ -160,7 +169,7 @@ namespace Enemies
             }
         }
 
-        private void OnDrawGizmosSelected()
+        protected virtual void OnDrawGizmosSelected()
         {
             if (settings != null)
             {

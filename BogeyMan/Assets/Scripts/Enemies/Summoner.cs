@@ -2,6 +2,11 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+
 namespace Enemies
 {
     public class Summoner : Enemy
@@ -9,8 +14,9 @@ namespace Enemies
         [SerializeField] private Spawner spawner;
         [SerializeField] private int firstSpawnCount;
         [SerializeField] private float spawnDelay;
-        
-        
+        [SerializeField, Tooltip("x is inner radius, y is outer radius")] private Vector2 comfortZoneRadius;
+
+        private Transform myTransform;
         private WaitForSeconds attackWait;
         private readonly Clock spawnClock = new();
         
@@ -18,6 +24,7 @@ namespace Enemies
         protected override void Awake()
         {
             attackWait = new WaitForSeconds(settings.attackSpeed);
+            myTransform = transform;
 #if UNITY_EDITOR
             currentAttackSpeed = settings.attackSpeed;
 #endif
@@ -28,17 +35,75 @@ namespace Enemies
         {
             spawner.SpawnSwarm(firstSpawnCount);
             spawnClock.Start();
+            agent.updateRotation = false;
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            spawnClock.Start();
+            myTransform.LookAt(target.transform, Vector3.up);
+            myTransform.eulerAngles = Vector3.up * myTransform.eulerAngles.y;
         }
 
         protected override void Update()
         {
-            base.Update();
+#if UNITY_EDITOR
+            if (settings.debug)
+            {
+                Debug();
+            }
+#endif
+
+            if (UpdateChecks())
+                return;
+
+            myTransform.LookAt(target.transform, Vector3.up);
+            myTransform.eulerAngles = Vector3.up * myTransform.eulerAngles.y;
+
+            Vector3 targetDirection = target.transform.position - myTransform.position;
+            if (!isGrabbed && attackCooldownClock.GetTime() > settings.attackCooldown + settings.attackSpeed &&
+                targetDirection.sqrMagnitude < settings.attackRange * settings.attackRange)
+            {
+                agent.ResetPath();
+                Attack();
+                attackCooldownClock.Restart();
+                return;
+            }
+
+            if (targetDirection.sqrMagnitude < comfortZoneRadius.x * comfortZoneRadius.x || 
+                targetDirection.sqrMagnitude > comfortZoneRadius.y * comfortZoneRadius.y)
+            {
+                MoveTo(target.transform.position + (-targetDirection).normalized * ((comfortZoneRadius.y + comfortZoneRadius.x) * 0.5f));
+            }
 
             if (spawnClock.GetTime() > spawnDelay)
             {
                 spawner.SpawnSwarm(1);
                 spawnClock.Restart();
             }
+        }
+        
+        protected override void OnDrawGizmosSelected()
+        {
+            base.OnDrawGizmosSelected();
+
+            Vector3 position = myTransform.position;
+            Vector3 up = myTransform.up;
+                
+#if UNITY_EDITOR
+            Handles.color = Color.green;
+            Handles.DrawSolidDisc(position, up, comfortZoneRadius.y);
+            Handles.color = Color.red;
+            Handles.DrawSolidDisc(position, up, comfortZoneRadius.x);
+#endif
+        }
+
+        private void MoveTo(Vector3 position)
+        {
+            agent.isStopped = false;
+            agent.speed = settings.moveSpeed;
+            agent.SetDestination(position);
         }
 
         protected override void StopMoving()
@@ -66,11 +131,12 @@ namespace Enemies
             
             try
             {
-                // if ((player.transform.position - transform.position).sqrMagnitude <
-                //     settings.attackRange * settings.attackRange)
-                // {
-                //     player.TakeHit((int) settings.damage, (player.transform.position - transform.position).normalized);
-                // }
+                var player = target.GetComponent<Player>();
+                if ((player.transform.position - transform.position).sqrMagnitude <
+                    settings.attackRange * settings.attackRange)
+                {
+                    player.TakeHit((int) settings.damage, (player.transform.position - transform.position).normalized);
+                }
             }
             finally
             {

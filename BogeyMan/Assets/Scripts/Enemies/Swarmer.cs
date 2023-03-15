@@ -73,6 +73,9 @@ namespace Enemies
         
         public void HitPlayer()
         {
+            if (isDead || isGrabbed)
+                return;
+
             var player = target.GetComponent<Player>();
             
             if ((player.transform.position - transform.position).sqrMagnitude <
