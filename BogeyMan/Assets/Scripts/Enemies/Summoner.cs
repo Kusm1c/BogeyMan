@@ -41,16 +41,21 @@ namespace Enemies
             }
         }
 
-        protected override void Attack(Player player)
+        protected override void StopMoving()
+        {
+            
+        }
+
+        protected override void Attack()
         {
             agent.isStopped = true;
             isStopped = true;
 
             UnityEngine.Debug.Log("attack");
-            StartCoroutine(AttackCoroutine(player));
+            StartCoroutine(AttackCoroutine());
         }
 
-        private IEnumerator AttackCoroutine(Player player)
+        private IEnumerator AttackCoroutine()
         {
             yield return attackWait;
 
@@ -61,11 +66,11 @@ namespace Enemies
             
             try
             {
-                if ((player.transform.position - transform.position).sqrMagnitude <
-                    settings.attackRange * settings.attackRange)
-                {
-                    player.TakeHit((int) settings.damage, (player.transform.position - transform.position).normalized);
-                }
+                // if ((player.transform.position - transform.position).sqrMagnitude <
+                //     settings.attackRange * settings.attackRange)
+                // {
+                //     player.TakeHit((int) settings.damage, (player.transform.position - transform.position).normalized);
+                // }
             }
             finally
             {
