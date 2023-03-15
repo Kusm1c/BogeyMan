@@ -89,6 +89,8 @@ public class Player : MonoBehaviour
 		StartCoroutine(ReviveCoroutine());
 		SetInvulnerability(false);
 		playerController.characterAnimator.SetBool("Dead", false);
+		currentLife = settings.maxLife;
+		ui.UpdateLifeBar(currentLife, settings.maxLife);
 	}
 
 	private IEnumerator ReviveCoroutine()
