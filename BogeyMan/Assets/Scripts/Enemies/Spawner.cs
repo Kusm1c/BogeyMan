@@ -1,144 +1,133 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using GD.MinMaxSlider;
-using UnityEngine.AI;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class Spawner : MonoBehaviour
+namespace Enemies
 {
-    [Header("Swarm Settings")] [SerializeField]
-    private List<SwarmerType> swarmerTypes;
-    [Serializable]
-    private class SwarmerType
+    public class Spawner : MonoBehaviour
     {
-        public GameObject swarmerType;
-        [MinMaxSlider(0f, 100f)] public Vector2Int randomSpawnChance;
-        [Range(0, 100)] public float respawnForLoses;
-        public float distanceBetweenSwarmers;
-        
-        [Header("Pas toucher")]
-        public int isAlive;
-        public int randomSwarmSpawnPart;
-    }
+        [Header("Swarm Settings")] 
+        [SerializeField] private List<UnitSpawnSettings> units;
+        [SerializeField] private bool automatic = true;
+        [SerializeField, Min(0)] private int swarmSize;
+        [SerializeField, Min(0f)] private float spawnRadius = 15f;
+        [SerializeField, Min(0f)] private float spawnDelay = 2f;
 
-    [SerializeField] private int swarmSize;
-    [SerializeField] private float swarmSpawnRadius;
-    [SerializeField] private float swarmSpawnSpeed;
-    
-    [SerializeField] private List<GameObject> swarmersDead = new();
-    [SerializeField] private List<GameObject> swarmersAlive = new();
+        private int aliveCount;
+        private readonly WaitForSeconds waitForPointOneSeconds = new(0.1f);
+        private WaitForSeconds waitForSpawnDelay;
 
-    [ExecuteAlways]
-    private void OnValidate()
-    {
-        if (swarmSize < 0) swarmSize = 0;
-        if (swarmSpawnRadius < 0) swarmSpawnRadius = 0;
-        if (swarmSpawnSpeed < 0) swarmSpawnSpeed = 0;
-        foreach (SwarmerType swarmerType in swarmerTypes)
+        private void OnValidate()
         {
-            if (swarmerType.randomSpawnChance.x < 0) swarmerType.randomSpawnChance.x = 0;
-            if (swarmerType.randomSpawnChance.y < 0) swarmerType.randomSpawnChance.y = 0;
-            if (swarmerType.respawnForLoses < 0) swarmerType.respawnForLoses = 0;
-            if (swarmerType.distanceBetweenSwarmers < 0) swarmerType.distanceBetweenSwarmers = 0;
-        }
-    }
-
-    private void Start()
-    {
-        Debug.Log("Started Spawning");
-        ChooseRandomSwarmSpawnPart();
-        SwarmerPool();
-        StartCoroutine(SpawnSwarm());
-        
-    }
-
-
-    private void SwarmerPool()
-    {
-        foreach (SwarmerType swarmerType in swarmerTypes)
-        {
-            for (int i = 0; i < swarmSize - swarmSize / swarmerType.randomSwarmSpawnPart; i++)
+            if (Application.isPlaying)
             {
-                GameObject swarmer = Instantiate(swarmerType.swarmerType, transform);
-                swarmer.GetComponent<NavMeshAgent>().radius = swarmerType.distanceBetweenSwarmers;
-                swarmer.SetActive(false);
-                swarmersDead.Add(swarmer);
+                waitForSpawnDelay = new WaitForSeconds(spawnDelay);
+            }
+            foreach (UnitSpawnSettings unitSettings in units)
+            {
+                if (unitSettings.randomSpawnChance.x < 0) unitSettings.randomSpawnChance.x = 0;
+                if (unitSettings.randomSpawnChance.y < 0) unitSettings.randomSpawnChance.y = 0;
             }
         }
-    }
 
-    private void ChooseRandomSwarmSpawnPart()
-    {
-        int sum = 0;
-        foreach (SwarmerType swarmerType in swarmerTypes)
+        private void Awake()
         {
-            swarmerType.randomSwarmSpawnPart = Random.Range(swarmerType.randomSpawnChance.x, swarmerType.randomSpawnChance.y);
-            sum += swarmerType.randomSwarmSpawnPart;
+            waitForSpawnDelay = new WaitForSeconds(spawnDelay);
         }
 
-        if (sum != 100)
+        private void Start()
         {
-            foreach (SwarmerType swarmerType in swarmerTypes)
+            InitRandomSwarmSpawnPart();
+            if (automatic)
+            {
+                StartCoroutine(SpawnLoopCoroutine());
+            }
+        }
+
+        private void InitRandomSwarmSpawnPart()
+        {
+            int sum = 0;
+            foreach (UnitSpawnSettings swarmerType in units)
+            {
+                swarmerType.randomSwarmSpawnPart = Random.Range(swarmerType.randomSpawnChance.x, swarmerType.randomSpawnChance.y);
+                sum += swarmerType.randomSwarmSpawnPart;
+            }
+
+            if (sum == 100) return;
+
+            foreach (UnitSpawnSettings swarmerType in units)
             {
                 swarmerType.randomSwarmSpawnPart = swarmerType.randomSwarmSpawnPart * 100 / sum;
             }
         }
-    }
 
-    private IEnumerator SpawnSwarm()
-    {
-        var randomPosInRadius = new Vector3(Random.insideUnitCircle.x * swarmSpawnRadius,
-            transform.position.y, Random.insideUnitCircle.y * swarmSpawnRadius) + transform.position;
-        if (Physics.CheckSphere(randomPosInRadius, 1.5f, LayerMask.GetMask("Wall")))
+        private IEnumerator SpawnLoopCoroutine()
         {
-            yield return new WaitForSeconds(0.1f);
-            StartCoroutine(SpawnSwarm());
-        }
-        else
-        {
-            if (swarmersDead.Count > 0)
+            if (aliveCount >= swarmSize)
             {
-                GameObject swarmer = swarmersDead[0];
-                swarmer.transform.position = randomPosInRadius;
-                swarmer.SetActive(true);
-                swarmersDead.Remove(swarmer);
-                swarmersAlive.Add(swarmer);
-                yield return new WaitForSeconds(swarmSpawnSpeed);
-                StartCoroutine(SpawnSwarm());
+                yield return waitForPointOneSeconds;
+                StartCoroutine(SpawnLoopCoroutine());
+                yield break;
             }
-            else
+
+            SpawnUnit();
+            
+            yield return waitForSpawnDelay;
+            StartCoroutine(SpawnLoopCoroutine());
+        }
+
+        public void SpawnSwarm(int unitCount)
+        {
+            for (int i = 0; i < unitCount; i++)
             {
-                yield return new WaitForSeconds(0.1f);
-                StartCoroutine(SpawnSwarm());
+                SpawnUnit();
             }
         }
-    }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, swarmSpawnRadius);
-    }
-    
-    public void SwarmerDeath(GameObject swarmer)
-    {
-        swarmersAlive.Remove(swarmer);
-        swarmersDead.Add(swarmer);
-        swarmer.SetActive(false);
-        foreach (SwarmerType swarmerType in swarmerTypes)
+        private void SpawnUnit()
         {
-            if (swarmerType.swarmerType == swarmer)
+            Vector3 randomPosInRadius;
             {
-                swarmerType.isAlive--;
-                if (swarmerType.isAlive < 0)
-                {
-                    swarmerType.isAlive = 0;
-                }
+                Vector3 spawnerPosition = transform.position;
+                randomPosInRadius = new Vector3(Random.insideUnitCircle.x * spawnRadius,
+                    spawnerPosition.y, Random.insideUnitCircle.y * spawnRadius) + spawnerPosition;
             }
+            
+            // if (Physics.CheckSphere(randomPosInRadius, 1.5f, LayerMask.GetMask("Wall")))
+            // {
+            //     yield return null;
+            //     StartCoroutine(SpawnSwarm());
+            //     yield break;
+            // }
+
+            GameObject swarmer = Pooler.instance.Pop(units[0].unitName, randomPosInRadius);
+            swarmer.SetActive(true);
+            aliveCount++;
+            swarmer.GetComponent<Enemy>().onDeath += SwarmerDeath;
+        }
+        
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, spawnRadius);
+        }
+
+        private void SwarmerDeath(Enemy enemy)
+        {
+            aliveCount--;
+            enemy.onDeath -= SwarmerDeath;
+        }
+        
+        [Serializable]
+        private class UnitSpawnSettings
+        {
+            public string unitName;
+            [MinMaxSlider(0f, 100f)] public Vector2Int randomSpawnChance;
+            [HideInInspector] public int randomSwarmSpawnPart;
+            [Range(0, 100)] public float respawnForLoses;
         }
     }
 }

@@ -153,6 +153,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 3.1640708
       objectReference: {fileID: 0}
+    - target: {fileID: -4656854801786659026, guid: dd3117c7259443b47badd9101ade78b3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fc3fa06da5bc6fa4c810e89003c8b1f6, type: 2}
     - target: {fileID: -4227054681671594630, guid: dd3117c7259443b47badd9101ade78b3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -216,7 +221,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: dd3117c7259443b47badd9101ade78b3,
         type: 3}
       propertyPath: m_Name
-      value: CAC Variant
+      value: CAC_swarmer
       objectReference: {fileID: 0}
     - target: {fileID: 1890270722197422888, guid: dd3117c7259443b47badd9101ade78b3,
         type: 3}
