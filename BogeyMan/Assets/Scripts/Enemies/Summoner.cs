@@ -1,17 +1,19 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Enemies
 {
-    public class Swarmer : Enemy
+    public class Summoner : Enemy
     {
-        [SerializeField] private Animator animator;
+        [SerializeField] private Spawner spawner;
+        [SerializeField] private int firstSpawnCount;
+        [SerializeField] private float spawnDelay;
+        
         
         private WaitForSeconds attackWait;
+        private readonly Clock spawnClock = new();
         
-        private static readonly int runOffset = Animator.StringToHash("RunOffset");
 
         protected override void Awake()
         {
@@ -22,17 +24,29 @@ namespace Enemies
             base.Awake();
         }
 
-        protected override void OnEnable()
+        private void Start()
         {
-            base.OnEnable();
-            animator.SetFloat(runOffset, Random.Range(0, .5f));
+            spawner.SpawnSwarm(firstSpawnCount);
+            spawnClock.Start();
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+
+            if (spawnClock.GetTime() > spawnDelay)
+            {
+                spawner.SpawnSwarm(1);
+                spawnClock.Restart();
+            }
         }
 
         protected override void Attack(Player player)
         {
             agent.isStopped = true;
             isStopped = true;
-            
+
+            UnityEngine.Debug.Log("attack");
             StartCoroutine(AttackCoroutine(player));
         }
 
@@ -60,9 +74,30 @@ namespace Enemies
             }
         }
 
+        protected override IEnumerator Die()
+        {
+            //agent.isStopped = true;
+            isStopped = true;
+            isDead = true;
+
+            float length = settings.disappearanceTime;
+
+            Transform meshTransform = transform.GetChild(0);
+            while (length > 0f)
+            {
+                meshTransform.Rotate(meshTransform.forward, Time.deltaTime / settings.disappearanceTime * 90);
+                yield return null;
+                length -= Time.deltaTime;
+            }
+
+            Pooler.instance.DePop("Summoner", gameObject); // TODO
+            
+            onDeath?.Invoke(this);
+        }
+
 #if UNITY_EDITOR
         private float currentAttackSpeed;
-
+        
         protected override void Debug()
         {
             if (Math.Abs(currentAttackSpeed - settings.attackSpeed) > 0.001f)
