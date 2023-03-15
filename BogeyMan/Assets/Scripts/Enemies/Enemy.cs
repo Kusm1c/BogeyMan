@@ -25,20 +25,32 @@ namespace Enemies
             }
         }
 
+        private new Collider collider {
+            get
+            {
+                if (_collider == null)
+                {
+                    _collider = GetComponent<Collider>();
+                }
+
+                return _collider;
+            }
+        }
+
         [SerializeField] protected EnemySettings_SO settings;
         [SerializeField] private SphereCollider focusSphere;
-        [SerializeField] private MeshRenderer meshRenderer;
+        [SerializeField] private new Renderer renderer;
         [SerializeField] private new Rigidbody rigidbody;
         [SerializeField] protected NavMeshAgent agent;
 
-        protected bool hasTarget;
-        private Spawner spawner;
+        private bool hasTarget;
         private MaterialPropertyBlock propertyBlock => _propertyBlock ??= new MaterialPropertyBlock();
         private MaterialPropertyBlock _propertyBlock;
         private Transform _target;
-        private bool isDead;
+        private Collider _collider;
+        protected bool isDead;
         protected bool isStopped;
-        protected bool isGrabbed = false;
+        protected bool isGrabbed;
 
         private int hp;
         private static readonly int color = Shader.PropertyToID("_BaseColor");
@@ -47,7 +59,6 @@ namespace Enemies
         {
             hp = settings.maxHP;
             rigidbody.Sleep();
-            spawner = gameObject.GetComponentInParent<Spawner>();
         }
 
         protected virtual void Update()
@@ -58,14 +69,14 @@ namespace Enemies
                 Debug();
             }
 #endif
-            
+
             if (!rigidbody.IsSleeping() && rigidbody.velocity.magnitude < 0.1f && isGrabbed == false)
             {
                 rigidbody.velocity = Vector3.zero;
                 rigidbody.Sleep();
                 agent.enabled = true;
             }
-            
+
             if (!agent.isActiveAndEnabled) return;
 
             if (!hasTarget || isStopped)
@@ -88,40 +99,46 @@ namespace Enemies
 
         protected virtual void OnEnable()
         {
-            meshRenderer.GetPropertyBlock(propertyBlock);
+            renderer.GetPropertyBlock(propertyBlock);
             Color oldColor = _propertyBlock.GetColor(color);
             propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, 1f));
-            meshRenderer.SetPropertyBlock(propertyBlock);
-            meshRenderer.shadowCastingMode = ShadowCastingMode.On;
+            renderer.SetPropertyBlock(propertyBlock);
+            renderer.shadowCastingMode = ShadowCastingMode.On;
 
             hp = settings.maxHP;
             isDead = false;
             hasTarget = false;
             isStopped = false;
         }
-        
-        private void OnDisable()
-        {
-            if (spawner != null)
-            {
-                spawner.SwarmerDeath(gameObject);
-            }
-        }
 
         private void OnValidate()
         {
-            focusSphere.radius = settings.focusRange;
-            agent.speed = settings.moveSpeed;
-            agent.angularSpeed = settings.angularSpeed;
-            agent.acceleration = settings.acceleration;
-            rigidbody.mass = settings.weight;
-            rigidbody.drag = settings.linearDrag;
+            if (focusSphere != null)
+            {
+                focusSphere.radius = settings.focusRange;
+            }
+
+            if (agent != null)
+            {
+                agent.speed = settings.moveSpeed;
+                agent.angularSpeed = settings.angularSpeed;
+                agent.acceleration = settings.acceleration;
+            }
+
+            if (rigidbody != null)
+            {
+                rigidbody.mass = settings.weight;
+                rigidbody.drag = settings.linearDrag;
+            }
         }
-        
+
         private void OnDrawGizmosSelected()
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, settings.attackRange);
+            if (settings != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(transform.position, settings.attackRange);
+            }
         }
 
         protected abstract void Attack(Player player);
@@ -142,35 +159,37 @@ namespace Enemies
             hp -= damage;
 
             if (hp >= 1) return;
-            
+
             StopAllCoroutines();
             StartCoroutine(Die());
         }
 
-        private IEnumerator Die()
+        protected virtual IEnumerator Die()
         {
-            agent.isStopped = true;
+            //agent.isStopped = true;
             isStopped = true;
             isDead = true;
-            meshRenderer.shadowCastingMode = ShadowCastingMode.Off;
-            meshRenderer.GetPropertyBlock(propertyBlock);
+            renderer.shadowCastingMode = ShadowCastingMode.Off;
+            renderer.GetPropertyBlock(propertyBlock);
             Color oldColor = _propertyBlock.GetColor(color);
 
             float length = settings.disappearanceTime;
 
             while (length > 0f)
             {
-                meshRenderer.GetPropertyBlock(propertyBlock);
+                renderer.GetPropertyBlock(propertyBlock);
                 propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, length / settings.disappearanceTime));
-                meshRenderer.SetPropertyBlock(propertyBlock);
-                
+                renderer.SetPropertyBlock(propertyBlock);
+
                 yield return null;
                 length -= Time.deltaTime;
             }
 
             propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, 0f));
-            meshRenderer.SetPropertyBlock(propertyBlock);
-            gameObject.SetActive(false);
+            renderer.SetPropertyBlock(propertyBlock);
+            Pooler.instance.DePop("Swarmer", gameObject); // TODO
+
+            onDeath?.Invoke(this);
         }
 
         #region IGrabableImplementation
@@ -207,7 +226,7 @@ namespace Enemies
 
         public Collider GetCollider()
         {
-            return GetComponent<Collider>();
+            return collider;
         }
 
         public void OnRelease()
@@ -239,6 +258,8 @@ namespace Enemies
 			}
         }
         #endregion IGrabableImplementation
+
+        public Action<Enemy> onDeath;
 
 #if UNITY_EDITOR
         #region Debug

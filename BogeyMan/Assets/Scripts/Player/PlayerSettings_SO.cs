@@ -38,6 +38,9 @@ public class PlayerSettings_SO : ScriptableObject
 	[field: SerializeField] public float specialAttackChargeDuration { get; private set; } = 0.8f;
 	[field: SerializeField] public float specialAttackProjectionForce { get; private set; } = 0.8f;
 
+	[field: Header("Grab")]
+	[field: SerializeField] public Vector2 minMaxTimeGrabbingSwarmer { get; private set; } = new Vector2(3f, 5f);
+
 	[field : Header("Reflect")]
 	[field: SerializeField] public float slowMotionReflectRange { get; private set; } = 3f;
 	[field: SerializeField] public float reflectSpeedMultiplier { get; private set; } = 1.3f;
