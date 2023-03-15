@@ -12,6 +12,8 @@ namespace Enemies
         private WaitForSeconds attackWait;
         
         private static readonly int runOffset = Animator.StringToHash("RunOffset");
+        private static readonly int isRunning = Animator.StringToHash("IsRunning");
+        private static readonly int hit = Animator.StringToHash("Hit");
 
         protected override void Awake()
         {
@@ -38,6 +40,7 @@ namespace Enemies
 
         private IEnumerator AttackCoroutine(Player player)
         {
+            animator.SetTrigger(hit);
             yield return attackWait;
 
             if (isDead || isGrabbed)
