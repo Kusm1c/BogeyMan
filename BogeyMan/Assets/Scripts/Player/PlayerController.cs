@@ -163,13 +163,14 @@ public class PlayerController : MonoBehaviour
 	private IEnumerator WaitForLightAttackCooldown(float cooldown)
 	{
 		canLightAttack = false;
-		yield return new WaitForSeconds(cooldown);
+		yield return new WaitForSeconds(cooldown * Time.timeScale);
 		canLightAttack = true;
 	}
 
 	public void SetSlowMotionLightAttackAcceleration(float newTimeScale)
 	{
 		float slowMotionMultiplier = 1f / newTimeScale;
+		print(slowMotionMultiplier);
 		characterAnimator.SetFloat("SlowMotion", slowMotionMultiplier);
 		hitBoxesAnimator.SetFloat("SlowMotion", slowMotionMultiplier);
 	}
