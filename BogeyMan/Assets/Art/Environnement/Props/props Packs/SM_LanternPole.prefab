@@ -258,6 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7973477082706670160}
+  - component: {fileID: 3223748844915906006}
   m_Layer: 0
   m_Name: SM_LanternPole
   m_TagString: Untagged
@@ -282,8 +283,29 @@ Transform:
   - {fileID: 6700528006138384674}
   - {fileID: 7110298271301410151}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 156.811, z: 0}
+--- !u!65 &3223748844915906006
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7344433683438414058}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3731183, y: 1.8647556, z: 0.41598755}
+  m_Center: {x: -0.20841041, y: 1.1214125, z: -0.5971909}
 --- !u!1 &8571256253510578547
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class Grab : MonoBehaviour
     [SerializeField] private ThrownObjectParent thrownObjectParentPrefab = null;
     [SerializeField] private Transform thrownObjectParentSpawnPos = null;
     private IGrabable grabbedObject = null;
-    [HideInInspector] public List<IGrabable> GrabableObjects = new List<IGrabable>();
+    private List<IGrabable> grabableObjects = new List<IGrabable>();
     private IGrabable nearestGrabable = null;
     Rigidbody rb;
 
@@ -19,7 +19,7 @@ public class Grab : MonoBehaviour
 	{
         if (grabbedObject == null)
 		{
-            if (GrabableObjects.Count > 0)
+            if (grabableObjects.Count > 0)
             {
                 GrabObject(nearestGrabable);
             }
@@ -33,11 +33,6 @@ public class Grab : MonoBehaviour
             else
             {
                 Release(grabbedObject);
-            }
-            
-            if (GrabableObjects.Count > 0)
-			{
-                GrabObject(nearestGrabable);
             }
         }
 	}
@@ -54,10 +49,23 @@ public class Grab : MonoBehaviour
             rb = grabbedObject.transform.GetComponent<Rigidbody>();
             rb.velocity = Vector3.zero;
             rb.isKinematic = true;
+
+            Enemies.Enemy enemy = grabbedObject.transform.GetComponent<Enemies.Enemy>();
+            if (enemy != null)
+			{
+                StartCoroutine(WaitForRelease(player.settings.minMaxTimeGrabbingSwarmer));
+			}
         }
         objectToGrab.GetCollider().enabled = false;
-        GrabableObjects.Remove(grabbedObject);
+        grabableObjects.Remove(grabbedObject);
     }
+
+    private IEnumerator WaitForRelease(Vector2 minMaxGrabTime)
+	{
+        float randomTime = UnityEngine.Random.Range(minMaxGrabTime.x, minMaxGrabTime.y);
+        yield return new WaitForSeconds(randomTime);
+        Release(grabbedObject);
+	}
 
     private void ThrowObject(IGrabable objectToThrow)
     {
@@ -74,10 +82,18 @@ public class Grab : MonoBehaviour
         thrownObjectParentInstance.Throw(objectToThrow.GetThrowSpeed(), objectToThrow.GetThrowDuration(), player, direction, objectToThrow.GetThrowDamage(), objectToThrow);
     }
 
+    public void Release()
+	{
+        if (grabbedObject == null)
+            return;
+        Release(grabbedObject);
+	}
+
     private void Release(IGrabable objectToRelease)
     {
         player.playerState.isGrabbing = false;
         grabbedObject = null;
+        StopAllCoroutines();
         if (player.playerState.isGrabbingSummoner == true)
         {
             objectToRelease.GetCollider().enabled = true;
@@ -94,20 +110,20 @@ public class Grab : MonoBehaviour
     public static void ResetGrabbedObject(IGrabable objectToRelease)
     {
         objectToRelease.transform.GetComponent<Rigidbody>().isKinematic = false;
-        objectToRelease.GetCollider().enabled = true;
         objectToRelease.transform.parent = null;
+        objectToRelease.GetCollider().enabled = true;
         objectToRelease.OnRelease();
     }
 
     private void FixedUpdate()
     {
-        if (GrabableObjects.Count > 0)
+        if (grabableObjects.Count > 0)
         {
-            nearestGrabable = GrabableObjects[0];
+            nearestGrabable = grabableObjects[0];
 
-            if (GrabableObjects.Count > 1)
+            if (grabableObjects.Count > 1)
             {
-                foreach (IGrabable grabable in GrabableObjects)
+                foreach (IGrabable grabable in grabableObjects)
                 {
                     if ((grabable.transform.position - transform.position).magnitude
                         < (nearestGrabable.transform.position - transform.position).magnitude)
@@ -124,7 +140,7 @@ public class Grab : MonoBehaviour
         IGrabable grabable = other.gameObject.GetComponent<IGrabable>();
         if (grabable != null && grabable != grabbedObject)
 		{
-            GrabableObjects.Add(grabable);
+            grabableObjects.Add(grabable);
         }
     }
 
@@ -133,7 +149,7 @@ public class Grab : MonoBehaviour
         IGrabable grabable = other.gameObject.GetComponent<IGrabable>();
         if (grabable != null)
         {
-            GrabableObjects.Remove(grabable);
+            grabableObjects.Remove(grabable);
         }
     }
 }

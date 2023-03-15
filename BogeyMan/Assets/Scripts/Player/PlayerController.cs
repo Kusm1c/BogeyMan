@@ -79,10 +79,14 @@ public class PlayerController : MonoBehaviour
 
 	public void Aim(InputAction.CallbackContext context)
 	{
+		// Aim direction
 		if (!player.playerState.canAim) return;
 		Vector2 aim = context.ReadValue<Vector2>();
 		if (aim.magnitude < 0.1f) return;
 		aimDirection = aim.normalized;
+
+		// Rotation
+		if (player.playerState.isGrabbingSummoner) return;
 		float angle = Mathf.Atan2(-aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 		partToRotate.rotation = Quaternion.Euler(0, angle, 0);
 	}
@@ -246,9 +250,13 @@ public class PlayerController : MonoBehaviour
 
 	public void Grab(InputAction.CallbackContext context)
 	{
-		if (context.performed)
+		if (context.performed && player.playerState.isOnDeadAlly == false)
 		{
-			if (player.playerState.isGrabbing)
+			if (player.playerState.isGrabbingSummoner)
+			{
+				grab.GrabInput();
+			}
+			else if (player.playerState.isGrabbing)
 			{
 				characterAnimator.SetTrigger("Throw");
 			}
@@ -258,21 +266,19 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 		
-		if (player.playerState.isOnDeadAlly)
+		if (player.playerState.isOnDeadAlly && player.playerState.isDead == false)
 		{
 			Player ally = GameManager.Instance.Players[player.playerIndex == 1 ? 0 : 1];
 
 			if (context.performed)
 			{
 				player.StartRevivingAlly();
-				print("start");
 			}
 
 			if (context.canceled)
 			{
 				player.StopRevivingAlly();
 				ally.CancelRevival();
-				print("canceled");
 			}
 		}
 	}
