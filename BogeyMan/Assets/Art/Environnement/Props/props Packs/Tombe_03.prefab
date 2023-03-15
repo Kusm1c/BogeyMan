@@ -1,0 +1,203 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &730252760528980646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 101807805348204572}
+  - component: {fileID: 3946958936332787641}
+  - component: {fileID: 1234722371361549171}
+  m_Layer: 0
+  m_Name: SM_Tombe_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &101807805348204572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730252760528980646}
+  m_LocalRotation: {x: 2.877312e-10, y: -0.9999134, z: -0.000000021853802, w: 0.013165045}
+  m_LocalPosition: {x: 0.58917236, y: 0, z: -0.007003784}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5122691362376753431}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: -178.491, z: 0}
+--- !u!33 &3946958936332787641
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730252760528980646}
+  m_Mesh: {fileID: -5671691709850224361, guid: 1a1db213a35f09d4385185689cd62105, type: 3}
+--- !u!23 &1234722371361549171
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730252760528980646}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 1cb0c68896288514ba2e8961ada5ce54, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5373212038516429462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5122691362376753431}
+  m_Layer: 0
+  m_Name: Tombe_03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5122691362376753431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373212038516429462}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 101807805348204572}
+  - {fileID: 8666220209053460068}
+  m_Father: {fileID: 0}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4563244895421133868
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5122691362376753431}
+    m_Modifications:
+    - target: {fileID: 5122701998105399880, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122701998105399880, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.007
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122701998105399880, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.018
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122701998105399880, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.023
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122701998105399880, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9926483
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122701998105399880, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.004167908
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122701998105399880, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.030922681
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122701998105399880, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.11694369
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122701998105399880, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122701998105399880, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 3.576
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122701998105399880, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 13.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528535341592919073, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -5788203584287867443, guid: 9500d30a920ff1c4abe65612d5f8c08f,
+        type: 3}
+    - target: {fileID: 6542883695125939616, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_Name
+      value: SM_Tombe
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f5b58b437e63eb64ab3f19ca2fdb19db, type: 3}
+--- !u!4 &8666220209053460068 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5122701998105399880, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+    type: 3}
+  m_PrefabInstance: {fileID: 4563244895421133868}
+  m_PrefabAsset: {fileID: 0}
