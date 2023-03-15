@@ -28,7 +28,6 @@ public class Player : MonoBehaviour
 		targetGroup.m_Targets[playerIndex].target = transform;
     }
 
-
 	private void Start()
 	{
 		ui = CanvasManager.Instance.playerUIs[playerIndex];
@@ -49,6 +48,7 @@ public class Player : MonoBehaviour
 		SetInvulnerability(true, settings.invulnerabilityDurationWhenHit);
 		playerController.characterAnimator.SetFloat("Random", UnityEngine.Random.Range(0, 3));
 		playerController.characterAnimator.SetTrigger("Hit");
+		playerVfx.PlayHitVfx();
 		if (currentLife <= 0)
 		{
 			Die();

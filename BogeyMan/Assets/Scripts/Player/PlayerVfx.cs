@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class PlayerVfx : MonoBehaviour
 {
-
+	[Header("Attacks")]
 	[SerializeField] private ParticleSystem lightAttackVfx = null;
 	[SerializeField] private ParticleSystem heavyAttackVfx = null;
 	[SerializeField] private ParticleSystem heavyAttackChargeVfx = null;
 	[SerializeField] private ParticleSystem heavyAttackWeaponChargeVfx = null;
 	[SerializeField] private ParticleSystem specialAttackVfx = null;
-	[SerializeField] private ParticleSystem bloodVfx = null;
 
+	[Header("Other")]
+	[SerializeField] private ParticleSystem bloodVfx = null;
 
 	private void PlayLightAttackVfx()
 	{
@@ -29,5 +30,10 @@ public class PlayerVfx : MonoBehaviour
 	{
 		heavyAttackChargeVfx.Play();
 		heavyAttackWeaponChargeVfx.Play();
+	}
+
+	public void PlayHitVfx()
+	{
+		bloodVfx.Play();
 	}
 }
