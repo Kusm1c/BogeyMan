@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Spawner
+  m_Name: M_SpawnerStaff
   m_Shader: {fileID: -6465566751694194690, guid: a42cbfaaf480a0148bf1392bc2c18565,
     type: 3}
   m_Parent: {fileID: 0}
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Base_color:
-        m_Texture: {fileID: 2800000, guid: c4149dd82bc85db438ac0add753cb747, type: 3}
+        m_Texture: {fileID: 2800000, guid: fe7e4889340021a4b96d31373913826c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
@@ -65,7 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emissive_map:
-        m_Texture: {fileID: 2800000, guid: 21dda82a90a11c745b557bce0a46d9f9, type: 3}
+        m_Texture: {fileID: 2800000, guid: d30b331d5a5e9b94288ad5f2a5184013, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
@@ -97,11 +97,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal_map:
-        m_Texture: {fileID: 2800000, guid: 90bb34154f38762468834b17b6ff8dda, type: 3}
+        m_Texture: {fileID: 2800000, guid: 55cce5ecbb9e8c14fac5e6a0a7b4c2b9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OMG:
-        m_Texture: {fileID: 2800000, guid: 4b41a63fd74b0a24780dbc63f43d6b99, type: 3}
+        m_Texture: {fileID: 2800000, guid: f78ca88133720344f9a4e1f35ff8fe39, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
