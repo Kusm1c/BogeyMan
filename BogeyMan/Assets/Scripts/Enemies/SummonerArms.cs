@@ -31,14 +31,7 @@ public class SummonerArms : MonoBehaviour, IGrabable
         while (cancel == false && gaugeValue < 1f)
         {
             gaugeValue += Mathf.Abs(Vector2.Distance(GameManager.Instance.Players[0].playerController.aimDirection, player1LastAimDirection) * spammingFactor); 
-            gaugeValue += Mathf.Abs(Vector2.Distance(GameManager.Instance.Players[1].playerController.aimDirection, player2LastAimDirection) * spammingFactor);/*
-            print(11111);
-            print(Vector2.Distance(GameManager.Instance.Players[0].playerController.aimDirection, player1LastAimDirection));
-            print(gaugeValue);
-            print(Vector2.Distance(GameManager.Instance.Players[0].playerController.aimDirection, player1LastAimDirection));
-            print(GameManager.Instance.Players[0].playerController.aimDirection);
-            print(player1LastAimDirection);*/
-            print(gaugeValue);
+            gaugeValue += Mathf.Abs(Vector2.Distance(GameManager.Instance.Players[1].playerController.aimDirection, player2LastAimDirection) * spammingFactor);
 
             player1LastAimDirection = GameManager.Instance.Players[0].playerController.aimDirection;
             player2LastAimDirection = GameManager.Instance.Players[1].playerController.aimDirection;
@@ -47,7 +40,6 @@ public class SummonerArms : MonoBehaviour, IGrabable
                 cancel = true;
             }
             yield return 0;
-
         }
 
         if(cancel == true)
@@ -58,16 +50,16 @@ public class SummonerArms : MonoBehaviour, IGrabable
         }
         else
         {
-            print("Summoner dechired");
+            // Dismember summoner
+            print("Summoner dechired"); // à faire avant les lignes ci-dessous obligatoirement
+
+            // Degrab players
+            foreach (Player player in GameManager.Instance.Players)
+            {
+                player.playerController.grab.Release();
+            }
         }
     }
-
-
-
-
-
-
-
 
     public Collider GetCollider()
     {
@@ -91,18 +83,14 @@ public class SummonerArms : MonoBehaviour, IGrabable
 
     public void OnGrab(Player a_grabbingPlayer)
     {
-        foreach(Player p in GameManager.Instance.Players)
-        {
-            p.playerController.grab.GrabableObjects.Remove(this);
-        }
         Grabbed = true;
         grabbingPlayer = a_grabbingPlayer;
         grabbingPlayer.playerState.isGrabbingSummoner = true;
-        print("StartedGrab");
+        grabbingPlayer.playerController.characterAnimator.SetBool("IsGrabbingSummoner", true);
+        cancel = false;
 
         if (OtherArm.Grabbed == true)
         {
-            print("StartedSpam");
             StartCoroutine(Spamming());
         }
 
@@ -119,11 +107,9 @@ public class SummonerArms : MonoBehaviour, IGrabable
     {
         Grabbed = false;
         grabbingPlayer.playerState.isGrabbingSummoner = false;
+        grabbingPlayer.playerController.characterAnimator.SetBool("IsGrabbingSummoner", false);
         OtherArm.CancelBecauseDegrab();
-        print("release");
-
         return;
-
     }
 
     public void OnThrow()
@@ -132,7 +118,13 @@ public class SummonerArms : MonoBehaviour, IGrabable
 
     }
 
+	public int GetThrowDamage()
+	{
+        return 0;
+    }
 
-
-
+	public float GetThrowForce()
+	{
+        return 0;
+	}
 }
