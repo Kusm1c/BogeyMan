@@ -31,7 +31,7 @@ Transform:
   - {fileID: 277512305917908125}
   - {fileID: 4474617207074257569}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &311683533384201078
 PrefabInstance:
@@ -214,8 +214,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.35786206, y: 0.9011534, z: 0.47178307}
-  m_Center: {x: -1.00048124e-16, y: 0.4505767, z: -0.0000019073486}
+  m_Size: {x: 0.35786206, y: 0.9011534, z: 0.36043873}
+  m_Center: {x: 0, y: 0.4505767, z: 0.001089707}
 --- !u!4 &4474617207074257569 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b41664f546c0a7f478308eb9a7b4301f,
