@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1.8170264, g: 1.6418059, b: 1.6898692, a: 1}
+  m_IndirectSpecularColor: {r: 1.8157961, g: 1.6409419, b: 1.6890376, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6155,7 +6155,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 6
@@ -35744,7 +35744,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -97906,10 +97906,20 @@ PrefabInstance:
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 172948777241855574, guid: fc5d1e0e9485d0b42b83f7219b43f289,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 442989485090063306, guid: fc5d1e0e9485d0b42b83f7219b43f289,
         type: 3}
       propertyPath: looping
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 442989485090063306, guid: fc5d1e0e9485d0b42b83f7219b43f289,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2829289223179919053, guid: fc5d1e0e9485d0b42b83f7219b43f289,
         type: 3}
@@ -97921,6 +97931,11 @@ PrefabInstance:
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3376793372497138102, guid: fc5d1e0e9485d0b42b83f7219b43f289,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3929989486199720189, guid: fc5d1e0e9485d0b42b83f7219b43f289,
         type: 3}
       propertyPath: looping
@@ -97931,30 +97946,60 @@ PrefabInstance:
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4907777975918284082, guid: fc5d1e0e9485d0b42b83f7219b43f289,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5334440662662376123, guid: fc5d1e0e9485d0b42b83f7219b43f289,
         type: 3}
       propertyPath: looping
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5334440662662376123, guid: fc5d1e0e9485d0b42b83f7219b43f289,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5373570292189618679, guid: fc5d1e0e9485d0b42b83f7219b43f289,
         type: 3}
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5373570292189618679, guid: fc5d1e0e9485d0b42b83f7219b43f289,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6725449798080081220, guid: fc5d1e0e9485d0b42b83f7219b43f289,
         type: 3}
       propertyPath: looping
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6725449798080081220, guid: fc5d1e0e9485d0b42b83f7219b43f289,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7797651880478300961, guid: fc5d1e0e9485d0b42b83f7219b43f289,
         type: 3}
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7797651880478300961, guid: fc5d1e0e9485d0b42b83f7219b43f289,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7972839726985869173, guid: fc5d1e0e9485d0b42b83f7219b43f289,
         type: 3}
       propertyPath: looping
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7972839726985869173, guid: fc5d1e0e9485d0b42b83f7219b43f289,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8102860979298157915, guid: fc5d1e0e9485d0b42b83f7219b43f289,
         type: 3}
