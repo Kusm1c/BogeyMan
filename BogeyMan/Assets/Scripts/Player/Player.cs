@@ -92,6 +92,8 @@ public class Player : MonoBehaviour
 		playerController.characterAnimator.SetBool("Dead", false);
 		currentLife = settings.maxLife;
 		ui.UpdateLifeBar(currentLife, settings.maxLife);
+		playerVfx.PlayRevivingVfx(false);
+		playerVfx.PlayReviveEndVfx();
 	}
 
 	private IEnumerator ReviveCoroutine()
@@ -104,6 +106,7 @@ public class Player : MonoBehaviour
 	public void CancelRevival()
 	{
 		worldUi.FillRevivalGauge(0);
+		playerVfx.PlayRevivingVfx(false);
 	}
 
 	public void StartRevivingAlly()
@@ -122,6 +125,7 @@ public class Player : MonoBehaviour
 	{
 		float timePressingInput = 0;
 		Player ally = GameManager.Instance.Players[playerIndex == 1 ? 0 : 1];
+		ally.playerVfx.PlayRevivingVfx(true);
 
 		while (timePressingInput < settings.revivalDuration)
 		{

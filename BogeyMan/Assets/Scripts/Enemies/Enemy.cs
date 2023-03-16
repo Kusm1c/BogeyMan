@@ -25,7 +25,21 @@ namespace Enemies
             }
         }
 
-        private new Collider collider {
+        protected bool isStopped
+        {
+            get => _isStopped;
+            set
+            {
+                _isStopped = value;
+                if (!value)
+                {
+                    StopMoving();
+                }
+            }
+        }
+
+        private new Collider collider
+        {
             get
             {
                 if (_collider == null)
@@ -48,8 +62,9 @@ namespace Enemies
         private MaterialPropertyBlock _propertyBlock;
         private Transform _target;
         private Collider _collider;
-        protected bool isDead;
-        protected bool isStopped;
+        private bool _isStopped;
+        protected readonly Clock attackCooldownClock = new();
+        public bool isDead;
         protected bool isGrabbed;
 
         private int hp;
@@ -58,7 +73,7 @@ namespace Enemies
         protected virtual void Awake()
         {
             hp = settings.maxHP;
-            rigidbody.Sleep();
+            rigidbody.Disable();
         }
 
         protected virtual void Update()
@@ -70,32 +85,53 @@ namespace Enemies
             }
 #endif
 
-            if (!rigidbody.IsSleeping() && rigidbody.velocity.magnitude < 0.1f && isGrabbed == false)
-            {
-                rigidbody.velocity = Vector3.zero;
-                rigidbody.Sleep();
-                agent.enabled = true;
-            }
-
-            if (!agent.isActiveAndEnabled) return;
-
-            if (!hasTarget || isStopped)
-            {
-                agent.isStopped = true;
+            if (UpdateChecks())
                 return;
-            }
 
             if (!isGrabbed &&
                 (target.transform.position - transform.position).sqrMagnitude <
                 settings.attackRange * settings.attackRange)
             {
-                Attack(target.GetComponent<Player>());
+                if (attackCooldownClock.GetTime() < settings.attackCooldown + settings.attackSpeed) return;
+
+                agent.ResetPath();
+                Attack();
+                attackCooldownClock.Restart();
+                return;
             }
 
+            Move();
+        }
+
+        protected bool UpdateChecks()
+        {
+            if (!isGrabbed && !rigidbody.isKinematic && rigidbody.velocity.magnitude < 0.1f)
+            {
+                rigidbody.velocity = Vector3.zero;
+                rigidbody.Enable();
+                agent.enabled = true;
+                return true;
+            }
+            
+            if (!agent.isActiveAndEnabled) return true;
+
+            if (!hasTarget || isStopped)
+            {
+                agent.isStopped = true;
+                return true;
+            }
+
+            return false;
+        }
+
+        protected virtual void Move()
+        {
             agent.isStopped = false;
             agent.speed = settings.moveSpeed;
             agent.SetDestination(target.position);
         }
+
+        protected abstract void StopMoving();
 
         protected virtual void OnEnable()
         {
@@ -109,6 +145,7 @@ namespace Enemies
             isDead = false;
             hasTarget = false;
             isStopped = false;
+            attackCooldownClock.Start(settings.attackCooldown + settings.attackSpeed + 1f);
         }
 
         private void OnValidate()
@@ -132,7 +169,7 @@ namespace Enemies
             }
         }
 
-        private void OnDrawGizmosSelected()
+        protected virtual void OnDrawGizmosSelected()
         {
             if (settings != null)
             {
@@ -141,14 +178,14 @@ namespace Enemies
             }
         }
 
-        protected abstract void Attack(Player player);
+        protected abstract void Attack();
 
         public void TakeHit(float strength, Vector3 direction, int damage = 1)
         {
             if (isDead) return;
 
             agent.enabled = false;
-            rigidbody.WakeUp();
+            rigidbody.Enable();
             rigidbody.velocity = direction * strength;
 
             TakeHit(damage);
@@ -178,7 +215,8 @@ namespace Enemies
             while (length > 0f)
             {
                 renderer.GetPropertyBlock(propertyBlock);
-                propertyBlock.SetColor(color, new Color(oldColor.r, oldColor.g, oldColor.b, length / settings.disappearanceTime));
+                propertyBlock.SetColor(color,
+                    new Color(oldColor.r, oldColor.g, oldColor.b, length / settings.disappearanceTime));
                 renderer.SetPropertyBlock(propertyBlock);
 
                 yield return null;
@@ -193,6 +231,7 @@ namespace Enemies
         }
 
         #region IGrabableImplementation
+
         public virtual bool IsThrowable()
         {
             return settings.throwable;
@@ -238,7 +277,7 @@ namespace Enemies
 
         public void OnThrow()
         {
-
+            rigidbody.Enable();
         }
 
         public void OnImpact()
@@ -246,22 +285,24 @@ namespace Enemies
             agent.enabled = true;
             isGrabbed = false;
 
-            Collider[] enemiesHit;
-            enemiesHit = Physics.OverlapSphere(transform.position, settings.impactRadius);
-            foreach(Collider hit in enemiesHit)
-			{
-                Enemies.Enemy enemy = hit.transform.GetComponent<Enemies.Enemy>();
+            Collider[] enemiesHit = Physics.OverlapSphere(transform.position, settings.impactRadius);
+            foreach (Collider hit in enemiesHit)
+            {
+                var enemy = hit.transform.GetComponent<Enemy>();
                 if (enemy != null)
-				{
-                    enemy.TakeHit(settings.impactForce, (enemy.transform.position - transform.position).normalized, settings.damageOnImpact);
+                {
+                    enemy.TakeHit(settings.impactForce, (enemy.transform.position - transform.position).normalized,
+                        settings.damageOnImpact);
                 }
-			}
+            }
         }
+
         #endregion IGrabableImplementation
 
         public Action<Enemy> onDeath;
 
 #if UNITY_EDITOR
+
         #region Debug
 
         protected virtual void Debug()
@@ -273,8 +314,9 @@ namespace Enemies
             rigidbody.mass = settings.weight;
             rigidbody.drag = settings.linearDrag;
         }
-		#endregion
-#endif
 
-	}
+        #endregion
+
+#endif
+    }
 }

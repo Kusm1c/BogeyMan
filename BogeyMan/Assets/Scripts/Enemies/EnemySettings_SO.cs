@@ -7,6 +7,7 @@ namespace Enemies
     {
         [Min(0)] public int maxHP = 1;
         [Min(0)] public float attackSpeed = 0.5f;
+        [Min(0)] public float attackCooldown = 0.3f;
         [Min(0)] public float damage = 10f;
         [Min(0)] public float focusRange = 15f;
         [Min(0)] public float attackRange = 1.5f;
