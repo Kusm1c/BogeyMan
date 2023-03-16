@@ -196,17 +196,19 @@ namespace Enemies
 
         public void TakeHit(float strength, Vector3 direction, int damage = 1)
         {
+            TakeHit(damage);
+            
             if (isDead) return;
-
+            
             agent.enabled = false;
             rigidbody.Enable();
             rigidbody.velocity = direction * strength;
-
-            TakeHit(damage);
         }
 
         private void TakeHit(int damage = 1)
         {
+            if (isDead) return;
+            
             hp -= damage;
 
             if (hp >= 1) return;

@@ -49,13 +49,34 @@ MonoBehaviour:
     pool:
       prefab: {fileID: 2834175864538642616, guid: 522a56f23f568c9488f086119defe672,
         type: 3}
-      baseCount: 40
-      baseRefreshSpeed: 5
+      baseCount: 50
+      baseRefreshSpeed: 4
       refreshSpeed: 5
   - key: Summoner
     pool:
       prefab: {fileID: 241385889161358178, guid: 9d3740f8eaf2b9340b34334b169759ce,
         type: 3}
-      baseCount: 10
+      baseCount: 5
+      baseRefreshSpeed: 10
+      refreshSpeed: 5
+  - key: KillSummoner
+    pool:
+      prefab: {fileID: 3389460733719102045, guid: d43c3785037aa1546995b1f131db070a,
+        type: 3}
+      baseCount: 3
+      baseRefreshSpeed: 5
+      refreshSpeed: 5
+  - key: Summon
+    pool:
+      prefab: {fileID: 5205971162592447720, guid: 1a4e3d7a30033454386ed478fcacb8f6,
+        type: 3}
+      baseCount: 15
+      baseRefreshSpeed: 5
+      refreshSpeed: 5
+  - key: Kill
+    pool:
+      prefab: {fileID: 5312086194326124764, guid: 5962614e80442e84da67ee26ca7006f4,
+        type: 3}
+      baseCount: 15
       baseRefreshSpeed: 5
       refreshSpeed: 5
