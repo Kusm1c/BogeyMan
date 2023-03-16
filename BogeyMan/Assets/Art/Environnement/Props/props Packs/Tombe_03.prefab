@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1cb0c68896288514ba2e8961ada5ce54, type: 2}
+  - {fileID: 2100000, guid: 5639269ead3161543a9b6852d219648f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -124,6 +124,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5122691362376753431}
     m_Modifications:
+    - target: {fileID: -5701554689031464625, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5701554689031464625, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_Extents.z
+      value: 0.265
+      objectReference: {fileID: 0}
+    - target: {fileID: 565990031060742199, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5639269ead3161543a9b6852d219648f, type: 2}
     - target: {fileID: 5122701998105399880, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
         type: 3}
       propertyPath: m_RootOrder
@@ -189,6 +204,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SM_Tombe
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045912944716080969, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045912944716080969, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045912944716080969, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045912944716080969, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8045912944716080969, guid: f5b58b437e63eb64ab3f19ca2fdb19db,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

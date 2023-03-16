@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 8918423183199027226}
   - component: {fileID: 1501632079470798234}
   - component: {fileID: 2206478344706659321}
+  - component: {fileID: -3797409491507427298}
   m_Layer: 0
   m_Name: SM_Wheel2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7267540859626236701
 Transform:
@@ -105,3 +106,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.102904, y: 0.590433, z: 0.5904329}
   m_Center: {x: -0.010035507, y: -0.0015300963, z: 0.29620588}
+--- !u!208 &-3797409491507427298
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4733935400699108816}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.051000003, y: 0.29500002, z: 0.29500002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.010000001, y: -0.002, z: 0.296}
+  m_TimeToStationary: 0.5
