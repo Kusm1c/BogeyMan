@@ -64,7 +64,7 @@ namespace Enemies
         private Collider _collider;
         private bool _isStopped;
         protected readonly Clock attackCooldownClock = new();
-        protected bool isDead;
+        public bool isDead;
         protected bool isGrabbed;
 
         protected int hp;
