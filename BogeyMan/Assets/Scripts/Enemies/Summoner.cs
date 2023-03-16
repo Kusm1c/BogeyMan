@@ -58,6 +58,8 @@ namespace Enemies
             spawnClock.Start();
             isSummoning = false;
             attackCollider.SetActive(false);
+            arm1.gameObject.SetActive(false);
+            arm2.gameObject.SetActive(false);
         }
 
         protected override void Update()

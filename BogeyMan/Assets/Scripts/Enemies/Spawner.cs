@@ -101,15 +101,15 @@ namespace Enemies
             //     StartCoroutine(SpawnSwarm());
             //     yield break;
             // }
-
-            GameObject summonPS = Pooler.instance.Pop("Summon", randomPosInRadius);
-            summonPS.GetComponent<ParticleSystem>().Play();
-            Pooler.instance.DelayedDePop(5f, "Summon", summonPS);
             
             GameObject swarmer = Pooler.instance.Pop(units[0].unitName, randomPosInRadius);
             swarmer.SetActive(true);
             aliveCount++;
             swarmer.GetComponent<Enemy>().onDeath += SwarmerDeath;
+            
+            GameObject summonPS = Pooler.instance.Pop("Summon", swarmer.transform.position);
+            summonPS.GetComponent<ParticleSystem>().Play();
+            Pooler.instance.DelayedDePop(5f, "Summon", summonPS);
         }
         
         private void OnDrawGizmosSelected()
