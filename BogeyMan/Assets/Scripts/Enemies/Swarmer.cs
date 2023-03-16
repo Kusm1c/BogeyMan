@@ -1,12 +1,17 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemies
 {
     public class Swarmer : Enemy
     {
+        [SerializeField] private Animator animator;
+        
         private WaitForSeconds attackWait;
+        
+        private static readonly int runOffset = Animator.StringToHash("RunOffset");
 
         protected override void Awake()
         {
@@ -15,6 +20,12 @@ namespace Enemies
             currentAttackSpeed = settings.attackSpeed;
 #endif
             base.Awake();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            animator.SetFloat(runOffset, Random.Range(0, .5f));
         }
 
         protected override void Attack(Player player)
@@ -29,18 +40,29 @@ namespace Enemies
         {
             yield return attackWait;
 
-            if ((player.transform.position - transform.position).sqrMagnitude < settings.attackRange * settings.attackRange)
+            if (isDead || isGrabbed)
             {
-                player.TakeHit((int) settings.damage, (player.transform.position - transform.position).normalized);
+                yield break;
             }
             
-            agent.isStopped = false;
-            isStopped = false;
+            try
+            {
+                if ((player.transform.position - transform.position).sqrMagnitude <
+                    settings.attackRange * settings.attackRange)
+                {
+                    player.TakeHit((int) settings.damage, (player.transform.position - transform.position).normalized);
+                }
+            }
+            finally
+            {
+                agent.isStopped = false;
+                isStopped = false;
+            }
         }
 
 #if UNITY_EDITOR
         private float currentAttackSpeed;
-        
+
         protected override void Debug()
         {
             if (Math.Abs(currentAttackSpeed - settings.attackSpeed) > 0.001f)

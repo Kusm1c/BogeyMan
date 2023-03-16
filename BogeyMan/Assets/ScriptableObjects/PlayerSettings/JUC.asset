@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9fe9b2e106cde74faf0bee054764fc2, type: 3}
+  m_Name: JUC
+  m_EditorClassIdentifier: 
+  <maxLife>k__BackingField: 100
+  <movementSpeed>k__BackingField: 6
+  <knockbackDistanceWhenHit>k__BackingField: 2
+  <knockbackSpeedWhenHit>k__BackingField: 8
+  <invulnerabilityDurationWhenHit>k__BackingField: 2.5
+  <lightAttackDamage>k__BackingField: 2
+  <lightAttackCooldown>k__BackingField: 0.1
+  <lightAttackSpeedReductionPercentage>k__BackingField: 5
+  <lightAttackProjectionForce>k__BackingField: 14
+  <lightAttackProjectionDuration>k__BackingField: 0.3
+  <heavyAttackDamage>k__BackingField: 3
+  <heavyAttackCooldown>k__BackingField: 0.2
+  <heavyAttackChargeSpeedReductionPercentage>k__BackingField: 15
+  <heavyAttackChargeDuration>k__BackingField: 0
+  <heavyAttackProjectionForce>k__BackingField: 40
+  <specialAttackDamage>k__BackingField: 2
+  <specialAttackCooldown>k__BackingField: 1.5
+  <specialAttackSpeedIncreasePercentage>k__BackingField: 15
+  <specialAttackChargeDuration>k__BackingField: 0.8
+  <specialAttackProjectionForce>k__BackingField: 0.8
+  <minMaxTimeGrabbingSwarmer>k__BackingField: {x: 3, y: 5}
+  <slowMotionReflectRange>k__BackingField: 3
+  <reflectSpeedMultiplier>k__BackingField: 1.3
+  <reflectAdditionnalDamage>k__BackingField: 1
+  <slowmotionTimeScale>k__BackingField: 0.1
+  <revivalDuration>k__BackingField: 3
+  <revivalDelayAfterAnim>k__BackingField: 0.2

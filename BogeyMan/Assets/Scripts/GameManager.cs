@@ -19,4 +19,16 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void StartTheGame()
+    {
+        //TODO
+        throw new System.NotImplementedException();
+    }
+
+    public void QuitTheGame()
+    {
+        //TODO
+        throw new System.NotImplementedException();
+    }
 }
