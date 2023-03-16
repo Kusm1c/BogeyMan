@@ -1,8 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class SoundManager : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class SoundManager : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(SoundManager))]
 public class SoundManagerEditor : Editor
 {
@@ -63,3 +65,4 @@ public class SoundManagerEditor : Editor
         }
     }
 }
+#endif
