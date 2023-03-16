@@ -11,6 +11,7 @@ namespace Enemies
 {
     public class Summoner : Enemy
     {
+        [SerializeField] private Animator animator;
         [SerializeField] private Spawner spawner;
         [SerializeField] private SummonerArms arm1;
         [SerializeField] private SummonerArms arm2;
@@ -21,7 +22,13 @@ namespace Enemies
         private Transform myTransform;
         private WaitForSeconds attackWait;
         private readonly Clock spawnClock = new();
+        private bool isSummoning;
         
+        private static readonly int isRunning = Animator.StringToHash("IsRunning");
+        private static readonly int spawn = Animator.StringToHash("Spawn");
+        private static readonly int fall = Animator.StringToHash("Fall");
+        private static readonly int revive = Animator.StringToHash("Revive");
+
 
         protected override void Awake()
         {
@@ -44,6 +51,7 @@ namespace Enemies
         {
             base.OnEnable();
             spawnClock.Start();
+            isSummoning = false;
         }
 
         protected override void Update()
@@ -56,6 +64,9 @@ namespace Enemies
 #endif
 
             if (UpdateChecks())
+                return;
+
+            if (isSummoning)
                 return;
 
             myTransform.LookAt(target.transform, Vector3.up);
@@ -79,9 +90,29 @@ namespace Enemies
 
             if (spawnClock.GetTime() > spawnDelay)
             {
-                spawner.SpawnSwarm(1);
-                spawnClock.Restart();
+                StartCoroutine(Summon());
+
             }
+        }
+
+        private IEnumerator Summon()
+        {
+            isSummoning = true;
+            
+            yield return new WaitForSeconds(1.2f);
+            
+            if (isDead || isGrabbed)
+            {
+                yield break;
+            }
+            
+            animator.SetTrigger(spawn);
+            spawner.SpawnSwarm(1);
+            spawnClock.Restart();
+
+            yield return new WaitForSeconds(0.2f);
+
+            isSummoning = false;
         }
         
         protected override void OnDrawGizmosSelected()
@@ -104,11 +135,12 @@ namespace Enemies
             agent.isStopped = false;
             agent.speed = settings.moveSpeed;
             agent.SetDestination(position);
+            animator.SetBool(isRunning, true);
         }
 
         protected override void StopMoving()
         {
-            
+            animator.SetBool(isRunning, false);
         }
 
         protected override void Attack()
@@ -150,6 +182,7 @@ namespace Enemies
             //agent.isStopped = true;
             isStopped = true;
             isDead = true;
+            animator.SetTrigger(fall);
 
             yield return new WaitForSeconds(settings.disappearanceTime);
             
@@ -160,6 +193,7 @@ namespace Enemies
             yield return new WaitForSeconds(arm1.summonerReleaseTime);
             // only if not dead (DieForReal method)
             
+            animator.SetTrigger(revive);
             UnityEngine.Debug.Log("ungrab");
             arm1.Cancel();
             arm2.Cancel();
