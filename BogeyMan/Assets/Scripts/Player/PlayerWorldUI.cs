@@ -10,16 +10,9 @@ public class PlayerWorldUI : MonoBehaviour
 	[SerializeField] private GameObject revivalGauge = null;
 	[SerializeField] private Image filledRevivalGauge = null;
 
-	Camera cam;
-
     // Aim arrow
     private bool isArrowActive = false;
     private Transform aimedTransform;
-
-	private void Start()
-	{
-		cam = Camera.main;
-	}
 
     public void SetAimArrowActive(bool active, Transform transformToAim = null)
 	{
@@ -33,8 +26,6 @@ public class PlayerWorldUI : MonoBehaviour
 
 	private void Update()
 	{
-		transform.LookAt(transform.position + cam.transform.rotation * Vector3.forward, cam.transform.rotation * Vector3.up);
-
 		if (isArrowActive)
 		{
 			aimArrow.transform.rotation = Quaternion.Euler(0, playerRotation.rotation.y, 0);

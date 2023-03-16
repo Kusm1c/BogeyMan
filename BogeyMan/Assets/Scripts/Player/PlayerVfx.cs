@@ -4,13 +4,63 @@ using UnityEngine;
 
 public class PlayerVfx : MonoBehaviour
 {
-	[SerializeField] private Transform playerPartToRotate = null;
+	[Header("Attacks")]
+	[SerializeField] private ParticleSystem lightAttackVfx = null;
+	[SerializeField] private ParticleSystem heavyAttackVfx = null;
+	[SerializeField] private ParticleSystem heavyAttackChargeVfx = null;
+	[SerializeField] private ParticleSystem heavyAttackWeaponChargeVfx = null;
+	[SerializeField] private ParticleSystem specialAttackVfx = null;
 
-	[Header("VFX References")]
-    [SerializeField] private ParticleSystem lightAttackVfx = null;
+	[Header("Other")]
+	[SerializeField] private ParticleSystem bloodVfx = null;
+	[SerializeField] private ParticleSystem revivingVfx = null;
+	[SerializeField] private ParticleSystem reviveEndVfx = null;
 
-    public void PlayLightAttackVfx()
+	private void Start()
+	{
+		heavyAttackVfx.gameObject.SetActive(false);
+	}
+
+	private void PlayLightAttackVfx()
 	{
 		lightAttackVfx.Play();
+	}
+
+	private void PlayHeavyAttackVfx()
+	{
+		GameObject vfxInstance = Instantiate(heavyAttackVfx.gameObject, 
+			heavyAttackChargeVfx.transform.position, heavyAttackChargeVfx.transform.rotation);
+		vfxInstance.SetActive(true);
+		heavyAttackVfx.Play();
+		heavyAttackChargeVfx.Stop();
+		heavyAttackWeaponChargeVfx.Stop();
+	}
+
+	public void StartHeavyAttackCharge()
+	{
+		heavyAttackChargeVfx.Play();
+		heavyAttackWeaponChargeVfx.Play();
+	}
+
+	public void PlayHitVfx()
+	{
+		bloodVfx.Play();
+	}
+
+	public void PlayRevivingVfx(bool active)
+	{
+		if (active)
+		{
+			revivingVfx.Play();
+		}
+		else
+		{
+			revivingVfx.Stop();
+		}
+	}
+
+	public void PlayReviveEndVfx()
+	{
+		reviveEndVfx.Play();
 	}
 }
