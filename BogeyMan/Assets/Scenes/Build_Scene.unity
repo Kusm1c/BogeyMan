@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 3.2299428, g: 2.9833987, b: 4.2167478, a: 1}
+  m_IndirectSpecularColor: {r: 3.2153363, g: 2.9693835, b: 4.197018, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1906,7 +1906,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSources: []
-  audioClips: []
+  audioClips:
+  - {fileID: 8300000, guid: ceaa0ba90b4685344af02a394a686b2f, type: 3}
+  - {fileID: 8300000, guid: f1ac96ce2ae4be043b0aa1e127b98646, type: 3}
+  - {fileID: 8300000, guid: 0b64ba6ffe6c535499b5bc917130fa10, type: 3}
+  - {fileID: 8300000, guid: ad54db1b448b42a4ea4c7690bd323179, type: 3}
+  - {fileID: 8300000, guid: 541703931c41f594f9faf9008a5dcdc9, type: 3}
+  - {fileID: 8300000, guid: 08c475a48b30bb140821c731d17fe930, type: 3}
+  - {fileID: 8300000, guid: 885be3bcf2fa34a4b99b7f677e4f114c, type: 3}
+  - {fileID: 8300000, guid: 359020aa482a6d743aff93250d88baf0, type: 3}
+  - {fileID: 8300000, guid: c21f35d3784ffa14c8b88aec06bf6e28, type: 3}
+  - {fileID: 8300000, guid: 93efaf7bef865824a8f22308d756c2b6, type: 3}
+  - {fileID: 8300000, guid: aa03552d02b19e34594aa14f38b0ff23, type: 3}
+  - {fileID: 8300000, guid: 63ec7cf8e1b3f944d8d2252200b32009, type: 3}
+  - {fileID: 8300000, guid: d4e6bb465024cd94986846b7b5af1217, type: 3}
+  - {fileID: 8300000, guid: de63205f7652c6a4badb8ada80cd9257, type: 3}
+  - {fileID: 8300000, guid: 38dac66283693ef48b466eecccd1d2fc, type: 3}
+  - {fileID: 8300000, guid: 7834c321af9d36742ae4a31a26fb5720, type: 3}
+  - {fileID: 8300000, guid: 58a1d551ec9d6fb49a17bf611875303e, type: 3}
+  - {fileID: 8300000, guid: f60d9650945d45244b7da2debdb03f0d, type: 3}
+  - {fileID: 8300000, guid: f1ab65f0cda38de4baf6bf83214cbb63, type: 3}
+  - {fileID: 8300000, guid: 20b73903603a4cd48b2033959615986c, type: 3}
+  - {fileID: 8300000, guid: 7b9cae9e6fdbce440bd64aedd6def542, type: 3}
+  - {fileID: 8300000, guid: d8fb217c21faa3b44bd6323fcb92b843, type: 3}
+  - {fileID: 8300000, guid: 411ef56d5798c2447be18eb51295a498, type: 3}
+  - {fileID: 8300000, guid: fbc73e332a701b34898d25ed64d9a468, type: 3}
+  - {fileID: 8300000, guid: 1aa40e7f2af79984b9f65f09a44af77b, type: 3}
 --- !u!4 &381909810
 Transform:
   m_ObjectHideFlags: 0
