@@ -38,12 +38,7 @@ public class CanvasScript : MonoBehaviour
         GameManager.Instance.QuitTheGame();
     }
 
-	private void Awake()
-	{
-        Time.timeScale = 0;
-    }
-
-	InputDevice[] connectedDevices = new InputDevice[0];
+    InputDevice[] connectedDevices = new InputDevice[0];
 
     private void Update()
     {

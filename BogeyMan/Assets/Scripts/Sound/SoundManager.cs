@@ -61,32 +61,5 @@ public class SoundManagerEditor : Editor
                 }
             }
         }
-        if (GUILayout.Button("Remove all AudioSources"))
-        {
-            if (soundManager.audioClips.Count < 1)
-            {
-                for (int i = 0; i < soundManager.audioSources.Count; i++)
-                {
-                    DestroyImmediate(soundManager.audioSources[i]);
-                    soundManager.audioSources.RemoveAt(i);
-                }
-            }
-        }        
-        // if (soundManager.audioClips.Count < soundManager.audioSources.Count)
-        // {
-        //     for (int i = 0; i < soundManager.audioSources.Count; i++)
-        //     {
-        //         //check if there is i in audioClips list
-        //         if (soundManager.audioClips.Count < i)
-        //         {
-        //             DestroyImmediate(soundManager.audioSources[i]);
-        //             soundManager.audioSources.RemoveAt(i);
-        //         }
-        //         else
-        //         {
-        //             soundManager.audioSources[i].clip = soundManager.audioClips[i];
-        //         }
-        //     }
-        // }
     }
 }

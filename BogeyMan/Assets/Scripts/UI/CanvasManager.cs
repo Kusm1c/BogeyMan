@@ -11,9 +11,4 @@ public class CanvasManager : MonoBehaviour
     [field: SerializeField] public GameObject victoryText { get; private set; } = null;
     [field: SerializeField] public GameObject loadingScreen { get; private set; } = null;
     [field: SerializeField] public TimerScript timer { get; private set; } = null;
-
-	private void Awake()
-	{
-        GameManager.Instance.Hud = this;
-	}
 }
