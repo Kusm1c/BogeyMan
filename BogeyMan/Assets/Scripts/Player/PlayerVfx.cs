@@ -15,6 +15,7 @@ public class PlayerVfx : MonoBehaviour
 	[SerializeField] private ParticleSystem bloodVfx = null;
 	[SerializeField] private ParticleSystem revivingVfx = null;
 	[SerializeField] private ParticleSystem reviveEndVfx = null;
+	//[SerializeField] private ParticleSystem reviveEndVfx = null;
 
 	private void Start()
 	{
@@ -24,6 +25,14 @@ public class PlayerVfx : MonoBehaviour
 	private void PlayLightAttackVfx()
 	{
 		lightAttackVfx.Play();
+	}
+
+	private void PlaySpecialAttackVfx()
+	{
+		GameObject vfxInstance = Instantiate(specialAttackVfx.gameObject,
+			specialAttackVfx.transform.position, specialAttackVfx.transform.rotation);
+		vfxInstance.transform.SetParent(transform);
+		vfxInstance.SetActive(true);
 	}
 
 	private void PlayHeavyAttackVfx()
