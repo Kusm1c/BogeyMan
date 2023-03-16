@@ -65,11 +65,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas Before-Game
       objectReference: {fileID: 0}
-    - target: {fileID: 473603809581389350, guid: 35d680b27f7d4fb4b9015dfc3cef8dad,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1649680446071925364, guid: 35d680b27f7d4fb4b9015dfc3cef8dad,
         type: 3}
       propertyPath: m_Pivot.x
@@ -388,8 +383,7 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 252151806986685380, guid: 7c67616235f599c4c9c1d739f91e4b4e, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
