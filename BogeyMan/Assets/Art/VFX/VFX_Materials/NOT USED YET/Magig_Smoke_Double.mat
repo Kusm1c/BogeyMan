@@ -144,7 +144,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _Noise_offset_speed: -0.4
+    - _Noise_offset_speed: 1
     - _OcclusionStrength: 1
     - _OpaqueCullMode: 2
     - _Parallax: 0.005
@@ -188,11 +188,11 @@ Material:
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
     - _ZWrite: 0
-    - _edge_1: 0.13
-    - _edge_2: 0.55
+    - _edge_1: 0.1
+    - _edge_2: 1
     - _noise_scale: 15
     - _offset_speed_1: 0.5
-    - _opacity_amount: 13
+    - _opacity_amount: 100
     - _text_G: 1
     - _text_R: 0
     - _text_offset_speed: -0.4
@@ -206,7 +206,7 @@ Material:
     - _Main_tx_Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Start_color: {r: 0.754717, g: 0.16019939, b: 0.6251425, a: 0}
-    - _noise_texture_tiling: {r: 1, g: 4, b: 0, a: 0}
+    - _noise_texture_tiling: {r: 2, g: 10, b: 0, a: 0}
     - _smoke_color: {r: 0.34634212, g: 0.350858, b: 0.4056604, a: 0}
     - _start_color: {r: 0, g: 0.060156092, b: 1, a: 0}
     - _texture_tiling: {r: 1, g: 1, b: 0, a: 0}
