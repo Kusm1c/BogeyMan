@@ -102,6 +102,20 @@ namespace Enemies
 
             Move();
         }
+        
+        public void HitPlayer()
+        {
+            if (isDead || isGrabbed)
+                return;
+
+            var player = target.GetComponent<Player>();
+            
+            if ((player.transform.position - transform.position).sqrMagnitude <
+                settings.attackRange * settings.attackRange)
+            {
+                player.TakeHit((int) settings.damage, (player.transform.position - transform.position).normalized);
+            }
+        }
 
         protected bool UpdateChecks()
         {

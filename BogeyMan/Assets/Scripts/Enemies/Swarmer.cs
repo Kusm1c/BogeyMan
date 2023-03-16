@@ -70,20 +70,6 @@ namespace Enemies
             yield return waitForPointOneSeconds;
             attackCollider.SetActive(false);
         }
-        
-        public void HitPlayer()
-        {
-            if (isDead || isGrabbed)
-                return;
-
-            var player = target.GetComponent<Player>();
-            
-            if ((player.transform.position - transform.position).sqrMagnitude <
-                settings.attackRange * settings.attackRange)
-            {
-                player.TakeHit((int) settings.damage, (player.transform.position - transform.position).normalized);
-            }
-        }
 
 #if UNITY_EDITOR
         private float currentAttackSpeed;

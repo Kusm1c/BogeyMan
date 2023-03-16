@@ -5,11 +5,11 @@ namespace Enemies
 {
     public class AttackTrigger : MonoBehaviour
     {
-        [SerializeField] private Swarmer swarmer;
+        [SerializeField] private Enemy enemy;
 
         private void OnTriggerEnter(Collider other)
         {
-            swarmer.HitPlayer();
+            enemy.HitPlayer();
         }
 
         private void OnDrawGizmos()
