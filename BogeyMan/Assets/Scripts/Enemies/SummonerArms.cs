@@ -5,8 +5,11 @@ using UnityEngine;
 public class SummonerArms : MonoBehaviour, IGrabable
 {
     [SerializeField] private float summonerReleaseTime;
-    [SerializeField] private float spammingFactor = 0.02f;
-    public SummonerArms OtherArm;
+    [SerializeField] private SummonerArms otherArm;
+    [SerializeField] private Enemies.Summoner summoner = null;
+    [SerializeField] private GameObject uiGrabFeedback = null;
+    [SerializeField] private GameObject uiSpamFeedback = null;
+    [SerializeField] private SummonerUI summonerUI = null;
     [HideInInspector] public bool Grabbed;
 
     private Player grabbingPlayer;
@@ -14,7 +17,12 @@ public class SummonerArms : MonoBehaviour, IGrabable
     private bool cancel = false;
     private float spammingStartingTime = 0;
 
-    public void CancelBecauseDegrab()
+	private void Start()
+	{
+        uiSpamFeedback.SetActive(false);
+    }
+
+	public void CancelBecauseDegrab()
     {
         if(isSpamming == true)
         {
@@ -25,17 +33,25 @@ public class SummonerArms : MonoBehaviour, IGrabable
     private IEnumerator Spamming()
     {
         float gaugeValue = 0;
+        summonerUI.FillGauge(0);
+        summonerUI.SetGaugeVisible(true);
         spammingStartingTime = Time.time;
-        Vector2 player1LastAimDirection = GameManager.Instance.Players[0].playerController.aimDirection;
-        Vector2 player2LastAimDirection = GameManager.Instance.Players[1].playerController.aimDirection;
+        Player player1 = GameManager.Instance.Players[0];
+        Player player2 = GameManager.Instance.Players[1];
+        Vector2 player1LastAimDirection = player1.playerController.aimDirection;
+        Vector2 player2LastAimDirection = player2.playerController.aimDirection;
         while (cancel == false && gaugeValue < 1f)
         {
-            gaugeValue += Mathf.Abs(Vector2.Distance(GameManager.Instance.Players[0].playerController.aimDirection, player1LastAimDirection) * spammingFactor); 
-            gaugeValue += Mathf.Abs(Vector2.Distance(GameManager.Instance.Players[1].playerController.aimDirection, player2LastAimDirection) * spammingFactor);
+            gaugeValue += Mathf.Abs(Vector2.Distance(player1.playerController.aimDirection, player1LastAimDirection)
+                * player1.settings.summonerDismembermentSpammingFactor); 
+            gaugeValue += Mathf.Abs(Vector2.Distance(player2.playerController.aimDirection, player2LastAimDirection)
+                * player2.settings.summonerDismembermentSpammingFactor);
+
+            summonerUI.FillGauge(gaugeValue);
 
             player1LastAimDirection = GameManager.Instance.Players[0].playerController.aimDirection;
             player2LastAimDirection = GameManager.Instance.Players[1].playerController.aimDirection;
-            if (Time.time > spammingStartingTime + summonerReleaseTime)
+            if (Time.time > spammingStartingTime + summonerReleaseTime) // à remplacer par isstunned = false;
             {
                 cancel = true;
             }
@@ -45,8 +61,8 @@ public class SummonerArms : MonoBehaviour, IGrabable
         if(cancel == true)
         {
             cancel = false;
+            summonerUI.SetGaugeVisible(false);
             print("Cancelled");
-
         }
         else
         {
@@ -54,10 +70,8 @@ public class SummonerArms : MonoBehaviour, IGrabable
             print("Summoner dechired"); // à faire avant les lignes ci-dessous obligatoirement
 
             // Degrab players
-            foreach (Player player in GameManager.Instance.Players)
-            {
-                player.playerController.grab.Release();
-            }
+            Cancel();
+            otherArm.Cancel();
         }
     }
 
@@ -88,14 +102,26 @@ public class SummonerArms : MonoBehaviour, IGrabable
         grabbingPlayer.playerState.isGrabbingSummoner = true;
         grabbingPlayer.playerController.characterAnimator.SetBool("IsGrabbingSummoner", true);
         cancel = false;
+        uiSpamFeedback.SetActive(true);
+        uiGrabFeedback.SetActive(false);
 
-        if (OtherArm.Grabbed == true)
+        if (otherArm.Grabbed == true)
         {
             StartCoroutine(Spamming());
         }
 
         return;
     }
+
+    public void Cancel()
+	{
+        if (Grabbed)
+		{
+            cancel = true;
+
+            grabbingPlayer.playerController.grab.Release();
+        }
+	}
 
     public void OnImpact()
     {
@@ -108,7 +134,9 @@ public class SummonerArms : MonoBehaviour, IGrabable
         Grabbed = false;
         grabbingPlayer.playerState.isGrabbingSummoner = false;
         grabbingPlayer.playerController.characterAnimator.SetBool("IsGrabbingSummoner", false);
-        OtherArm.CancelBecauseDegrab();
+        otherArm.CancelBecauseDegrab();
+        uiSpamFeedback.SetActive(false);
+        uiGrabFeedback.SetActive(true);
         return;
     }
 
