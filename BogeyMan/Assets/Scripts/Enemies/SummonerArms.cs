@@ -61,8 +61,6 @@ public class SummonerArms : MonoBehaviour, IGrabable
         if(cancel == true)
         {
             cancel = false;
-            summonerUI.SetGaugeVisible(false);
-            print("Cancelled");
         }
         else
         {
@@ -137,6 +135,8 @@ public class SummonerArms : MonoBehaviour, IGrabable
         otherArm.CancelBecauseDegrab();
         uiSpamFeedback.SetActive(false);
         uiGrabFeedback.SetActive(true);
+        summonerUI.FillGauge(0);
+        summonerUI.SetGaugeVisible(false);
         return;
     }
 
