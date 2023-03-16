@@ -85,6 +85,7 @@ namespace Enemies
 
             yield return dieWait;
             
+            transform.position = Vector3.up * 100;
             Pooler.instance.DePop("Swarmer", gameObject);
 
             onDeath?.Invoke(this);
