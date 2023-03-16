@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 3.2144322, g: 2.968445, b: 4.196114, a: 1}
+  m_IndirectSpecularColor: {r: 3.2244039, g: 2.9761775, b: 4.2046514, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -108,7 +108,7 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
-    agentSlope: 45
+    agentSlope: 0
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: c21334793d9936046b3ed1bfeda24fc1, type: 2}
 --- !u!1001 &766233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -219,7 +219,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!154 &4078852
 TerrainCollider:
@@ -10915,7 +10915,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: cf588eb6ba9a5cd4199a42b34da23ab5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.0200019
+      value: -1.079
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cf588eb6ba9a5cd4199a42b34da23ab5,
         type: 3}
@@ -13830,6 +13830,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205796349368428736, guid: 360dacdd2483ef148b14b0991a8a3c61,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7097751135997854840, guid: 360dacdd2483ef148b14b0991a8a3c61,
         type: 3}

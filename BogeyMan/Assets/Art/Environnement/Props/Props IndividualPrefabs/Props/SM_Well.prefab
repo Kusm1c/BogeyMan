@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 3849050560535533449}
   - component: {fileID: 5272959082532777075}
   - component: {fileID: 274999253245405742}
+  - component: {fileID: -2586736154932780124}
   m_Layer: 0
   m_Name: SM_Well
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1503110703383638185
 Transform:
@@ -62,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9c5f9e6a33ebdc4780ea1b4e76bdb34, type: 2}
+  - {fileID: 2100000, guid: 6a2bc68f3d432ab4b910a4d3c588b355, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,3 +108,19 @@ CapsuleCollider:
   m_Height: 2.9519842
   m_Direction: 2
   m_Center: {x: 0.00194031, y: -0.0054472685, z: 1.475992}
+--- !u!208 &-2586736154932780124
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5970866639539358789}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.99700004, y: 1.169, z: 1.6270001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.011000001, y: 0.012, z: 1.6270001}
+  m_TimeToStationary: 0.5
