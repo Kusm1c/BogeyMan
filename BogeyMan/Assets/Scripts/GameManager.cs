@@ -25,6 +25,12 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0;
     }
+    
+    [ContextMenu("Aled")]
+    private void WORK()
+    {
+        Time.timeScale = 1;
+    }
 
     public void StartTheGame()
     {   

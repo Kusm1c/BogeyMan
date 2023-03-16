@@ -235,6 +235,7 @@ namespace Enemies
             killPS.GetComponent<ParticleSystem>().Play();
             Pooler.instance.DelayedDePop(5f, "KillSummoner", killPS);
             
+            transform.position = Vector3.up * 100;
             Pooler.instance.DePop("Summoner", gameObject);
 
             onDeath?.Invoke(this);
