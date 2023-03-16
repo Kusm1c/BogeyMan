@@ -90,7 +90,7 @@ public class ThrownObjectParent : MonoBehaviour
 
         if(InRangeForSlowmotion == true)
         { 
-            if(GameManager.Instance.SlowMotionIsActive == false)
+            if(p.playerState.canAttack && GameManager.Instance.SlowMotionIsActive == false)
             {
                 GameManager.Instance.SlowMotionIsActive = true;
                 Time.timeScale = LastHitingPlayer.settings.slowmotionTimeScale;
