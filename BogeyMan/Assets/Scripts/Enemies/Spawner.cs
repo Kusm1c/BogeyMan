@@ -107,7 +107,7 @@ namespace Enemies
             aliveCount++;
             swarmer.GetComponent<Enemy>().onDeath += SwarmerDeath;
             
-            GameObject summonPS = Pooler.instance.Pop("Summon", swarmer.transform.position);
+            GameObject summonPS = Pooler.instance.Pop("Summon", swarmer.transform.position + Vector3.down * 1.5f);
             summonPS.GetComponent<ParticleSystem>().Play();
             Pooler.instance.DelayedDePop(5f, "Summon", summonPS);
         }

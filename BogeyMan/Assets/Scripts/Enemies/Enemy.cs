@@ -119,6 +119,9 @@ namespace Enemies
 
         protected bool UpdateChecks()
         {
+            if (isDead)
+                return true;
+            
             if (!isGrabbed && !rigidbody.isKinematic && rigidbody.velocity.magnitude < 0.1f)
             {
                 rigidbody.velocity = Vector3.zero;

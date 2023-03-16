@@ -183,6 +183,7 @@ namespace Enemies
             //agent.isStopped = true;
             isStopped = true;
             isDead = true;
+            isSummoning = false;
             animator.SetTrigger(fall);
 
             yield return new WaitForSeconds(settings.disappearanceTime);
@@ -201,7 +202,7 @@ namespace Enemies
             arm1.gameObject.SetActive(false);
             arm2.gameObject.SetActive(false);
             isStopped = false;
-            isDead = true;
+            isDead = false;
             hp = settings.maxHP;
 
             // float length = settings.disappearanceTime;
