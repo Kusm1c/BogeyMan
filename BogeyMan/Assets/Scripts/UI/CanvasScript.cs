@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CanvasScript : MonoBehaviour
 {
@@ -22,45 +23,62 @@ public class CanvasScript : MonoBehaviour
         GameManager.Instance.StartTheGame();
     }
     
-    // public void PauseTheGame()
-    // {
-    //     Time.timeScale = 0;
-    // }
-    //
-    // public void ResumeTheGame()
-    // {
-    //     Time.timeScale = 1;
-    // }
+    public void PauseTheGame()
+    {
+        Time.timeScale = 0;
+    }
+    
+    public void ResumeTheGame()
+    {
+        Time.timeScale = 1;
+    }
     
     public void QuitTheGame()
     {
         GameManager.Instance.QuitTheGame();
     }
 
+    InputDevice[] connectedDevices = new InputDevice[0];
+
     private void Update()
     {
-        numberOfPlayersConnected = GameManager.Instance.Players.Length;
+        if (connectedDevices.Length == InputSystem.devices.Count)
+            return;
 
-        if (!isWaitingForPlayers) return;
+        connectedDevices = InputSystem.devices.ToArray();
+        GameManager.Instance.Gamepads.Clear();
+        numberOfPlayersConnected = 0;
+        foreach (InputDevice device in connectedDevices)
+		{
+            if (device.description.deviceClass.Equals("Gamepad")
+                || device.description.deviceClass.Equals(""))
+			{
+                numberOfPlayersConnected++;
+                GameManager.Instance.Gamepads.Add(device);
+            }
+		}
+        
         switch (numberOfPlayersConnected)
         {
             case 0:
-                transform.GetChild(0).GetChild(1).GetChild(2).GetChild(2).gameObject.SetActive(true);
-                transform.GetChild(0).GetChild(1).GetChild(2).GetChild(3).gameObject.SetActive(false);
-                transform.GetChild(0).GetChild(1).GetChild(3).GetChild(2).gameObject.SetActive(true);
-                transform.GetChild(0).GetChild(1).GetChild(3).GetChild(3).gameObject.SetActive(false);
+                transform.GetChild(0).GetChild(1).GetChild(2).GetChild(2).gameObject.SetActive(true); // player1 off
+                transform.GetChild(0).GetChild(1).GetChild(2).GetChild(3).gameObject.SetActive(false); // player1 on
+                transform.GetChild(0).GetChild(1).GetChild(3).GetChild(2).gameObject.SetActive(true); // player2 off
+                transform.GetChild(0).GetChild(1).GetChild(3).GetChild(3).gameObject.SetActive(false); // player2 on
+                transform.GetChild(0).GetChild(1).GetChild(4).gameObject.SetActive(false);
                 break;
             case 1:
                 transform.GetChild(0).GetChild(1).GetChild(2).GetChild(2).gameObject.SetActive(false);
                 transform.GetChild(0).GetChild(1).GetChild(2).GetChild(3).gameObject.SetActive(true);
                 transform.GetChild(0).GetChild(1).GetChild(3).GetChild(2).gameObject.SetActive(true);
                 transform.GetChild(0).GetChild(1).GetChild(3).GetChild(3).gameObject.SetActive(false);
+                transform.GetChild(0).GetChild(1).GetChild(4).gameObject.SetActive(false);
                 break;
-            case 2:
-                transform.GetChild(0).GetChild(1).GetChild(2).GetChild(2).gameObject.SetActive(true);
-                transform.GetChild(0).GetChild(1).GetChild(2).GetChild(3).gameObject.SetActive(false);
-                transform.GetChild(0).GetChild(1).GetChild(3).GetChild(2).gameObject.SetActive(true);
-                transform.GetChild(0).GetChild(1).GetChild(3).GetChild(3).gameObject.SetActive(false);
+            default:
+                transform.GetChild(0).GetChild(1).GetChild(2).GetChild(2).gameObject.SetActive(false);
+                transform.GetChild(0).GetChild(1).GetChild(2).GetChild(3).gameObject.SetActive(true);
+                transform.GetChild(0).GetChild(1).GetChild(3).GetChild(2).gameObject.SetActive(false);
+                transform.GetChild(0).GetChild(1).GetChild(3).GetChild(3).gameObject.SetActive(true);
                 transform.GetChild(0).GetChild(1).GetChild(4).gameObject.SetActive(true);
                 break;
         }
