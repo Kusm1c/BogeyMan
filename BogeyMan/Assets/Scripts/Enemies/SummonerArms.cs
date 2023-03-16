@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ namespace Enemies
 {
     public class SummonerArms : MonoBehaviour, IGrabable
     {
-        [SerializeField] private float summonerReleaseTime;
+        [SerializeField] public float summonerReleaseTime;
         [SerializeField] private SummonerArms otherArm;
         [SerializeField] private Summoner summoner;
         [SerializeField] private GameObject uiGrabFeedback;

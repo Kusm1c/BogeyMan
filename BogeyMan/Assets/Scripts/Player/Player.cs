@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
 	private void Start()
 	{
-		ui = CanvasManager.Instance.playerUIs[playerIndex];
+		ui = GameManager.Instance.Hud.playerUIs[playerIndex];
 		currentLife = settings.maxLife;
 		worldUi.SetRevivalGaugeVisible(false);
 		worldUi.FillRevivalGauge(0);
@@ -78,6 +78,11 @@ public class Player : MonoBehaviour
 		playerController.rb.isKinematic = true;
 		SetInvulnerability(true);
 		playerController.characterAnimator.SetBool("Dead", true);
+		Player ally = GameManager.Instance.Players[playerIndex == 1 ? 0 : 1];
+		if (ally.playerState.isDead == true)
+		{
+			GameManager.Instance.LoseGame();
+		}
 	}
 
 	#region Revival
