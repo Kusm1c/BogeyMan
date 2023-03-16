@@ -265,8 +265,10 @@ namespace Enemies
 
         public void OnGrab(Player player)
         {
+            StopAllCoroutines();
             agent.enabled = false;
             isGrabbed = true;
+            isStopped = false;
         }
 
         public float GetThrowSpeed()

@@ -151,8 +151,7 @@ public class Grab : MonoBehaviour
 	private void OnTriggerExit(Collider other)
 	{
         IGrabable grabable = other.gameObject.GetComponent<IGrabable>();
-        if (grabable != null
-            && other.GetComponent<Enemies.Summoner>() == null)
+        if (grabable != null && grabableObjects.Contains(grabable))
         {
             grabableObjects.Remove(grabable);
         }
