@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2.669964, g: 2.4644053, b: 3.481503, a: 1}
+  m_IndirectSpecularColor: {r: 2.6686938, g: 2.463467, b: 3.4805799, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97398,7 +97398,7 @@ PrefabInstance:
     - target: {fileID: 1096163959596026802, guid: d1487fac00cf4b247a638f9ed9c8d13b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 35
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 1096163959596026802, guid: d1487fac00cf4b247a638f9ed9c8d13b,
         type: 3}
@@ -97982,7 +97982,7 @@ PrefabInstance:
     - target: {fileID: 4542733557021889670, guid: 8ca9dd71829aead4ba2dd821482bfb89,
         type: 3}
       propertyPath: m_RootOrder
-      value: 34
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 4542733557021889670, guid: 8ca9dd71829aead4ba2dd821482bfb89,
         type: 3}
@@ -98327,6 +98327,79 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: caa996f121ee6c245846f08a39bdfff5, type: 3}
+--- !u!1001 &8111440922916540413
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 605869373383928174, guid: 1dea02ec48f9e2c42881446fdf4a6108,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 605869373383928174, guid: 1dea02ec48f9e2c42881446fdf4a6108,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -28.076
+      objectReference: {fileID: 0}
+    - target: {fileID: 605869373383928174, guid: 1dea02ec48f9e2c42881446fdf4a6108,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.685
+      objectReference: {fileID: 0}
+    - target: {fileID: 605869373383928174, guid: 1dea02ec48f9e2c42881446fdf4a6108,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 605869373383928174, guid: 1dea02ec48f9e2c42881446fdf4a6108,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 605869373383928174, guid: 1dea02ec48f9e2c42881446fdf4a6108,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 605869373383928174, guid: 1dea02ec48f9e2c42881446fdf4a6108,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 605869373383928174, guid: 1dea02ec48f9e2c42881446fdf4a6108,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 605869373383928174, guid: 1dea02ec48f9e2c42881446fdf4a6108,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 605869373383928174, guid: 1dea02ec48f9e2c42881446fdf4a6108,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 605869373383928174, guid: 1dea02ec48f9e2c42881446fdf4a6108,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572938319439090880, guid: 1dea02ec48f9e2c42881446fdf4a6108,
+        type: 3}
+      propertyPath: m_Name
+      value: SwarmerAled
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1dea02ec48f9e2c42881446fdf4a6108, type: 3}
 --- !u!1001 &8865684200049992175
 PrefabInstance:
   m_ObjectHideFlags: 0
