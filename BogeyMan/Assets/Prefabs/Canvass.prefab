@@ -220,7 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -245,7 +245,7 @@ CanvasGroup:
   m_GameObject: {fileID: 3692284534670334228}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 1
+  m_Interactable: 0
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!95 &2566653996376734048
@@ -390,6 +390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7945024972130636945}
   - component: {fileID: 5374542968736415345}
+  - component: {fileID: 2429831113569349573}
   m_Layer: 0
   m_Name: Canvass
   m_TagString: Untagged
@@ -427,6 +428,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWaitingForPlayers: 0
+--- !u!114 &2429831113569349573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7256174649102593731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17629e553245c494297e898411c5521b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <playerUIs>k__BackingField:
+  - {fileID: 6523473536046044271}
+  - {fileID: 4356836364474484710}
+  <startText>k__BackingField: {fileID: 8724840515271462329}
+  <gameOverText>k__BackingField: {fileID: 7357116827471720684}
+  <victoryText>k__BackingField: {fileID: 1798272504380598232}
+  <loadingScreen>k__BackingField: {fileID: 5379783753648873424}
+  <timer>k__BackingField: {fileID: 4009509911274620499}
 --- !u!1 &7357116827471720684
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,10 +1320,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5472802677356695857}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6196375867664943661, guid: 7c67616235f599c4c9c1d739f91e4b4e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2203198708873084275}
     - targetCorrespondingSourceObject: {fileID: 2298570169357823090, guid: 7c67616235f599c4c9c1d739f91e4b4e,
         type: 3}
       insertIndex: -1
@@ -1343,26 +1360,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7129813616205713591}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2203198708873084275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3967632449274878618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17629e553245c494297e898411c5521b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <playerUIs>k__BackingField:
-  - {fileID: 6523473536046044271}
-  - {fileID: 4356836364474484710}
-  <startText>k__BackingField: {fileID: 8724840515271462329}
-  <gameOverText>k__BackingField: {fileID: 7357116827471720684}
-  <victoryText>k__BackingField: {fileID: 1798272504380598232}
-  <loadingScreen>k__BackingField: {fileID: 5379783753648873424}
-  <timer>k__BackingField: {fileID: 4009509911274620499}
 --- !u!114 &4009509911274620499 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6149255929322919652, guid: 7c67616235f599c4c9c1d739f91e4b4e,
