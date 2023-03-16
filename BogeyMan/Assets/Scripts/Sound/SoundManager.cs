@@ -72,21 +72,21 @@ public class SoundManagerEditor : Editor
                 }
             }
         }        
-        if (soundManager.audioClips.Count < soundManager.audioSources.Count)
-        {
-            for (int i = 0; i < soundManager.audioSources.Count; i++)
-            {
-                //check if there is i in audioClips list
-                if (soundManager.audioClips.Count < i)
-                {
-                    DestroyImmediate(soundManager.audioSources[i]);
-                    soundManager.audioSources.RemoveAt(i);
-                }
-                else
-                {
-                    soundManager.audioSources[i].clip = soundManager.audioClips[i];
-                }
-            }
-        }
+        // if (soundManager.audioClips.Count < soundManager.audioSources.Count)
+        // {
+        //     for (int i = 0; i < soundManager.audioSources.Count; i++)
+        //     {
+        //         //check if there is i in audioClips list
+        //         if (soundManager.audioClips.Count < i)
+        //         {
+        //             DestroyImmediate(soundManager.audioSources[i]);
+        //             soundManager.audioSources.RemoveAt(i);
+        //         }
+        //         else
+        //         {
+        //             soundManager.audioSources[i].clip = soundManager.audioClips[i];
+        //         }
+        //     }
+        // }
     }
 }
