@@ -70,7 +70,7 @@ public class Grab : MonoBehaviour
     private void ThrowObject(IGrabable objectToThrow)
     {
         player.playerState.isGrabbing = false;
-        
+        StopAllCoroutines();
         grabbedObject = null;
         objectToThrow.transform.parent = null;
         Vector3 direction = new Vector3(player.playerController.aimDirection.x, 0 ,player.playerController.aimDirection.y);
@@ -93,7 +93,6 @@ public class Grab : MonoBehaviour
     {
         player.playerState.isGrabbing = false;
         grabbedObject = null;
-        StopAllCoroutines();
         if (player.playerState.isGrabbingSummoner == true)
         {
             objectToRelease.GetCollider().enabled = true;
@@ -138,18 +137,28 @@ public class Grab : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IGrabable grabable = other.gameObject.GetComponent<IGrabable>();
-        if (grabable != null && grabable != grabbedObject)
+        if (grabable != null && grabable != grabbedObject
+            && other.GetComponent<Enemies.Summoner>() == null)
 		{
-            grabableObjects.Add(grabable);
+            Enemies.Enemy enemy = other.GetComponent<Enemies.Enemy>();
+            if ((enemy != null && enemy.isDead == false) || enemy == null)
+			{
+                grabableObjects.Add(grabable);
+            }
         }
     }
 
 	private void OnTriggerExit(Collider other)
 	{
         IGrabable grabable = other.gameObject.GetComponent<IGrabable>();
-        if (grabable != null)
+        if (grabable != null
+            && other.GetComponent<Enemies.Summoner>() == null)
         {
-            grabableObjects.Remove(grabable);
+            Enemies.Enemy enemy = other.GetComponent<Enemies.Enemy>();
+            if ((enemy != null && enemy.isDead == false) || enemy == null)
+            {
+                grabableObjects.Remove(grabable);
+            }
         }
     }
 }

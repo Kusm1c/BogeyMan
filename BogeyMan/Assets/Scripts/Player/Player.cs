@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 	[field: SerializeField] public int playerIndex { get; private set; } = 0;
 	[field: SerializeField] public PlayerSettings_SO settings { get; private set; } = null;
 	[field: SerializeField] public PlayerController playerController { get; private set; } = null;
+	[field: SerializeField] public PlayerVfx playerVfx { get; private set; } = null;
 	[field : SerializeField] public PlayerWorldUI worldUi { get; private set; } = null;
 	[field: SerializeField] public PlayerState playerState { get; private set; } = null;
 	[SerializeField] private GameObject revivalCollider = null;
@@ -26,7 +27,6 @@ public class Player : MonoBehaviour
 		CinemachineTargetGroup targetGroup = GameObject.Find("Target Group").GetComponent<CinemachineTargetGroup>();
 		targetGroup.m_Targets[playerIndex].target = transform;
     }
-
 
 	private void Start()
 	{
@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
 		SetInvulnerability(true, settings.invulnerabilityDurationWhenHit);
 		playerController.characterAnimator.SetFloat("Random", UnityEngine.Random.Range(0, 3));
 		playerController.characterAnimator.SetTrigger("Hit");
+		playerVfx.PlayHitVfx();
 		if (currentLife <= 0)
 		{
 			Die();
@@ -91,6 +92,8 @@ public class Player : MonoBehaviour
 		playerController.characterAnimator.SetBool("Dead", false);
 		currentLife = settings.maxLife;
 		ui.UpdateLifeBar(currentLife, settings.maxLife);
+		playerVfx.PlayRevivingVfx(false);
+		playerVfx.PlayReviveEndVfx();
 	}
 
 	private IEnumerator ReviveCoroutine()
@@ -103,6 +106,7 @@ public class Player : MonoBehaviour
 	public void CancelRevival()
 	{
 		worldUi.FillRevivalGauge(0);
+		playerVfx.PlayRevivingVfx(false);
 	}
 
 	public void StartRevivingAlly()
@@ -121,6 +125,7 @@ public class Player : MonoBehaviour
 	{
 		float timePressingInput = 0;
 		Player ally = GameManager.Instance.Players[playerIndex == 1 ? 0 : 1];
+		ally.playerVfx.PlayRevivingVfx(true);
 
 		while (timePressingInput < settings.revivalDuration)
 		{
