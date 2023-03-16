@@ -40,7 +40,7 @@ public class PlayerSettings_SO : ScriptableObject
 
 	[field: Header("Grab")]
 	[field: SerializeField] public Vector2 minMaxTimeGrabbingSwarmer { get; private set; } = new Vector2(3f, 5f);
-	[field: SerializeField] public float summonerDismembermentSpammingFactor { get; private set; } = 0.05f;
+	[field: SerializeField] public float summonerDismembermentSpammingFactor { get; private set; } = 0.01f;
 
 	[field : Header("Reflect")]
 	[field: SerializeField] public float slowMotionReflectRange { get; private set; } = 3f;
