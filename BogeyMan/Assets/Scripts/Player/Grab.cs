@@ -140,7 +140,11 @@ public class Grab : MonoBehaviour
         if (grabable != null && grabable != grabbedObject
             && other.GetComponent<Enemies.Summoner>() == null)
 		{
-            grabableObjects.Add(grabable);
+            Enemies.Enemy enemy = other.GetComponent<Enemies.Enemy>();
+            if ((enemy != null && enemy.isDead == false) || enemy == null)
+			{
+                grabableObjects.Add(grabable);
+            }
         }
     }
 
@@ -150,7 +154,11 @@ public class Grab : MonoBehaviour
         if (grabable != null
             && other.GetComponent<Enemies.Summoner>() == null)
         {
-            grabableObjects.Remove(grabable);
+            Enemies.Enemy enemy = other.GetComponent<Enemies.Enemy>();
+            if ((enemy != null && enemy.isDead == false) || enemy == null)
+            {
+                grabableObjects.Remove(grabable);
+            }
         }
     }
 }

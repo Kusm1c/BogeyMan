@@ -48,7 +48,7 @@ namespace Enemies
         private MaterialPropertyBlock _propertyBlock;
         private Transform _target;
         private Collider _collider;
-        protected bool isDead;
+        [HideInInspector] public bool isDead;
         protected bool isStopped;
         protected bool isGrabbed;
 
