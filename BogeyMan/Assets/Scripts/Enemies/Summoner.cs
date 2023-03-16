@@ -217,6 +217,10 @@ namespace Enemies
         {
             StopAllCoroutines();
             
+            GameObject killPS = Pooler.instance.Pop("KillSummoner", transform.position);
+            killPS.GetComponent<ParticleSystem>().Play();
+            Pooler.instance.DelayedDePop(5f, "KillSummoner", killPS);
+            
             Pooler.instance.DePop("Summoner", gameObject);
 
             onDeath?.Invoke(this);
