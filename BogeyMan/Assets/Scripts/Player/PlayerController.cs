@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour
 	private IEnumerator WaitForLightAttackCooldown(float cooldown)
 	{
 		canLightAttack = false;
-		yield return new WaitForSeconds(cooldown);
+		yield return new WaitForSeconds(cooldown * Time.timeScale);
 		canLightAttack = true;
 	}
 
@@ -182,6 +182,7 @@ public class PlayerController : MonoBehaviour
 
 		player.playerState.isAttacking = true;
 		DecreaseSpeed(player.settings.heavyAttackChargeSpeedReductionPercentage);
+		player.playerVfx.StartHeavyAttackCharge();
 		StartCoroutine(HeavyAttackCharge());
 	}
 

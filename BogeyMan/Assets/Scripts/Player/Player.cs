@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 	[field: SerializeField] public int playerIndex { get; private set; } = 0;
 	[field: SerializeField] public PlayerSettings_SO settings { get; private set; } = null;
 	[field: SerializeField] public PlayerController playerController { get; private set; } = null;
+	[field: SerializeField] public PlayerVfx playerVfx { get; private set; } = null;
 	[field : SerializeField] public PlayerWorldUI worldUi { get; private set; } = null;
 	[field: SerializeField] public PlayerState playerState { get; private set; } = null;
 	[SerializeField] private GameObject revivalCollider = null;
@@ -26,7 +27,6 @@ public class Player : MonoBehaviour
 		CinemachineTargetGroup targetGroup = GameObject.Find("Target Group").GetComponent<CinemachineTargetGroup>();
 		targetGroup.m_Targets[playerIndex].target = transform;
     }
-
 
 	private void Start()
 	{
@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
 		SetInvulnerability(true, settings.invulnerabilityDurationWhenHit);
 		playerController.characterAnimator.SetFloat("Random", UnityEngine.Random.Range(0, 3));
 		playerController.characterAnimator.SetTrigger("Hit");
+		playerVfx.PlayHitVfx();
 		if (currentLife <= 0)
 		{
 			Die();
