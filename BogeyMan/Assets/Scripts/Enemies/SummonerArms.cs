@@ -29,6 +29,7 @@ namespace Enemies
             if(isSpamming == true)
             {
                 cancel = true;
+                summoner.StopGrab();
             }
         }
 
@@ -104,8 +105,9 @@ namespace Enemies
             uiSpamFeedback.SetActive(true);
             uiGrabFeedback.SetActive(false);
 
-            if (otherArm.Grabbed == true)
+            if (otherArm.Grabbed)
             {
+                summoner.Grab();
                 StartCoroutine(Spamming());
             }
 
@@ -118,14 +120,14 @@ namespace Enemies
             {
                 cancel = true;
 
+                summoner.StopGrab();
                 grabbingPlayer.playerController.grab.Release();
             }
         }
 
         public void OnImpact()
         {
-            return; // no throw impact since it is not throwable
-
+            // no throw impact since it is not throwable
         }
 
         public void OnRelease()

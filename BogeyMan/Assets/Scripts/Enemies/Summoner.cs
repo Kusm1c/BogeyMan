@@ -33,6 +33,7 @@ namespace Enemies
         private static readonly int fall = Animator.StringToHash("Fall");
         private static readonly int revive = Animator.StringToHash("Revive");
         private static readonly int attack = Animator.StringToHash("Attack");
+        private static readonly int dismemberment = Animator.StringToHash("Demembrement");
 
 
         protected override void Awake()
@@ -214,6 +215,16 @@ namespace Enemies
             //     yield return null;
             //     length -= Time.deltaTime;
             // }
+        }
+
+        public void Grab()
+        {
+            animator.SetBool(dismemberment, true);
+        }
+        
+        public void StopGrab()
+        {
+            animator.SetBool(dismemberment, false);
         }
 
         public void DieForReal()
