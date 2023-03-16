@@ -76,6 +76,7 @@ public class ThrownObjectParent : MonoBehaviour
 
     private void FixedUpdate()
     {
+        thrownObject.transform.position = transform.position;
         bool InRangeForSlowmotion = false;
         Player p = GameManager.Instance.Players[LastHitingPlayer.playerIndex == 1 ? 0 : 1];
         if (p != null)

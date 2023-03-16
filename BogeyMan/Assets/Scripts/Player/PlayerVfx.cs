@@ -15,6 +15,7 @@ public class PlayerVfx : MonoBehaviour
 	[SerializeField] private ParticleSystem bloodVfx = null;
 	[SerializeField] private ParticleSystem revivingVfx = null;
 	[SerializeField] private ParticleSystem reviveEndVfx = null;
+	//[SerializeField] private ParticleSystem reviveEndVfx = null;
 
 	private void Start()
 	{
