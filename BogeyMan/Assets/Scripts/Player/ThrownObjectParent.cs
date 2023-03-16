@@ -13,6 +13,8 @@ public class ThrownObjectParent : MonoBehaviour
     private IGrabable thrownObject = null;
     private Rigidbody rb = null;
 
+    [SerializeField] private GameObject exploImpactVfx = null;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -121,6 +123,11 @@ public class ThrownObjectParent : MonoBehaviour
         //fx
         Grab.ResetGrabbedObject(thrownObject);
         thrownObject.OnImpact();
+
+        GameObject vfxInstance = Instantiate(exploImpactVfx.gameObject,
+            exploImpactVfx.transform.position, exploImpactVfx.transform.rotation);
+        vfxInstance.SetActive(true);
+
         Destroy(gameObject);
     }
 

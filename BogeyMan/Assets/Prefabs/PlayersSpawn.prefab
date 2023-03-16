@@ -31,7 +31,7 @@ Transform:
   - {fileID: 2741786199268011891}
   - {fileID: 4130944895464441069}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6119263386948635151
 PrefabInstance:
@@ -44,12 +44,27 @@ PrefabInstance:
     - target: {fileID: 3408243257837539396, guid: ddd2cc67790051944a50b69eb8a752d4,
         type: 3}
       propertyPath: <playerIndex>k__BackingField
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5450950938163285301, guid: ddd2cc67790051944a50b69eb8a752d4,
         type: 3}
       propertyPath: m_Name
       value: Player2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5639534999455801263, guid: ddd2cc67790051944a50b69eb8a752d4,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5639534999455801263, guid: ddd2cc67790051944a50b69eb8a752d4,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: d12d771e-9503-4f26-b4d9-70fc5bd888b8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5639534999455801263, guid: ddd2cc67790051944a50b69eb8a752d4,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: PlayerActions/Pause[/XInputControllerWindows/start]
       objectReference: {fileID: 0}
     - target: {fileID: 7908301016930422498, guid: ddd2cc67790051944a50b69eb8a752d4,
         type: 3}
@@ -125,6 +140,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6097416742185529941}
     m_Modifications:
+    - target: {fileID: 2274508643278359218, guid: 9951a93fafe93064c86f92131dd94271,
+        type: 3}
+      propertyPath: <playerIndex>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6729437222213309460, guid: 9951a93fafe93064c86f92131dd94271,
         type: 3}
       propertyPath: m_RootOrder
@@ -184,6 +204,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: JUC_Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9124162637991331161, guid: 9951a93fafe93064c86f92131dd94271,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9124162637991331161, guid: 9951a93fafe93064c86f92131dd94271,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: d12d771e-9503-4f26-b4d9-70fc5bd888b8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9124162637991331161, guid: 9951a93fafe93064c86f92131dd94271,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: PlayerActions/Pause[/XInputControllerWindows/start]
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
