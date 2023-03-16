@@ -67,7 +67,7 @@ namespace Enemies
         public bool isDead;
         protected bool isGrabbed;
 
-        private int hp;
+        protected int hp;
         private static readonly int color = Shader.PropertyToID("_BaseColor");
 
         protected virtual void Awake()
@@ -108,7 +108,7 @@ namespace Enemies
             if (!isGrabbed && !rigidbody.isKinematic && rigidbody.velocity.magnitude < 0.1f)
             {
                 rigidbody.velocity = Vector3.zero;
-                rigidbody.Enable();
+                rigidbody.Disable();
                 agent.enabled = true;
                 return true;
             }

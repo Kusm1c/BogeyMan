@@ -88,8 +88,8 @@ namespace Enemies
         {
             base.OnDrawGizmosSelected();
 
-            Vector3 position = myTransform.position;
-            Vector3 up = myTransform.up;
+            Vector3 position = transform.position;
+            Vector3 up = transform.up;
                 
 #if UNITY_EDITOR
             Handles.color = Color.green;
@@ -157,7 +157,7 @@ namespace Enemies
             arm2.gameObject.SetActive(true);
             UnityEngine.Debug.Log("grab");
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(arm1.summonerReleaseTime);
             // only if not dead (DieForReal method)
             
             UnityEngine.Debug.Log("ungrab");
@@ -167,6 +167,7 @@ namespace Enemies
             arm2.gameObject.SetActive(false);
             isStopped = false;
             isDead = true;
+            hp = settings.maxHP;
 
             // float length = settings.disappearanceTime;
             //
