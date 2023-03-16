@@ -27,6 +27,14 @@ public class PlayerVfx : MonoBehaviour
 		lightAttackVfx.Play();
 	}
 
+	private void PlaySpecialAttackVfx()
+	{
+		GameObject vfxInstance = Instantiate(specialAttackVfx.gameObject,
+			specialAttackVfx.transform.position, specialAttackVfx.transform.rotation);
+		vfxInstance.transform.SetParent(transform);
+		vfxInstance.SetActive(true);
+	}
+
 	private void PlayHeavyAttackVfx()
 	{
 		GameObject vfxInstance = Instantiate(heavyAttackVfx.gameObject, 

@@ -234,6 +234,7 @@ public class PlayerController : MonoBehaviour
 		yield return new WaitForSeconds(player.settings.specialAttackChargeDuration);
 
 		hitBoxesAnimator.SetTrigger("CenserSpecialAttack");
+		characterAnimator.SetTrigger("SpecialAttack");
 		DecreaseSpeed(- player.settings.specialAttackSpeedIncreasePercentage);
 		player.SetInvulnerability(true);
 	}
