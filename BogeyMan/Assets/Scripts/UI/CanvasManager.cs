@@ -5,17 +5,15 @@ using UnityEngine;
 public class CanvasManager : MonoBehaviour
 {
     [field : SerializeField] public PlayerUI[] playerUIs { get; private set; } = new PlayerUI[2];
-    public static CanvasManager Instance;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    [field: SerializeField] public GameObject startText { get; private set; } = null;
+    [field: SerializeField] public GameObject gameOverText { get; private set; } = null;
+    [field: SerializeField] public GameObject victoryText { get; private set; } = null;
+    [field: SerializeField] public GameObject loadingScreen { get; private set; } = null;
+    [field: SerializeField] public TimerScript timer { get; private set; } = null;
+
+	private void Awake()
+	{
+        GameManager.Instance.Hud = this;
+	}
 }

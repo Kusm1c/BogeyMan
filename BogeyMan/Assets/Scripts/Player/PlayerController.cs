@@ -32,6 +32,12 @@ public class PlayerController : MonoBehaviour
 		mainCamera = Camera.main;
 	}
 
+	public void AssignInputDevice()
+	{
+		InputDevice[] devices = new InputDevice[] { GameManager.Instance.Gamepads[player.playerIndex] };
+		playerInput.SwitchCurrentControlScheme(devices);
+	}
+
 	#region Movements
 	private void FixedUpdate()
 	{

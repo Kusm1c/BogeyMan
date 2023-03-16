@@ -133,20 +133,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   quality:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   threshold:
     m_OverrideState: 1
     m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.122
   scatter:
     m_OverrideState: 0
     m_Value: 0.7
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.9716981, g: 0.9226009, b: 0.79294235, a: 1}
+    m_Value: {r: 0.972549, g: 0.7921569, b: 0.79976577, a: 1}
   dirtTexture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -157,13 +157,13 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   m_Resolution:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 2
   m_HighQualityPrefiltering:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   m_HighQualityFiltering:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
 --- !u!114 &7499912102418588443
 MonoBehaviour:
@@ -180,19 +180,19 @@ MonoBehaviour:
   active: 1
   quality:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0
   rayTracing:
     m_OverrideState: 0
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: 2.87
   directLightingStrength:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.5
   radius:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0.56
   spatialBilateralAggressiveness:
     m_OverrideState: 0
     m_Value: 0.15
@@ -221,31 +221,31 @@ MonoBehaviour:
     m_Value: 1
   m_StepCount:
     m_OverrideState: 1
-    m_Value: 16
+    m_Value: 4
   m_FullResolution:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   m_MaximumRadiusInPixels:
     m_OverrideState: 1
-    m_Value: 80
+    m_Value: 32
   m_BilateralUpsample:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   m_DirectionCount:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: 1
   m_RayLength:
     m_OverrideState: 1
-    m_Value: 20
+    m_Value: 0.5
   m_SampleCount:
     m_OverrideState: 1
-    m_Value: 8
+    m_Value: 1
   m_Denoise:
     m_OverrideState: 1
     m_Value: 1
   m_DenoiserRadius:
     m_OverrideState: 1
-    m_Value: 0.65
+    m_Value: 0.25
 --- !u!114 &8547014684414090686
 MonoBehaviour:
   m_ObjectHideFlags: 3

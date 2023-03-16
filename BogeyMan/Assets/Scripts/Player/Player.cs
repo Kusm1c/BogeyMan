@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
 	private void Start()
 	{
-		ui = CanvasManager.Instance.playerUIs[playerIndex];
+		ui = GameManager.Instance.Hud.playerUIs[playerIndex];
 		currentLife = settings.maxLife;
 		worldUi.SetRevivalGaugeVisible(false);
 		worldUi.FillRevivalGauge(0);
@@ -78,6 +78,11 @@ public class Player : MonoBehaviour
 		playerController.rb.isKinematic = true;
 		SetInvulnerability(true);
 		playerController.characterAnimator.SetBool("Dead", true);
+		Player ally = GameManager.Instance.Players[playerIndex == 1 ? 0 : 1];
+		if (ally.playerState.isDead == true)
+		{
+			GameManager.Instance.LoseGame();
+		}
 	}
 
 	#region Revival
@@ -92,6 +97,8 @@ public class Player : MonoBehaviour
 		playerController.characterAnimator.SetBool("Dead", false);
 		currentLife = settings.maxLife;
 		ui.UpdateLifeBar(currentLife, settings.maxLife);
+		playerVfx.PlayRevivingVfx(false);
+		playerVfx.PlayReviveEndVfx();
 	}
 
 	private IEnumerator ReviveCoroutine()
@@ -104,6 +111,7 @@ public class Player : MonoBehaviour
 	public void CancelRevival()
 	{
 		worldUi.FillRevivalGauge(0);
+		playerVfx.PlayRevivingVfx(false);
 	}
 
 	public void StartRevivingAlly()
@@ -122,6 +130,7 @@ public class Player : MonoBehaviour
 	{
 		float timePressingInput = 0;
 		Player ally = GameManager.Instance.Players[playerIndex == 1 ? 0 : 1];
+		ally.playerVfx.PlayRevivingVfx(true);
 
 		while (timePressingInput < settings.revivalDuration)
 		{

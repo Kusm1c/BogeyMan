@@ -13,6 +13,13 @@ public class PlayerVfx : MonoBehaviour
 
 	[Header("Other")]
 	[SerializeField] private ParticleSystem bloodVfx = null;
+	[SerializeField] private ParticleSystem revivingVfx = null;
+	[SerializeField] private ParticleSystem reviveEndVfx = null;
+
+	private void Start()
+	{
+		heavyAttackVfx.gameObject.SetActive(false);
+	}
 
 	private void PlayLightAttackVfx()
 	{
@@ -21,6 +28,9 @@ public class PlayerVfx : MonoBehaviour
 
 	private void PlayHeavyAttackVfx()
 	{
+		GameObject vfxInstance = Instantiate(heavyAttackVfx.gameObject, 
+			heavyAttackChargeVfx.transform.position, heavyAttackChargeVfx.transform.rotation);
+		vfxInstance.SetActive(true);
 		heavyAttackVfx.Play();
 		heavyAttackChargeVfx.Stop();
 		heavyAttackWeaponChargeVfx.Stop();
@@ -35,5 +45,22 @@ public class PlayerVfx : MonoBehaviour
 	public void PlayHitVfx()
 	{
 		bloodVfx.Play();
+	}
+
+	public void PlayRevivingVfx(bool active)
+	{
+		if (active)
+		{
+			revivingVfx.Play();
+		}
+		else
+		{
+			revivingVfx.Stop();
+		}
+	}
+
+	public void PlayReviveEndVfx()
+	{
+		reviveEndVfx.Play();
 	}
 }
