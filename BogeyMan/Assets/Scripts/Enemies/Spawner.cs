@@ -42,8 +42,14 @@ namespace Enemies
             InitRandomSwarmSpawnPart();
             if (automatic)
             {
-                StartCoroutine(SpawnLoopCoroutine());
+                StartCoroutine(Delay());
             }
+        }
+
+        private IEnumerator Delay()
+        {
+            yield return new WaitForSeconds(0.2f);
+            StartCoroutine(SpawnLoopCoroutine());
         }
 
         private void InitRandomSwarmSpawnPart()
@@ -95,10 +101,10 @@ namespace Enemies
                     spawnerPosition.y, Random.insideUnitCircle.y * spawnRadius) + spawnerPosition;
             }
             
-            if (Physics.CheckSphere(randomPosInRadius, 1.5f, LayerMask.GetMask("Wall")))
-            {
-                SpawnUnit();
-            }
+            // if (Physics.CheckSphere(randomPosInRadius, 1.5f, LayerMask.GetMask("Wall")))
+            // {
+            //     SpawnUnit();
+            // }
             
             GameObject swarmer = Pooler.instance.Pop(units[0].unitName, randomPosInRadius);
             swarmer.SetActive(true);

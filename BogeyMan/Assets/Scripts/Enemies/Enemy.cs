@@ -167,9 +167,23 @@ namespace Enemies
             renderer.shadowCastingMode = ShadowCastingMode.On;
 
             hp = settings.maxHP;
-            isDead = false;
-            isStopped = false;
+            
+            StartCoroutine(Delay());
             attackCooldownClock.Start(settings.attackCooldown + settings.attackSpeed + 1f);
+        }
+
+        private static readonly WaitForSeconds waitForPointTwo = new(.2f);
+        private IEnumerator Delay()
+        {
+            yield return waitForPointTwo;
+            agent.enabled = true;
+            isStopped = false;
+            isDead = false;
+        }
+
+        private void OnDisable()
+        {
+            agent.enabled = false;
         }
 
         private void OnValidate()

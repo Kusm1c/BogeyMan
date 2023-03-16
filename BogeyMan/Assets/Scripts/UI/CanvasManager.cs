@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class CanvasManager : MonoBehaviour
     [field: SerializeField] public GameObject loadingScreen { get; private set; } = null;
     [field: SerializeField] public TimerScript timer { get; private set; } = null;
     [SerializeField] private GameObject pauseMenu = null;
+    [SerializeField] private Button resumeButton;
+    
 
 	private void Awake()
 	{
@@ -24,6 +27,7 @@ public class CanvasManager : MonoBehaviour
 		{
             Time.timeScale = 0;
             pauseMenu.SetActive(true);
+            resumeButton.Select();
         }
 		else
 		{
