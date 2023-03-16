@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 3436319411443084774}
   - component: {fileID: 1883106258645908068}
   - component: {fileID: 6656057782951450223}
+  - component: {fileID: -653214566018149337}
   m_Layer: 0
   m_Name: SM_Fence5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6360342851579820000
 Transform:
@@ -105,3 +106,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.05403544, y: 1.1425412, z: 0.74539477}
   m_Center: {x: 0.029900946, y: -0.00089100003, z: 0.3718325}
+--- !u!208 &-653214566018149337
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7369355131462324540}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.064, y: 0.596, z: 0.372}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.372}
+  m_TimeToStationary: 0.5
