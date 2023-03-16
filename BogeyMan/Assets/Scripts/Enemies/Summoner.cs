@@ -97,10 +97,15 @@ namespace Enemies
                 MoveTo(target.transform.position + (-targetDirection).normalized * ((comfortZoneRadius.y + comfortZoneRadius.x) * 0.5f));
             }
 
-            if (spawnClock.GetTime() > spawnDelay)
+            if (!(spawnClock.GetTime() > spawnDelay)) return;
+            
+            if (spawner.aliveCount < spawner.swarmSize)
             {
                 StartCoroutine(Summon());
-
+            }
+            else
+            {
+                spawnClock.Restart();
             }
         }
 
@@ -116,7 +121,7 @@ namespace Enemies
             }
             
             animator.SetTrigger(spawn);
-            spawner.SpawnSwarm(1);
+            spawner.SpawnSwarm(spawner.aliveCount < 4 ? 4 : 1);
             spawnClock.Restart();
 
             yield return waitForSummonPart2;

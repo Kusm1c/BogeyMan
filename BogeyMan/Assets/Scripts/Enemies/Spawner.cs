@@ -11,11 +11,11 @@ namespace Enemies
         [Header("Swarm Settings")] 
         [SerializeField] private List<UnitSpawnSettings> units;
         [SerializeField] private bool automatic = true;
-        [SerializeField, Min(0)] private int swarmSize;
+        [SerializeField, Min(0)] public int swarmSize;
         [SerializeField, Min(0f)] private float spawnRadius = 15f;
         [SerializeField, Min(0f)] private float spawnDelay = 2f;
 
-        private int aliveCount;
+        public int aliveCount;
         private readonly WaitForSeconds waitForPointOneSeconds = new(0.1f);
         private WaitForSeconds waitForSpawnDelay;
 
@@ -95,12 +95,10 @@ namespace Enemies
                     spawnerPosition.y, Random.insideUnitCircle.y * spawnRadius) + spawnerPosition;
             }
             
-            // if (Physics.CheckSphere(randomPosInRadius, 1.5f, LayerMask.GetMask("Wall")))
-            // {
-            //     yield return null;
-            //     StartCoroutine(SpawnSwarm());
-            //     yield break;
-            // }
+            if (Physics.CheckSphere(randomPosInRadius, 1.5f, LayerMask.GetMask("Wall")))
+            {
+                SpawnUnit();
+            }
             
             GameObject swarmer = Pooler.instance.Pop(units[0].unitName, randomPosInRadius);
             swarmer.SetActive(true);

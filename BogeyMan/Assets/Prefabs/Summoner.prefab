@@ -91,6 +91,7 @@ MonoBehaviour:
   swarmSize: 10
   spawnRadius: 7
   spawnDelay: 1.5
+  aliveCount: 0
 --- !u!33 &1162184454331921558
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -360,6 +361,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 851303ed79a801e44a57b15cc9e9b51e, type: 2}
+    - target: {fileID: 387621606177248017, guid: 75a9fc3831c24e44b8b44a62c29b0917,
+        type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 695024500214395356, guid: 75a9fc3831c24e44b8b44a62c29b0917,
         type: 3}
       propertyPath: m_Name
@@ -378,7 +384,7 @@ PrefabInstance:
     - target: {fileID: 5466837744611005000, guid: 75a9fc3831c24e44b8b44a62c29b0917,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.5
+      value: -0.77
       objectReference: {fileID: 0}
     - target: {fileID: 5466837744611005000, guid: 75a9fc3831c24e44b8b44a62c29b0917,
         type: 3}
@@ -659,7 +665,7 @@ PrefabInstance:
     - target: {fileID: 7732984926789635788, guid: bc283c76e214ec74e9578fe743d442fb,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.34
+      value: 2.49
       objectReference: {fileID: 0}
     - target: {fileID: 7732984926789635788, guid: bc283c76e214ec74e9578fe743d442fb,
         type: 3}

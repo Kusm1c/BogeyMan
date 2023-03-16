@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 3.2299428, g: 2.9833987, b: 4.2167478, a: 1}
+  m_IndirectSpecularColor: {r: 3.2298818, g: 2.9833987, b: 4.2167325, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -27186,6 +27186,7 @@ MonoBehaviour:
   swarmSize: 9
   spawnRadius: 52
   spawnDelay: 20
+  aliveCount: 0
 --- !u!4 &878425768
 Transform:
   m_ObjectHideFlags: 0
