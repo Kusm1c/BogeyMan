@@ -158,117 +158,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &3692284534670334228
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3828127173009509814}
-  - component: {fileID: 8082498051846804239}
-  - component: {fileID: 784324078913026895}
-  - component: {fileID: 5618276876042409214}
-  - component: {fileID: 2566653996376734048}
-  m_Layer: 5
-  m_Name: LoadingScreen
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &3828127173009509814
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3692284534670334228}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6099049225539105775}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 62.600464, y: -34.350586}
-  m_SizeDelta: {x: 739.7151, y: 465.4292}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &8082498051846804239
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3692284534670334228}
-  m_CullTransparentMesh: 1
---- !u!114 &784324078913026895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3692284534670334228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2eb8c00c2be30e74886747c1c2a732a7, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!225 &5618276876042409214
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3692284534670334228}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
---- !u!95 &2566653996376734048
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3692284534670334228}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7f19416a3445d6745965d34db588f7b0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 2
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5379783753648873424
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +279,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7945024972130636945}
   - component: {fileID: 5374542968736415345}
-  - component: {fileID: 2429831113569349573}
   m_Layer: 0
   m_Name: Canvass
   m_TagString: Untagged
@@ -428,26 +316,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWaitingForPlayers: 0
---- !u!114 &2429831113569349573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7256174649102593731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17629e553245c494297e898411c5521b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <playerUIs>k__BackingField:
-  - {fileID: 6523473536046044271}
-  - {fileID: 4356836364474484710}
-  <startText>k__BackingField: {fileID: 8724840515271462329}
-  <gameOverText>k__BackingField: {fileID: 7357116827471720684}
-  <victoryText>k__BackingField: {fileID: 1798272504380598232}
-  <loadingScreen>k__BackingField: {fileID: 5379783753648873424}
-  <timer>k__BackingField: {fileID: 4009509911274620499}
 --- !u!1 &7357116827471720684
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,6 +1337,10 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5472802677356695857}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6196375867664943661, guid: 7c67616235f599c4c9c1d739f91e4b4e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2203198708873084275}
     - targetCorrespondingSourceObject: {fileID: 2298570169357823090, guid: 7c67616235f599c4c9c1d739f91e4b4e,
         type: 3}
       insertIndex: -1
@@ -1509,6 +1381,26 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7129813616205713591}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2203198708873084275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3967632449274878618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17629e553245c494297e898411c5521b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <playerUIs>k__BackingField:
+  - {fileID: 6523473536046044271}
+  - {fileID: 4356836364474484710}
+  <startText>k__BackingField: {fileID: 8724840515271462329}
+  <gameOverText>k__BackingField: {fileID: 7357116827471720684}
+  <victoryText>k__BackingField: {fileID: 1798272504380598232}
+  <loadingScreen>k__BackingField: {fileID: 5379783753648873424}
+  <timer>k__BackingField: {fileID: 4009509911274620499}
 --- !u!114 &4009509911274620499 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6149255929322919652, guid: 7c67616235f599c4c9c1d739f91e4b4e,

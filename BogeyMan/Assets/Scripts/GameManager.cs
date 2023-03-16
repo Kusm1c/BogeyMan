@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public Player[] Players {get; private set; } = new Player[2];
     public bool SlowMotionIsActive = false;
     [HideInInspector] public List<InputDevice> Gamepads = new List<InputDevice>();
-    [HideInInspector] public CanvasManager Hud = null;
+    [field: SerializeField] public CanvasManager Hud { get; private set; } = null;
 
     private void Awake()
     {
@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Time.timeScale = 0;
     }
 
     public void StartTheGame()
