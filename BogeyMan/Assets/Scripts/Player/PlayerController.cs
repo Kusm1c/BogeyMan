@@ -289,6 +289,14 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 	}
+
+	public void Pause(InputAction.CallbackContext context)
+	{
+		if (!context.started)
+			return;
+
+		GameManager.Instance.Hud.PauseTheGame();
+	}
 }
 
 public enum Weapon

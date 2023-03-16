@@ -448,6 +448,7 @@ MonoBehaviour:
   <victoryText>k__BackingField: {fileID: 1798272504380598232}
   <loadingScreen>k__BackingField: {fileID: 5379783753648873424}
   <timer>k__BackingField: {fileID: 4009509911274620499}
+  pauseMenu: {fileID: 1176920888596705372}
 --- !u!1 &7357116827471720684
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,6 +1151,26 @@ PrefabInstance:
       propertyPath: m_FillAmount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3441300921960259240, guid: 7c67616235f599c4c9c1d739f91e4b4e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3441300921960259240, guid: 7c67616235f599c4c9c1d739f91e4b4e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2429831113569349573}
+    - target: {fileID: 3441300921960259240, guid: 7c67616235f599c4c9c1d739f91e4b4e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResumeTheGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 3441300921960259240, guid: 7c67616235f599c4c9c1d739f91e4b4e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CanvasManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3784645792428231973, guid: 7c67616235f599c4c9c1d739f91e4b4e,
         type: 3}
       propertyPath: m_IsActive
@@ -1329,6 +1350,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4356836364474484710}
   m_SourcePrefab: {fileID: 100100000, guid: 7c67616235f599c4c9c1d739f91e4b4e, type: 3}
+--- !u!1 &1176920888596705372 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8261691773867548907, guid: 7c67616235f599c4c9c1d739f91e4b4e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7129813616205713591}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1250108002657998645 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8334871188142737282, guid: 7c67616235f599c4c9c1d739f91e4b4e,

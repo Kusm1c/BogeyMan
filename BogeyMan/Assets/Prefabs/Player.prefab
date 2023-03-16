@@ -1435,6 +1435,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3c276473-8fb2-4212-8fe2-9b64d0fe1fe0
     m_ActionName: PlayerActions/Grab[/XInputControllerWindows/leftTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6411388320743141037}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d12d771e-9503-4f26-b4d9-70fc5bd888b8
+    m_ActionName: PlayerActions/Pause[/XInputControllerWindows/start]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: PlayerActions

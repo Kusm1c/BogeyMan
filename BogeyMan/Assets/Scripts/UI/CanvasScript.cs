@@ -23,16 +23,6 @@ public class CanvasScript : MonoBehaviour
         GameManager.Instance.StartTheGame();
     }
     
-    public void PauseTheGame()
-    {
-        Time.timeScale = 0;
-    }
-    
-    public void ResumeTheGame()
-    {
-        Time.timeScale = 1;
-    }
-    
     public void QuitTheGame()
     {
         GameManager.Instance.QuitTheGame();
