@@ -12,6 +12,8 @@ namespace Enemies
     public class Summoner : Enemy
     {
         [SerializeField] private Spawner spawner;
+        [SerializeField] private SummonerArms arm1;
+        [SerializeField] private SummonerArms arm2;
         [SerializeField] private int firstSpawnCount;
         [SerializeField] private float spawnDelay;
         [SerializeField, Tooltip("x is inner radius, y is outer radius")] private Vector2 comfortZoneRadius;
@@ -42,8 +44,6 @@ namespace Enemies
         {
             base.OnEnable();
             spawnClock.Start();
-            myTransform.LookAt(target.transform, Vector3.up);
-            myTransform.eulerAngles = Vector3.up * myTransform.eulerAngles.y;
         }
 
         protected override void Update()
@@ -145,24 +145,46 @@ namespace Enemies
             }
         }
 
-        protected override IEnumerator Die()
+        protected override IEnumerator Die() // Stunned
         {
             //agent.isStopped = true;
             isStopped = true;
             isDead = true;
 
-            float length = settings.disappearanceTime;
-
-            Transform meshTransform = transform.GetChild(0);
-            while (length > 0f)
-            {
-                meshTransform.Rotate(meshTransform.forward, Time.deltaTime / settings.disappearanceTime * 90);
-                yield return null;
-                length -= Time.deltaTime;
-            }
-
-            Pooler.instance.DePop("Summoner", gameObject); // TODO
+            yield return new WaitForSeconds(settings.disappearanceTime);
             
+            arm1.gameObject.SetActive(true);
+            arm2.gameObject.SetActive(true);
+            UnityEngine.Debug.Log("grab");
+
+            yield return new WaitForSeconds(3f);
+            // only if not dead (DieForReal method)
+            
+            UnityEngine.Debug.Log("ungrab");
+            arm1.Cancel();
+            arm2.Cancel();
+            arm1.gameObject.SetActive(false);
+            arm2.gameObject.SetActive(false);
+            isStopped = false;
+            isDead = true;
+
+            // float length = settings.disappearanceTime;
+            //
+            // Transform meshTransform = transform.GetChild(0);
+            // while (length > 0f)
+            // {
+            //     meshTransform.Rotate(meshTransform.forward, Time.deltaTime / settings.disappearanceTime * 90);
+            //     yield return null;
+            //     length -= Time.deltaTime;
+            // }
+        }
+
+        public void DieForReal()
+        {
+            StopAllCoroutines();
+            
+            Pooler.instance.DePop("Summoner", gameObject);
+
             onDeath?.Invoke(this);
         }
 
