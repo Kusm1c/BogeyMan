@@ -10,18 +10,27 @@ namespace Enemies
     {
         public Transform target
         {
-            get => _target;
-            set
+            get
             {
-                if (value == null)
+                if (GameManager.Instance.Players[0].currentLife <= 0)
                 {
-                    hasTarget = false;
-                    _target = null;
-                    return;
+                    return GameManager.Instance.Players[1].transform;
+                }
+                
+                if (GameManager.Instance.Players[1].currentLife <= 0)
+                {
+                    return GameManager.Instance.Players[0].transform;
                 }
 
-                hasTarget = true;
-                _target = value;
+                float distance = (transform.position - GameManager.Instance.Players[0].transform.position)
+                    .sqrMagnitude;
+                if ((transform.position - GameManager.Instance.Players[1].transform.position)
+                    .sqrMagnitude < distance)
+                {
+                    return GameManager.Instance.Players[1].transform;
+                }
+
+                return GameManager.Instance.Players[0].transform;
             }
         }
 
@@ -57,7 +66,6 @@ namespace Enemies
         [SerializeField] private new Rigidbody rigidbody;
         [SerializeField] protected NavMeshAgent agent;
 
-        private bool hasTarget;
         private MaterialPropertyBlock propertyBlock => _propertyBlock ??= new MaterialPropertyBlock();
         private MaterialPropertyBlock _propertyBlock;
         private Transform _target;
@@ -102,9 +110,26 @@ namespace Enemies
 
             Move();
         }
+        
+        public void HitPlayer()
+        {
+            if (isDead || isGrabbed)
+                return;
+
+            var player = target.GetComponent<Player>();
+            
+            if ((player.transform.position - transform.position).sqrMagnitude <
+                settings.attackRange * settings.attackRange)
+            {
+                player.TakeHit((int) settings.damage, (player.transform.position - transform.position).normalized);
+            }
+        }
 
         protected bool UpdateChecks()
         {
+            if (isDead)
+                return true;
+            
             if (!isGrabbed && !rigidbody.isKinematic && rigidbody.velocity.magnitude < 0.1f)
             {
                 rigidbody.velocity = Vector3.zero;
@@ -115,7 +140,7 @@ namespace Enemies
             
             if (!agent.isActiveAndEnabled) return true;
 
-            if (!hasTarget || isStopped)
+            if (isStopped)
             {
                 agent.isStopped = true;
                 return true;
@@ -143,7 +168,6 @@ namespace Enemies
 
             hp = settings.maxHP;
             isDead = false;
-            hasTarget = false;
             isStopped = false;
             attackCooldownClock.Start(settings.attackCooldown + settings.attackSpeed + 1f);
         }
@@ -182,17 +206,19 @@ namespace Enemies
 
         public void TakeHit(float strength, Vector3 direction, int damage = 1)
         {
+            TakeHit(damage);
+            
             if (isDead) return;
-
+            
             agent.enabled = false;
             rigidbody.Enable();
             rigidbody.velocity = direction * strength;
-
-            TakeHit(damage);
         }
 
         private void TakeHit(int damage = 1)
         {
+            if (isDead) return;
+            
             hp -= damage;
 
             if (hp >= 1) return;

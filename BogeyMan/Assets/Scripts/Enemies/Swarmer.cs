@@ -11,6 +11,7 @@ namespace Enemies
         [SerializeField] private GameObject attackCollider;
 
         private WaitForSeconds attackWait;
+        private WaitForSeconds dieWait;
         private readonly WaitForSeconds waitForPointOneSeconds = new(0.1f);
         
         private static readonly int runOffset = Animator.StringToHash("RunOffset");
@@ -20,6 +21,7 @@ namespace Enemies
         protected override void Awake()
         {
             attackWait = new WaitForSeconds(settings.attackSpeed);
+            dieWait = new WaitForSeconds(settings.disappearanceTime);
             attackCollider.SetActive(false);
 #if UNITY_EDITOR
             currentAttackSpeed = settings.attackSpeed;
@@ -71,18 +73,21 @@ namespace Enemies
             attackCollider.SetActive(false);
         }
         
-        public void HitPlayer()
+        protected override IEnumerator Die()
         {
-            if (isDead || isGrabbed)
-                return;
+            //agent.isStopped = true;
+            isStopped = true;
+            isDead = true;
 
-            var player = target.GetComponent<Player>();
+            GameObject killPS = Pooler.instance.Pop("Kill", transform.position);
+            killPS.GetComponent<ParticleSystem>().Play();
+            Pooler.instance.DelayedDePop(5f, "Kill", killPS);
+
+            yield return dieWait;
             
-            if ((player.transform.position - transform.position).sqrMagnitude <
-                settings.attackRange * settings.attackRange)
-            {
-                player.TakeHit((int) settings.damage, (player.transform.position - transform.position).normalized);
-            }
+            Pooler.instance.DePop("Swarmer", gameObject);
+
+            onDeath?.Invoke(this);
         }
 
 #if UNITY_EDITOR

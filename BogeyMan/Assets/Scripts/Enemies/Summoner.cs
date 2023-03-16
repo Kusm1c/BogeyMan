@@ -13,6 +13,7 @@ namespace Enemies
     {
         [SerializeField] private Animator animator;
         [SerializeField] private Spawner spawner;
+        [SerializeField] private GameObject attackCollider;
         [SerializeField] private SummonerArms arm1;
         [SerializeField] private SummonerArms arm2;
         [SerializeField] private int firstSpawnCount;
@@ -21,6 +22,9 @@ namespace Enemies
 
         private Transform myTransform;
         private WaitForSeconds attackWait;
+        private readonly WaitForSeconds waitForPointOneSeconds = new(0.1f);
+        private readonly WaitForSeconds waitForSummonPart1 = new(1.2f);
+        private readonly WaitForSeconds waitForSummonPart2 = new(0.2f);
         private readonly Clock spawnClock = new();
         private bool isSummoning;
         
@@ -28,6 +32,7 @@ namespace Enemies
         private static readonly int spawn = Animator.StringToHash("Spawn");
         private static readonly int fall = Animator.StringToHash("Fall");
         private static readonly int revive = Animator.StringToHash("Revive");
+        private static readonly int attack = Animator.StringToHash("Attack");
 
 
         protected override void Awake()
@@ -52,6 +57,9 @@ namespace Enemies
             base.OnEnable();
             spawnClock.Start();
             isSummoning = false;
+            attackCollider.SetActive(false);
+            arm1.gameObject.SetActive(false);
+            arm2.gameObject.SetActive(false);
         }
 
         protected override void Update()
@@ -99,7 +107,7 @@ namespace Enemies
         {
             isSummoning = true;
             
-            yield return new WaitForSeconds(1.2f);
+            yield return waitForSummonPart1;
             
             if (isDead || isGrabbed)
             {
@@ -110,7 +118,7 @@ namespace Enemies
             spawner.SpawnSwarm(1);
             spawnClock.Restart();
 
-            yield return new WaitForSeconds(0.2f);
+            yield return waitForSummonPart2;
 
             isSummoning = false;
         }
@@ -154,27 +162,20 @@ namespace Enemies
 
         private IEnumerator AttackCoroutine()
         {
+            animator.SetTrigger(attack);
             yield return attackWait;
 
             if (isDead || isGrabbed)
             {
                 yield break;
             }
+
+            attackCollider.SetActive(true);
+            agent.isStopped = false;
+            isStopped = false;
             
-            try
-            {
-                var player = target.GetComponent<Player>();
-                if ((player.transform.position - transform.position).sqrMagnitude <
-                    settings.attackRange * settings.attackRange)
-                {
-                    player.TakeHit((int) settings.damage, (player.transform.position - transform.position).normalized);
-                }
-            }
-            finally
-            {
-                agent.isStopped = false;
-                isStopped = false;
-            }
+            yield return waitForPointOneSeconds;
+            attackCollider.SetActive(false);
         }
 
         protected override IEnumerator Die() // Stunned
@@ -182,6 +183,7 @@ namespace Enemies
             //agent.isStopped = true;
             isStopped = true;
             isDead = true;
+            isSummoning = false;
             animator.SetTrigger(fall);
 
             yield return new WaitForSeconds(settings.disappearanceTime);
@@ -200,7 +202,7 @@ namespace Enemies
             arm1.gameObject.SetActive(false);
             arm2.gameObject.SetActive(false);
             isStopped = false;
-            isDead = true;
+            isDead = false;
             hp = settings.maxHP;
 
             // float length = settings.disappearanceTime;
@@ -217,6 +219,10 @@ namespace Enemies
         public void DieForReal()
         {
             StopAllCoroutines();
+            
+            GameObject killPS = Pooler.instance.Pop("KillSummoner", transform.position);
+            killPS.GetComponent<ParticleSystem>().Play();
+            Pooler.instance.DelayedDePop(5f, "KillSummoner", killPS);
             
             Pooler.instance.DePop("Summoner", gameObject);
 
